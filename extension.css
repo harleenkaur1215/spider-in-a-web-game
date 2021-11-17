@@ -1,5 +1,50 @@
-#logo {
-    width: 10%;
-    height: 10%;
-
+html{
+    background: url('images/backgroundGrey.gif') no-repeat 0 0 scroll;
+    background-color:#0C0C0C;
+    background-size: 100% 100%;
+    height:100%;
+    width:100%;
 }
+
+#logo {
+    width: 9%;
+    height: 9%;
+    position: relative;
+    right:-25px;
+    top:-5px;
+}
+
+.edges {
+    background-color: burlywood;
+}
+
+.edgeButtons {
+    padding: 10px 28px;
+    font-family: tahoma;
+    font-weight: bold;
+    margin-top: 1px;
+    margin-right: 2px;
+}
+.edgeButtons:hover {
+    color: orange;
+}
+
+#signup {
+    position:absolute;
+    top:30px;
+    right:250px;
+}
+
+#login {
+    position:absolute;
+    top:30px;
+    right:100px;
+}
+
+/* .Board {
+    
+    background: url('images/boardBackground.jpg') no-repeat 0 0 scroll;
+    background-color:#0C0C0C;
+    background-size: 100% 100%;
+
+} */
