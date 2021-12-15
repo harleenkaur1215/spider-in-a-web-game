@@ -10,27 +10,46 @@
     
   </head>
   <body>
+    <div id="page-mask"></div>
     
-  <div id=header class=edges>
-    <img id=logo src="images/logo.png" alt="logo">
-    <button id=signup class=edgeButtons type="button">Sign up</button>
-    <button id=login class=edgeButtons type="button" onclick="openForm()">Log In</button>
-  </div>
-
-  <div class="login-form" id="myForm">
-    <div class="login-container">
-      <h1>Login</h1>
-  
-      <label for="email"><b>Email</b></label>
-      <input type="text" placeholder="Enter Email" name="email" required>
-  
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-  
-      <button type="submit" class="btn">Login</button>
-      <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    <div id=header class=edges>
+      <img id=logo src="images/logo.png" alt="logo">
+      <button id=signup class=edgeButtons type="button" onclick="openSignupForm()">Sign up</button>
+      <button id=login class=edgeButtons type="button" onclick="openLoginForm()">Log In</button>
     </div>
-  </div>
+    
+
+    <div class="Form" id="signupForm">
+      <div class="form-container">
+        <h1>Sign-up</h1>
+    
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+    
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+
+        <input type="password" placeholder="Repeat Password" name="Repsw" required>
+    
+        <button type="submit" class="btn">Login</button>
+        <button type="button" class="btn cancel" onclick="closeSignupForm()">Close</button>
+      </div>
+    </div>
+
+    <div class="Form" id="loginForm">
+      <div class="form-container">
+        <h1>Login</h1>
+    
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+    
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+    
+        <button type="submit" class="btn">Login</button>
+        <button type="button" class="btn cancel" onclick="closeLoginForm()">Close</button>
+      </div>
+    </div>
 
 
 
