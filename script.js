@@ -1,8 +1,24 @@
 
 function openForm() {
-    mancala.getElementById("myForm").style.display = "block";
+    document.getElementById("myForm").style.display = "flex";
   }
   
 function closeForm() {
-    mancala.getElementById("myForm").style.display = "none";
+    document.getElementById("myForm").style.display = "none";
+}
+
+function openHighscores(){
+
+}
+
+function closeHighscores(){
+
+}
+
+function openCommands(){
+
+}
+
+function closeCommands(){
+
 }

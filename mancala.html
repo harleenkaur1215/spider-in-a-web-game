@@ -3,7 +3,6 @@
 <!-- A declaração DOCTYPE declara a versão do HTML usado no documento -->
 <html lang="en">
   <link rel="stylesheet" href="extension.css">
-  <script src="script.js"></script>
   <head >
     <meta charset=UTF-8>        <!-- para caracteres acentuados   -->
     <title> Mancala </title>  <!-- texto na decoração da janela -->
@@ -18,8 +17,8 @@
     <button id=login class=edgeButtons type="button" onclick="openForm()">Log In</button>
   </div>
 
-  <div class="form-popup" id="myForm">
-    <form action="/action_page.php" class="form-container">
+  <div class="login-form" id="myForm">
+    <div class="login-container">
       <h1>Login</h1>
   
       <label for="email"><b>Email</b></label>
@@ -30,10 +29,14 @@
   
       <button type="submit" class="btn">Login</button>
       <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-    </form>
+    </div>
   </div>
 
-  
+
+
+
+
+  <script src="script.js"></script>
 
   <!-- <div class=Board>
 
