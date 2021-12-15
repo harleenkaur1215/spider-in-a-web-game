@@ -3,18 +3,37 @@
 <!-- A declaração DOCTYPE declara a versão do HTML usado no documento -->
 <html lang="en">
   <link rel="stylesheet" href="extension.css">
-  <head>
+  <script src="script.js"></script>
+  <head >
     <meta charset=UTF-8>        <!-- para caracteres acentuados   -->
     <title> Mancala </title>  <!-- texto na decoração da janela -->
     <link rel="icon" href="images/logo.png" type="image/png">
     
   </head>
-  <body style="background-color:#f5f5dc;">
+  <body>
+    
   <div id=header class=edges>
     <img id=logo src="images/logo.png" alt="logo">
     <button id=signup class=edgeButtons type="button">Sign up</button>
-    <button id=login class=edgeButtons type="button">Log In</button>
+    <button id=login class=edgeButtons type="button" onclick="openForm()">Log In</button>
   </div>
+
+  <div class="form-popup" id="myForm">
+    <form action="/action_page.php" class="form-container">
+      <h1>Login</h1>
+  
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="email" required>
+  
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+  
+      <button type="submit" class="btn">Login</button>
+      <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </form>
+  </div>
+
+  
 
   <!-- <div class=Board>
 
