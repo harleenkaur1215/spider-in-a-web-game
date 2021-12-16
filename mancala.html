@@ -55,9 +55,45 @@
 
     <div class="game">
       <div class="game-configs">
-        <h1>Player vs CPU</h1>
 
-        <h1>Player vs Player</h1>
+        <div class="game-title">
+          <h1>MANCALA</h1>
+        </div>
+
+        <div class="game-data">
+          <div class="oneplayer">
+
+            <div id="oneplayer-text"><h1>Player vs CPU</h1></div>
+
+            <img class="icons" id="oneplayer-img" class="icons" src="images/oneplayer.png" alt="one player">
+
+            <div class="difficulty-input">
+              <label for="cars">Difficulty:</label>
+              <select name="cars" id="cars">
+                <option value="easy">easy</option>
+                <option value="medium">medium</option>
+                <option value="hard">hard</option>
+              </select>
+            </div>
+
+          </div>
+          <div class="twoplayers">
+
+            <h1>Player vs Player</h1>
+            <img class="icons" id="twoplayers-img" src="images/twoplayers.png" alt="two players">
+          </div>
+
+          <input type="button" id="toggle_gamemode" alt="Toggle">
+
+    
+
+          <h1>Seeds per pit</h1>
+
+          <h1>Pits per player</h1>
+
+        </div>
+
+
 
 
       </div>
@@ -68,7 +104,8 @@
 
     </div>
 
-
+    <br>
+    <br>
 
   <script src="script.js"></script>
   <script src="game.js"></script>

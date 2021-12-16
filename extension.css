@@ -1,9 +1,9 @@
 html{
-    background: url('images/backgroundGrey.gif') no-repeat 0 0 scroll;
+    background: url('images/backgroundGrey.gif') repeat 0 0 scroll;
     background-color:#0C0C0C;
     background-size: 100% 100%;
     height:100%;
-    width:100%;
+    width:100%; 
 }
 
 #page-mask {
@@ -30,7 +30,6 @@ html{
 
 .edgeButtons {
     padding: 10px 28px;
-    font-family: tahoma;
     font-weight: bold;
     margin-top: 1px;
     margin-right: 2px;
@@ -112,3 +111,62 @@ html{
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
 }
+
+
+
+.game {
+  position: relative;
+  background-color: burlywood;
+  width: 90%;
+  margin: auto;
+  margin-top: 120px;
+  padding-top: 7.5%;
+  padding-bottom: 7.5%;
+  
+}
+
+.game-title{ 
+  position:absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-size:  1.5vw;
+  line-height: 50%;
+  padding-left: 5%;
+  padding-right: 5%;
+
+  border: 10px double grey;
+} 
+
+.game-data{
+  font-size:  1vw;
+}
+
+/* .oneplayer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+
+#oneplayer-text{
+  position: absolute;
+  top: 35%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+}
+
+#oneplayer-img{
+  position: absolute;
+  top: 18%;
+  left: 25.5%;
+  /* transform: translate(-50%, -50%); */
+} 
+
+
+
+.icons{
+  transform: scale(0.1,0.1);
+}
+
