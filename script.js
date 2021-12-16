@@ -1,26 +1,46 @@
 
+function darkenElements(){
+  
+}
+
+function lightupElements(){}
+
+
 function openLoginForm() {
-    //document.getElementById("page-mask").style.display = "flex";
+    
     document.getElementById("loginForm").style.display = "flex";
-    document.getElementById("signup").disabled = true;
+    for (var x of document.getElementsByClassName("edgeButtons")){
+      if (x.id != "login")
+        x.disabled = true;
+    }
   }
   
 function closeLoginForm() {
   //document.getElementById("page-mask").style.display = "none";
   document.getElementById("loginForm").style.display = "none";
-  document.getElementById("signup").disabled = false;
+  for (var x of document.getElementsByClassName("edgeButtons")){
+    if (x.id != "login")
+      x.disabled = false;
+  }
+  
 }
 
 function openSignupForm() {
   //document.getElementById("page-mask").style.display = "flex";
   document.getElementById("signupForm").style.display = "flex";
-  document.getElementById("login").disabled = true;
+  for (var x of document.getElementsByClassName("edgeButtons")){
+    if (x.id != "signup")
+      x.disabled = true;
+  }
 }
 
 function closeSignupForm() {
   //document.getElementById("page-mask").style.display = "none";
   document.getElementById("signupForm").style.display = "none";
-  document.getElementById("login").disabled = false;
+  for (var x of document.getElementsByClassName("edgeButtons")){
+    if (x.id != "signup")
+      x.disabled = false;
+  }
 }
 
 
