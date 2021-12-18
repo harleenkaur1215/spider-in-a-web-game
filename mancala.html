@@ -67,9 +67,9 @@
 
             <img class="icons" id="oneplayer-img" class="icons" src="images/oneplayer.png" alt="one player">
 
-            <div class="difficulty-input">
-              <label for="cars">Difficulty:</label>
-              <select name="cars" id="cars">
+            <div id="difficulty-input">
+              <label for="difficulty">Difficulty:</label>
+              <select name="difficulty" id="difficulty">
                 <option value="easy">easy</option>
                 <option value="medium">medium</option>
                 <option value="hard">hard</option>
@@ -77,13 +77,14 @@
             </div>
 
           </div>
+          <hr id="configs-line">  
           <div class="twoplayers">
-
-            <h1>Player vs Player</h1>
+            
+            <div id="twoplayers-text"><h1>Player vs Player</h1></div>
             <img class="icons" id="twoplayers-img" src="images/twoplayers.png" alt="two players">
           </div>
 
-          <input type="button" id="toggle_gamemode" alt="Toggle">
+          <input type="button" id="toggle_gamemode" onclick="gamemodeButtonClick()" alt="Toggle">
 
     
 
