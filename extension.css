@@ -72,7 +72,7 @@ html{
   align-items: center;
   text-align: center;
   height: 50vh;
-  z-index: 5;
+  z-index: 2;
 }
 
 /* Add styles to the form container */
@@ -173,6 +173,7 @@ html{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 1;
 }
 
 #oneplayer-text{
@@ -203,7 +204,7 @@ html{
 
 #configs-line{
   position: absolute;
-  top: 60%;
+  top: 57%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70%;
@@ -245,4 +246,33 @@ html{
   cursor: pointer;
   background: url(images/toggle_left.png);
   z-index: 3;
+}
+
+
+
+#numseeds-text{
+  position: absolute;
+  top: 65%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+}
+
+.seed-buttons{
+  font-family: ChunkFive;
+    font-size: 24px;
+    line-height: 42px;
+    text-shadow: 1px 1px 1px white;
+    width: 42px;
+    height: 42px;
+    border: 1px solid #93b5c0;
+}
+
+#threeseeds-button{
+  border-radius: 10px 0px 0px 10px;
+  border-right: 1px solid #ffffff;
+}
+
+#sixseeds-button{
+  border-radius: 0px 10px 10px 0px;
+  border-left: 1px solid #ffffff;
 }
