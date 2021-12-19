@@ -60,46 +60,42 @@
           <h1>MANCALA</h1>
         </div>
 
-        <div class="game-data">
-          <div class="oneplayer">
 
-            <div id="oneplayer-text"><h1>Player vs CPU</h1></div>
+        <div id="oneplayer-text"><h1>Player vs CPU</h1></div>
 
-            <img class="icons" id="oneplayer-img" class="icons" src="images/oneplayer.png" alt="one player">
+        <img class="icons" id="oneplayer-img" class="icons" src="images/oneplayer.png" alt="one player">
 
-            <div id="difficulty-input">
-              <label for="difficulty">Difficulty:</label>
-              <select name="difficulty" id="difficulty">
-                <option value="easy">easy</option>
-                <option value="medium">medium</option>
-                <option value="hard">hard</option>
-              </select>
-            </div>
-
-          </div>
-          <hr id="configs-line">  
-          <div class="twoplayers">
-            
-            <div id="twoplayers-text"><h1>Player vs Player</h1></div>
-            <img class="icons" id="twoplayers-img" src="images/twoplayers.png" alt="two players">
-          </div>
-
-          <input type="button" id="toggle_gamemode" onclick="gamemodeButtonClick()" alt="Toggle">
-
-    
-          <div class="numseeds">
-            <div id="numseeds-text"><h1>Seeds per pit</h1></div>
-            <button type="button" class="seed-buttons" id="threeseeds-button"> 3 </button>
-            <button type="button" class="seed-buttons" id="fourseeds-button"> 4 </button>
-            <button type="button" class="seed-buttons" id="fiveseeds-button"> 5 </button>
-            <button type="button" class="seed-buttons" id="sixseeds-button"> 6 </button>
-          </div>
-
-          <h1>Pits per player</h1>
-
+        <div id="difficulty-input">
+          <label for="difficulty">Difficulty: </label>
+          <select name="difficulty" id="difficulty">
+            <option value="easy">easy</option>
+            <option value="medium">medium</option>
+            <option value="hard">hard</option>
+          </select>
         </div>
 
+        <hr id="configs-line"> 
 
+          
+        <div id="twoplayers-text"><h1>Player vs Player</h1></div>
+        <img class="icons" id="twoplayers-img" src="images/twoplayers.png" alt="two players">
+
+        <input type="button" id="toggle_gamemode" onclick="gamemodeButtonClick()" alt="Toggle">
+
+        <div id="numseeds-text"><h1>Seeds per pit</h1></div>
+        <button type="button" class="seed-buttons" id="threeseeds-button" onclick="chooseSeedsPerPit('threeseeds-button')"> 3 </button>
+        <button type="button" class="seed-buttons" id="fourseeds-button" onclick="chooseSeedsPerPit('fourseeds-button')"> 4 </button>
+        <button type="button" class="seed-buttons" id="fiveseeds-button" onclick="chooseSeedsPerPit('fiveseeds-button')"> 5 </button>
+        <button type="button" class="seed-buttons" id="sixseeds-button" onclick="chooseSeedsPerPit('sixseeds-button')"> 6 </button>
+
+        <div id="numpits-text"><h1>Pits per player</h1></div>
+        <button type="button" class="pits-buttons" id="fourpits-button" onclick="choosePitsPerPlayer('fourpits-button')"> 4 </button>
+        <button type="button" class="pits-buttons" id="fivepits-button" onclick="choosePitsPerPlayer('fivepits-button')"> 5 </button>
+        <button type="button" class="pits-buttons" id="sixpits-button" onclick="choosePitsPerPlayer('sixpits-button')"> 6 </button>
+        <button type="button" class="pits-buttons" id="sevenpits-button" onclick="choosePitsPerPlayer('sevenpits-button')"> 7 </button>
+
+        
+        <button type="button" id="startgame-button" onclick="startGame()"> Start Game </button>
 
 
       </div>

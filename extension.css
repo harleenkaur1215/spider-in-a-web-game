@@ -72,7 +72,7 @@ html{
   align-items: center;
   text-align: center;
   height: 50vh;
-  z-index: 2;
+  z-index: 5;
 }
 
 /* Add styles to the form container */
@@ -124,7 +124,7 @@ html{
 .game {
   position: relative;
   background-color: burlywood;
-  width: 80vw;
+  width: 75vw;
   margin: auto;
   margin-top: 120px;
   padding-top: 7.5%;
@@ -136,8 +136,8 @@ html{
 }
 
 .game-configs{
-  height:100%;
   width: 100%;
+  font-size:  0.75vw;
 }
 
 .game-title{ 
@@ -154,38 +154,20 @@ html{
   border: 10px double grey;
 } 
 
-.game-data{
-  height:100%;
-  width: 100%;
-  font-size:  0.75vw;
-}
-
 .icons{
   width: 3%;
 }
 
-
-
-.oneplayer {
-  position: absolute;
-  height:100%;
-  width: 100%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-}
-
 #oneplayer-text{
   position: absolute;
-  top: 35%;
+  top: 30%;
   left: 35%;
   transform: translate(-50%, -50%);
 }
 
 #oneplayer-img{
   position: absolute;
-  top: 43%;
+  top: 38%;
   left: 35%;
   transform: translate(-50%, -50%);
 } 
@@ -194,7 +176,7 @@ html{
 #difficulty-input{
   display: flex;
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 35%;
   transform: translate(-50%, -50%);
 }
@@ -204,75 +186,158 @@ html{
 
 #configs-line{
   position: absolute;
-  top: 57%;
+  top: 52%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70%;
 }
 
-
-
-
-.twoplayers {
-  position: absolute;
-  height:100%;
-  width: 100%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 #twoplayers-text{
   position: absolute;
-  top: 35%;
+  top: 30%;
   left: 65%;
   transform: translate(-50%, -50%);
 }
 
 #twoplayers-img{
   position: absolute;
-  top: 43%;
+  top: 38%;
   left: 65%;
   transform: translate(-50%, -50%);
 } 
 
 #toggle_gamemode {
   position: absolute;
-  top: 42%;
+  top: 37%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 67px;
   height: 30px;
   cursor: pointer;
   background: url(images/toggle_left.png);
-  z-index: 3;
+  z-index: 2;
 }
 
 
 
 #numseeds-text{
   position: absolute;
-  top: 65%;
+  top: 60%;
   left: 35%;
   transform: translate(-50%, -50%);
 }
 
 .seed-buttons{
+  position: absolute;
+  top: 70%;
+  
   font-family: ChunkFive;
-    font-size: 24px;
-    line-height: 42px;
-    text-shadow: 1px 1px 1px white;
-    width: 42px;
-    height: 42px;
-    border: 1px solid #93b5c0;
+  font-size: 24px;
+  line-height: 42px;
+  text-shadow: 1px 1px 1px white;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #93b5c0;
+  z-index: 5;
+}
+
+.seed-buttons:hover{
+  color:orange;
 }
 
 #threeseeds-button{
+  left: 29.2%;
   border-radius: 10px 0px 0px 10px;
-  border-right: 1px solid #ffffff;
+}
+
+#fourseeds-button{
+  left: 32.1%;
+}
+
+#fiveseeds-button{
+  left: 35%;
 }
 
 #sixseeds-button{
+  left: 37.9%;
   border-radius: 0px 10px 10px 0px;
-  border-left: 1px solid #ffffff;
+}
+
+
+
+#numpits-text{
+  position: absolute;
+  top: 60%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+}
+
+.pits-buttons{
+  position: absolute;
+  top: 70%;
+  
+  font-family: ChunkFive;
+  font-size: 24px;
+  line-height: 42px;
+  text-shadow: 1px 1px 1px white;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #93b5c0;
+  z-index: 5;
+}
+
+.pits-buttons:hover{
+  color:orange;
+}
+
+
+#fourpits-button{
+  right: 37.9%;
+  border-radius: 10px 0px 0px 10px;
+}
+
+#fivepits-button{
+  right: 35%;
+}
+
+#sixpits-button{
+  right: 32.1%;
+}
+
+#sevenpits-button{
+  right: 29.2%;
+  border-radius: 0px 10px 10px 0px;
+}
+
+
+
+
+/* CSS */
+#startgame-button {
+  position: absolute;
+  top:90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 20%;
+
+  font-family: ChunkFive;
+  font-size: 24px;
+  font-weight: bold;
+
+  color: #494949 !important;
+	text-transform: uppercase;
+	text-decoration: none;
+	background: #ffffff;
+	padding: 20px;
+	border: 4px solid #494949 !important;
+	display: inline-block;
+	transition: all 0.4s ease 0s;
+}
+
+#startgame-button:hover{
+  color: #ffffff !important;
+	background: url(images/backgroundGrey.gif);
+	border-color: #f6b93b !important;
+	transition: all 0.4s ease 0s;
 }

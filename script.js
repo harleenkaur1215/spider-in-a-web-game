@@ -65,6 +65,30 @@ function changeGamemode(){
 
 }
 
+function chooseSeedsPerPit(id){
+  for(var x of document.getElementsByClassName("seed-buttons")){
+    if (x.id == id){
+      x.style.background = "Gray";
+    }
+    else{
+      x.style.background = "White";
+    }
+  }
+}
+
+function choosePitsPerPlayer(id){
+  for(var x of document.getElementsByClassName("pits-buttons")){
+    if (x.id == id){
+      x.style.background = "Gray";
+    }
+    else{
+      x.style.background = "White";
+    }
+  }
+}
+
+
+
 
 function openHighscores(){
 
