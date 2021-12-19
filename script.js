@@ -88,6 +88,11 @@ function choosePitsPerPlayer(id){
 }
 
 
+function startGame(){
+  document.getElementById("game-configs").style.display = "none";
+}
+
+
 
 
 function openHighscores(){

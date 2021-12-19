@@ -135,7 +135,7 @@ html{
   
 }
 
-.game-configs{
+#game-configs{
   width: 100%;
   font-size:  0.75vw;
 }
@@ -238,7 +238,6 @@ html{
   width: 42px;
   height: 42px;
   border: 1px solid #93b5c0;
-  z-index: 5;
 }
 
 .seed-buttons:hover{
@@ -283,7 +282,6 @@ html{
   width: 42px;
   height: 42px;
   border: 1px solid #93b5c0;
-  z-index: 5;
 }
 
 .pits-buttons:hover{
@@ -325,19 +323,19 @@ html{
   font-size: 24px;
   font-weight: bold;
 
-  color: #494949 !important;
+  color: black !important;
 	text-transform: uppercase;
 	text-decoration: none;
 	background: #ffffff;
 	padding: 20px;
-	border: 4px solid #494949 !important;
+	border: 4px solid grey !important;
 	display: inline-block;
 	transition: all 0.4s ease 0s;
 }
 
 #startgame-button:hover{
-  color: #ffffff !important;
-	background: url(images/backgroundGrey.gif);
-	border-color: #f6b93b !important;
+  color: black !important;
+	background: burlywood;
+	border-color: white !important;
 	transition: all 0.4s ease 0s;
 }
