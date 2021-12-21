@@ -62,7 +62,7 @@ html{
 
 /* The popup form - hidden by default */
 .Form {
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
@@ -125,6 +125,7 @@ html{
   position: relative;
   background-color: burlywood;
   width: 75vw;
+  height: 25vw;
   margin: auto;
   margin-top: 120px;
   padding-top: 7.5%;
