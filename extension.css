@@ -1,10 +1,11 @@
 html{
-    background: url('images/backgroundGrey.gif') no-repeat 0 0 scroll;
+    background: url('images/backgroundGrey.gif') repeat 0 0 scroll;
     background-color:#0C0C0C;
     background-size: 100% 100%;
     height:100%;
-    width:100%;
+    width:100%; 
 }
+
 
 #page-mask {
   display: none;
@@ -25,15 +26,14 @@ html{
 }
 
 .edges {
-    background-color: burlywood;
+  position: relative;
+  background-color: burlywood;
 }
 
 .edgeButtons {
-    padding: 10px 28px;
-    font-family: tahoma;
+    font-size: 0.75vw;
+    padding: 0.75% 1.5%;
     font-weight: bold;
-    margin-top: 1px;
-    margin-right: 2px;
 }
 .edgeButtons:hover {
     color: orange;
@@ -41,14 +41,14 @@ html{
 
 #signup {
     position:absolute;
-    top:30px;
-    right:250px;
+    top: 25%;
+    right:15%;
 }
 
 #login {
     position:absolute;
-    top:30px;
-    right:100px;
+    top:25%;
+    right:5%;
 }
 
 /* .Board {
@@ -62,16 +62,22 @@ html{
 
 /* The popup form - hidden by default */
 .Form {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   display: none;
   justify-content: center;
   align-items: center;
   text-align: center;
-  min-height: 50vh;
+  height: 50vh;
+  z-index: 5;
 }
 
 /* Add styles to the form container */
  .form-container {
-  max-width: 400px;
+  width: 400px;
   padding: 10px;
   background-color: white;
 } 
@@ -111,4 +117,226 @@ html{
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
+}
+
+
+
+.game {
+  position: relative;
+  background-color: burlywood;
+  width: 75vw;
+  height: 25vw;
+  margin: auto;
+  margin-top: 120px;
+  padding-top: 7.5%;
+  padding-bottom: 7.5%;
+
+  min-width: 800px;
+  min-height: 400px;
+  
+}
+
+#game-configs{
+  width: 100%;
+  font-size:  0.75vw;
+}
+
+.game-title{ 
+  position:absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-size:  1.5vw;
+  line-height: 50%;
+  padding-left: 5%;
+  padding-right: 5%;
+
+  border: 10px double grey;
+} 
+
+.icons{
+  width: 3%;
+}
+
+#oneplayer-text{
+  position: absolute;
+  top: 30%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+}
+
+#oneplayer-img{
+  position: absolute;
+  top: 38%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+} 
+
+
+#difficulty-input{
+  display: flex;
+  position: absolute;
+  top: 45%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+
+#configs-line{
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+}
+
+#twoplayers-text{
+  position: absolute;
+  top: 30%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+}
+
+#twoplayers-img{
+  position: absolute;
+  top: 38%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+} 
+
+#toggle_gamemode {
+  position: absolute;
+  top: 37%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 67px;
+  height: 30px;
+  cursor: pointer;
+  background: url(images/toggle_left.png);
+  z-index: 2;
+}
+
+
+
+#numseeds-text{
+  position: absolute;
+  top: 60%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+}
+
+.seed-buttons{
+  position: absolute;
+  top: 70%;
+  
+  font-family: ChunkFive;
+  font-size: 24px;
+  line-height: 42px;
+  text-shadow: 1px 1px 1px white;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #93b5c0;
+}
+
+.seed-buttons:hover{
+  color:orange;
+}
+
+#threeseeds-button{
+  left: 29.2%;
+  border-radius: 10px 0px 0px 10px;
+}
+
+#fourseeds-button{
+  left: 32.1%;
+}
+
+#fiveseeds-button{
+  left: 35%;
+}
+
+#sixseeds-button{
+  left: 37.9%;
+  border-radius: 0px 10px 10px 0px;
+}
+
+
+
+#numpits-text{
+  position: absolute;
+  top: 60%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+}
+
+.pits-buttons{
+  position: absolute;
+  top: 70%;
+  
+  font-family: ChunkFive;
+  font-size: 24px;
+  line-height: 42px;
+  text-shadow: 1px 1px 1px white;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #93b5c0;
+}
+
+.pits-buttons:hover{
+  color:orange;
+}
+
+
+#fourpits-button{
+  right: 37.9%;
+  border-radius: 10px 0px 0px 10px;
+}
+
+#fivepits-button{
+  right: 35%;
+}
+
+#sixpits-button{
+  right: 32.1%;
+}
+
+#sevenpits-button{
+  right: 29.2%;
+  border-radius: 0px 10px 10px 0px;
+}
+
+
+
+
+/* CSS */
+#startgame-button {
+  position: absolute;
+  top:90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 20%;
+
+  font-family: ChunkFive;
+  font-size: 24px;
+  font-weight: bold;
+
+  color: black !important;
+	text-transform: uppercase;
+	text-decoration: none;
+	background: #ffffff;
+	padding: 20px;
+	border: 4px solid grey !important;
+	display: inline-block;
+	transition: all 0.4s ease 0s;
+}
+
+#startgame-button:hover{
+  color: black !important;
+	background: burlywood;
+	border-color: white !important;
+	transition: all 0.4s ease 0s;
 }
