@@ -71,6 +71,13 @@ class Board{
     }
 
     move(player, cavity){
+        if((player == 1) && (cavity < this.boardSize/2)){
+            return -1;
+        }
+        if((player == 2) && (cavity > this.boardSize/2)){
+            return -1;
+        }
+
         var seeds = this.pits[cavity].length;
 
         if(seeds == 0){
@@ -196,11 +203,15 @@ class Board{
 
 class Game{
 
+    //gameMode: 1->PvsP 2->PvsBotE 3->PvsBotM 4-> PvsBotH
+
     constructor(size, numSeeds, turn, gameMode){
+        this.boardSize = size;
         this.board = new Board(size, numSeeds);
         this.playerOne = 0;
         this.playerTwo = 0;
         this.turn = turn;
+        this.gameMode = gameMode;
     }
 
     getTurn(){
@@ -216,6 +227,27 @@ class Game{
         if(this.board.checkEndGame()){
             return this.board.getWinner();
         }
+
+        if(this.turn == 2){
+            switch(this.gameMode){
+                case 1:
+                    break;
+                case 2:
+                    this.botEasy();
+                    break;
+                
+                case 3:
+                    this.botMedium();
+                    break;
+                
+                case 4:
+                    this.botHard();
+                    break;
+
+                default:
+                    break;
+            }
+        }
         
         return 0;
     }
@@ -226,7 +258,7 @@ class Game{
     }
 
     botEasy(){
-
+        //random moves
     }
 
     botMedium(){
@@ -241,10 +273,10 @@ class Game{
 
 // var game;
 
-function StartGame(boardSize, numSeeds, turn) {
+function StartGame(boardSize, numSeeds, turn, gameMode) {
     var game;
     // game = new Game(boardSize, numSeeds, turn);
-    game = new Game(boardSize, numSeeds, turn);
+    game = new Game(boardSize, numSeeds, turn, gameMode);
     var result;
     do{
         game.show();
@@ -258,6 +290,6 @@ function StartGame(boardSize, numSeeds, turn) {
     console.log("Winner: Player " + result);
 }
 
-StartGame(1,1,1);
+StartGame(14,4,1,1);
 
 
