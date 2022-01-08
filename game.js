@@ -1,8 +1,5 @@
+
 class Seed{
-    x;
-    y;
-    z;
-    rotation;
     constructor(){
         this.x = Math.floor(Math.random() * 10);
         this.y = Math.floor(Math.random() * 10);
@@ -32,42 +29,39 @@ class Seed{
 }
 
 class Board{
-    pits;
-    boardSize;
 
     constructor(size, numSeeds){
         this.boardSize = size;
+        this.pits = [];
+        for(var c = 0; c < size; c++){
+            this.pits[c] = [];
+        }
 
         for(var s = 1; s < size; s++){
             if(s != (size/2)){
                 for(var n = 0; n < numSeeds; n++){
-                    pits[s][n] = new Seed();
+                    this.pits[s].push(new Seed());
                 }
             }
         }
     }
 
     checkPoints(player, cavity){
-        if(pits[cavity].length != 1){
+        if(this.pits[cavity].length != 1){
             return;
         }
 
-        if(player == 1){
-            pits[cavity].length = 0;
-            
-            var numSeeds = pits[cavity-this.boardSize].length + 1;
-            pits[cavity-this.boardSize].length = 0;
+        this.pits[cavity].length = 0;      
+        var numSeeds = this.pits[this.boardSize - cavity].length + 1;
+        this.pits[this.boardSize - cavity].length = 0;
+        
 
+        if(player == 1){
             for(var c = 0; c < numSeeds; c++){
-                pits[0].push(new Seed());
+                this.pits[0].push(new Seed());
             }
         }
         else{
-            pits[cavity].length = 0;
-            
-            var numSeeds = pits[this.boardSize - cavity].length + 1;
-            pits[this.boardSize - cavity].length = 0;
-
             for(var c = 0; c < numSeeds; c++){
                 pits[this.boardSize/2].push(new Seed());
             }
@@ -103,7 +97,7 @@ class Board{
             if(seedingCav == 0)
                 return -1;
             else if(seedingCav > (this.boardSize/2)){
-                checkPoints(player, seedingCav);
+                this.checkPoints(player, seedingCav);
                 return 0;
             }
             else{
@@ -114,7 +108,7 @@ class Board{
             if (seedingCav == (this.boardSize/2))
                 return -1;
             else if(seedingCav < (this.boardSize/2)){
-                checkPoints(player, seedingCav);
+                this.checkPoints(player, seedingCav);
                 return 0;
             }
             else{
@@ -179,15 +173,25 @@ class Board{
             return 2;
         }
     }
+
+    showBoard(){
+        var line = "    ";
+        for(var c = this.boardSize/2-1; c > 0; c--){
+            line += " | " + this.pits[c].length + " | "
+        }
+        console.log(line)
+        line = "    ";
+        console.log( "| " + this.pits[this.boardSize/2].length + " |" + "                                          " + "| " +this.pits[0].length + " |")
+        for(var c = this.boardSize/2+1; c < this.boardSize; c++){
+            line += " | " + this.pits[c].length + " | "
+        }
+        console.log(line)
+    }
 }
 
 class Game{
-    playerOne;
-    playerTwo;
-    board;
-    turn;
 
-    constructor(size, numSeeds, turn){
+    constructor(size, numSeeds, turn, gameMode){
         this.board = new Board(size, numSeeds);
         this.playerOne = 0;
         this.playerTwo = 0;
@@ -198,23 +202,42 @@ class Game{
         return this.turn;
     }
 
-    move(player, cavity){
-        if(this.board.move(player, cavity) == 0){
-            if(turn == 1) turn = 2;
-            else turn = 1;
+    move(cavity){
+        if(this.board.move(this.turn, cavity) == 0){
+            if(this.turn == 1) this.turn = 2;
+            else this.turn = 1;
         }
 
-        if(this.checkEndGame()){
+        if(this.board.checkEndGame()){
             return this.board.getWinner();
         }
         
         return 0;
     }
 
+    show(){
+        console.log("Turn: Player " + this.turn);
+        this.board.showBoard();
+    }
+
 }
 
-var game; //variável global que contem o jogo
+// var game;
 
 function StartGame(boardSize, numSeeds, turn) {
-    game = new Game(boardSize, numSeeds, turn);
+    var game;
+    // game = new Game(boardSize, numSeeds, turn);
+    game = new Game(14, 4, 1);
+    var pit;
+    do{
+        game.show();
+        // console.log("Player " + game.getTurn() + ": ");
+        const prompt = require("prompt-sync")();
+        input = prompt("Insert value: ");
+        
+    }while(game.move(input)==0)
 }
+
+StartGame(1,1,1);
+
+
