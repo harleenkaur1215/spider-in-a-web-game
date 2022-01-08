@@ -258,7 +258,14 @@ class Game{
     }
 
     botEasy(){
-        //random moves
+        var randomMove;
+        var result;
+        this.show(); //para ver o tabuleiro depois do move do player 1
+        do{
+            randomMove = Math.floor(Math.random() * (this.boardSize/2 - 1)) + 1;
+            result = this.board.move(this.turn, randomMove);
+        }while(result == -1)
+        this.turn = 1;
     }
 
     botMedium(){
@@ -290,6 +297,6 @@ function StartGameTesting(boardSize, numSeeds, turn, gameMode) {
     console.log("Winner: Player " + result);
 }
 
-StartGameTesting(14,4,1,1);
+StartGameTesting(14,4,1,2);
 
 
