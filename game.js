@@ -63,7 +63,7 @@ class Board{
         }
         else{
             for(var c = 0; c < numSeeds; c++){
-                pits[this.boardSize/2].push(new Seed());
+                this.pits[this.boardSize/2].push(new Seed());
             }
         }
 
@@ -72,6 +72,11 @@ class Board{
 
     move(player, cavity){
         var seeds = this.pits[cavity].length;
+
+        if(seeds == 0){
+            return -1;
+        }
+
         this.pits[cavity].length = 0;
 
         var seedingCav = cavity;
@@ -220,6 +225,18 @@ class Game{
         this.board.showBoard();
     }
 
+    botEasy(){
+
+    }
+
+    botMedium(){
+
+    }
+
+    botHard(){
+
+    }
+
 }
 
 // var game;
@@ -227,15 +244,18 @@ class Game{
 function StartGame(boardSize, numSeeds, turn) {
     var game;
     // game = new Game(boardSize, numSeeds, turn);
-    game = new Game(14, 4, 1);
-    var pit;
+    game = new Game(boardSize, numSeeds, turn);
+    var result;
     do{
         game.show();
         // console.log("Player " + game.getTurn() + ": ");
         const prompt = require("prompt-sync")();
         input = prompt("Insert value: ");
-        
-    }while(game.move(input)==0)
+        result = game.move(input);
+
+    }while(result==0)
+    game.show();
+    console.log("Winner: Player " + result);
 }
 
 StartGame(1,1,1);
