@@ -1,8 +1,5 @@
+
 class Seed{
-    x;
-    y;
-    z;
-    rotation;
     constructor(){
         this.x = Math.floor(Math.random() * 10);
         this.y = Math.floor(Math.random() * 10);
@@ -32,28 +29,62 @@ class Seed{
 }
 
 class Board{
-    cavities;
-    boardSize;
 
     constructor(size, numSeeds){
         this.boardSize = size;
+        this.pits = [];
+        for(var c = 0; c < size; c++){
+            this.pits[c] = [];
+        }
 
         for(var s = 1; s < size; s++){
-            if(s != (1+size/2)){
+            if(s != (size/2)){
                 for(var n = 0; n < numSeeds; n++){
-                    cavities[s][n] = new Seed();
+                    this.pits[s].push(new Seed());
                 }
             }
         }
     }
 
-    checkPoints(){
+    checkPoints(player, cavity){
+        if(this.pits[cavity].length != 1){
+            return;
+        }
 
+        this.pits[cavity].length = 0;      
+        var numSeeds = this.pits[this.boardSize - cavity].length + 1;
+        this.pits[this.boardSize - cavity].length = 0;
+        
+
+        if(player == 1){
+            for(var c = 0; c < numSeeds; c++){
+                this.pits[0].push(new Seed());
+            }
+        }
+        else{
+            for(var c = 0; c < numSeeds; c++){
+                this.pits[this.boardSize/2].push(new Seed());
+            }
+        }
+
+        return;
     }
 
     move(player, cavity){
-        var seeds = this.cavities[cavity].length;
-        this.cavities[cavity].length = 0;
+        if((player == 1) && (cavity < this.boardSize/2)){
+            return -1;
+        }
+        if((player == 2) && (cavity > this.boardSize/2)){
+            return -1;
+        }
+
+        var seeds = this.pits[cavity].length;
+
+        if(seeds == 0){
+            return -1;
+        }
+
+        this.pits[cavity].length = 0;
 
         var seedingCav = cavity;
 
@@ -65,31 +96,32 @@ class Board{
                 seedingCav = 0;
             }
 
-            if((player == 1 && seedingCav == (1+this.boardSize/2)) || (player == 2 && seedingCav == 0)){
+            if((player == 1 && seedingCav == (this.boardSize/2)) || (player == 2 && seedingCav == 0)){
                 continue;
             }
             else{
                 counter++;
-                this.cavities[seedingCav].push(new Seed());
+                this.pits[seedingCav].push(new Seed());
             }
         }
 
         if(player == 1){
             if(seedingCav == 0)
                 return -1;
-            else if(seedingCav < (1+this.boardSize/2)){
-                //pontos
-
+            else if(seedingCav > (this.boardSize/2)){
+                this.checkPoints(player, seedingCav);
+                return 0;
             }
             else{
                 return 0;
             }
         }
         else{
-            if (seedingCav == (1+this.boardSize/2))
+            if (seedingCav == (this.boardSize/2))
                 return -1;
-            else if(seedingCav > (1+this.boardSize/2)){
-                //pontos
+            else if(seedingCav < (this.boardSize/2)){
+                this.checkPoints(player, seedingCav);
+                return 0;
             }
             else{
                 return 0;
@@ -100,27 +132,164 @@ class Board{
 
     }
 
+    checkEndGame(player){
+        if(player == 1){
+            for(var c = this.boardSize/2 + 1; c < this.boardSize; c++){
+                if(this.pits[c].length != 0){
+                    return false;
+                }
+            }
+            
+            var l;
+            for(var c = 1; c < this.boardSize/2; c++){
+                l = this.pits[c].length;
+                this.pits[c].length = 0;
+                for(var x = 0; x < l; x++){
+                    this.pits[this.boardSize/2].push(new Seed());
+                }
+            }
+        }
 
+        else{
+            for(var c = 1; c < this.boardSize/2; c++){
+                if(this.pits[c].length != 0){
+                    return false;
+                }
+            }
+            
+            var l;
+            for(var c = this.boardSize/2+1; c < this.boardSize; c++){
+                l = this.pits[c].length;
+                this.pits[c].length = 0;
+                for(var x = 0; x < l; x++){
+                    this.pits[this.boardSize/2].push(new Seed());
+                }
+            }
+        }
+
+        return true;
+    }
+
+    getNumSeeds(c){
+        return this.pits[c].length;
+    }
+
+    getWinner(){
+        if(this.pits[0].length == this.pits[this.boardSize/2].length){
+            return 3;
+        }
+        else if(this.pits[0].length > this.pits[this.boardSize/2].length){
+            return 1;
+        }
+        else{
+            return 2;
+        }
+    }
+
+    showBoard(){
+        var line = "    ";
+        for(var c = this.boardSize/2-1; c > 0; c--){
+            line += " | " + this.pits[c].length + " | "
+        }
+        console.log(line)
+        line = "    ";
+        console.log( "| " + this.pits[this.boardSize/2].length + " |" + "                                          " + "| " +this.pits[0].length + " |")
+        for(var c = this.boardSize/2+1; c < this.boardSize; c++){
+            line += " | " + this.pits[c].length + " | "
+        }
+        console.log(line)
+    }
 }
 
 class Game{
-    playerOne;
-    playerTwo;
-    board;
 
-    constructor(size, numSeeds){
+    //gameMode: 1->PvsP 2->PvsBotE 3->PvsBotM 4-> PvsBotH
+
+    constructor(size, numSeeds, turn, gameMode){
+        this.boardSize = size;
         this.board = new Board(size, numSeeds);
         this.playerOne = 0;
         this.playerTwo = 0;
+        this.turn = turn;
+        this.gameMode = gameMode;
     }
 
-    move(player, cavity){
-        if(player == 1){
-            this.playerOne += this.board.move(cavity);
+    getTurn(){
+        return this.turn;
+    }
+
+    move(cavity){
+        if(this.board.move(this.turn, cavity) == 0){
+            if(this.turn == 1) this.turn = 2;
+            else this.turn = 1;
         }
-        else{
-            this.playerTwo += this.board.move(cavity);
+
+        if(this.board.checkEndGame()){
+            return this.board.getWinner();
         }
+
+        if(this.turn == 2){
+            switch(this.gameMode){
+                case 1:
+                    break;
+                case 2:
+                    this.botEasy();
+                    break;
+                
+                case 3:
+                    this.botMedium();
+                    break;
+                
+                case 4:
+                    this.botHard();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        
+        return 0;
+    }
+
+    show(){
+        console.log("Turn: Player " + this.turn);
+        this.board.showBoard();
+    }
+
+    botEasy(){
+        //random moves
+    }
+
+    botMedium(){
+
+    }
+
+    botHard(){
+
     }
 
 }
+
+// var game;
+
+function StartGame(boardSize, numSeeds, turn, gameMode) {
+    var game;
+    // game = new Game(boardSize, numSeeds, turn);
+    game = new Game(boardSize, numSeeds, turn, gameMode);
+    var result;
+    do{
+        game.show();
+        // console.log("Player " + game.getTurn() + ": ");
+        const prompt = require("prompt-sync")();
+        input = prompt("Insert value: ");
+        result = game.move(input);
+
+    }while(result==0)
+    game.show();
+    console.log("Winner: Player " + result);
+}
+
+StartGame(14,4,1,1);
+
+
