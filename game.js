@@ -273,7 +273,7 @@ class Game{
 
 // var game;
 
-function StartGame(boardSize, numSeeds, turn, gameMode) {
+function StartGameTesting(boardSize, numSeeds, turn, gameMode) {
     var game;
     // game = new Game(boardSize, numSeeds, turn);
     game = new Game(boardSize, numSeeds, turn, gameMode);
@@ -290,6 +290,6 @@ function StartGame(boardSize, numSeeds, turn, gameMode) {
     console.log("Winner: Player " + result);
 }
 
-StartGame(14,4,1,1);
+StartGameTesting(14,4,1,1);
 
 
