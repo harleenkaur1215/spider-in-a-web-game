@@ -268,19 +268,21 @@ class Game{
 
 
         if(this.turn == 2 && this.gameMode != 1){
+            this.show();
             switch(this.gameMode){
                 case 2:
-                    this.botEasy();
+                    this.botRandom();
                     break;
                 
                 case 3:
-                    this.botMedium();
+                    this.botEasy();
                     break;
                 
                 case 4:
-                    this.botHard();
+                    this.botMedium();
                     break;
-
+                case 5:
+                    this.botHard();
                 default:
                     break;
             }
@@ -300,33 +302,36 @@ class Game{
         this.board.showBoard();
     }
 
-    botEasy(){
+    botRandom(){
         var randomMove;
         var result;
-        this.show(); //para ver o tabuleiro depois do move do player 1
         do{
             randomMove = Math.floor(Math.random() * (this.boardSize/2 - 1)) + 1;
             result = this.board.move(this.turn, randomMove);
         }while(result == -1)
+        console.log("Insert value: " + randomMove);
     }
 
-    botMedium(){
-        this.show();
+    botEasy(){
         var boardCpy = this.board.clone();
-        console.log("passed here");
-       
         var bestMove = bot(boardCpy, 1);
         this.board.move(this.turn, bestMove);
-        console.log("here");
+        console.log("Insert value: " + bestMove);
+    }
+
+
+    botMedium(){
+        var boardCpy = this.board.clone();
+        var bestMove = bot(boardCpy, 3);
+        this.board.move(this.turn, bestMove);
+        console.log("Insert value: " + bestMove);
     }
 
     botHard(){
-        this.show();
-        
-        var bestMove = bot(this.board, 10);
+        var boardCpy = this.board.clone();
+        var bestMove = bot(boardCpy, 5);
         this.board.move(this.turn, bestMove);
-
-
+        console.log("Insert value: " + bestMove);
     }
 
 }
