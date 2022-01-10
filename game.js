@@ -46,6 +46,18 @@ class Board{
         }
     }
 
+    getPits(){
+        return this.pits;
+    }
+
+    setPits(pits){
+        this.pits = pits;
+    }
+
+    getSize(){
+        return this.boardSize;
+    }
+
     checkPoints(player, cavity){
         if(this.pits[cavity].length != 1){
             return;
@@ -72,16 +84,16 @@ class Board{
 
     move(player, cavity){
         if((player == 1) && (cavity < this.boardSize/2)){
-            return -1;
+            return -2; //wrongmove
         }
         if((player == 2) && (cavity > this.boardSize/2)){
-            return -1;
+            return -2; //wrongmove
         }
 
         var seeds = this.pits[cavity].length;
 
         if(seeds == 0){
-            return -1;
+            return -2; //wrongmove
         }
 
         this.pits[cavity].length = 0;
@@ -162,7 +174,7 @@ class Board{
                 l = this.pits[c].length;
                 this.pits[c].length = 0;
                 for(var x = 0; x < l; x++){
-                    this.pits[this.boardSize/2].push(new Seed());
+                    this.pits[0].push(new Seed());
                 }
             }
         }
@@ -176,7 +188,7 @@ class Board{
 
     getWinner(){
         if(this.pits[0].length == this.pits[this.boardSize/2].length){
-            return 3;
+            return 0;
         }
         else if(this.pits[0].length > this.pits[this.boardSize/2].length){
             return 1;
@@ -218,20 +230,25 @@ class Game{
         return this.turn;
     }
 
+    getBoard(){
+        return this.board;
+    }
+
     move(cavity){
-        if(this.board.move(this.turn, cavity) == 0){
-            if(this.turn == 1) this.turn = 2;
-            else this.turn = 1;
-        }
+        var ret = this.board.move(this.turn, cavity);
 
         if(this.board.checkEndGame()){
             return this.board.getWinner();
         }
 
-        if(this.turn == 2){
+        if(ret == 0){
+            if(this.turn == 1) this.turn = 2;
+            else this.turn = 1;
+        }
+
+
+        if(this.turn == 2 && this.gameMode != 1){
             switch(this.gameMode){
-                case 1:
-                    break;
                 case 2:
                     this.botEasy();
                     break;
@@ -247,9 +264,15 @@ class Game{
                 default:
                     break;
             }
+
+            this.turn = 1;
+
+            if(this.board.checkEndGame()){
+                return this.board.getWinner();
+            }
         }
         
-        return 0;
+        return -1;
     }
 
     show(){
@@ -265,17 +288,132 @@ class Game{
             randomMove = Math.floor(Math.random() * (this.boardSize/2 - 1)) + 1;
             result = this.board.move(this.turn, randomMove);
         }while(result == -1)
-        this.turn = 1;
     }
 
     botMedium(){
-
+        this.show();
+        var boardCopy = new Board(this.board.getSize(), 1);
+        boardCopy.setPits(this.board.getPits());
+        var bestMove = bot(boardCopy, 1);
+    
+        this.board.move(this.turn, bestMove);
+        console.log("here");
     }
 
     botHard(){
+        this.show();
+        
+        var bestMove = bot(this.board, 10);
+        this.board.move(this.turn, bestMove);
+
 
     }
 
+}
+
+function bot(gameBoard, depth){
+    var maxPointsDif = 0 - (Number.MAX_VALUE);
+    var bestMove;
+
+
+    var res;
+    var pointDif;
+    var node;
+    var moveResult;
+    for(var c = 1; c < gameBoard.getSize()/2; c++){
+        node = gameBoard;
+        moveResult = node.move(2, c);
+
+
+        if (moveResult == -2) {
+            continue;
+        }
+        else if(moveResult == -1){
+            res = minimax(node, depth-1, true);
+        }
+        else{
+           
+            res = minimax(node, depth-1, false);
+        }
+        
+    
+        pointDif = res.getPits()[gameBoard.getSize()/2].length - res.getPits()[0].length;
+
+        if(pointDif > maxPointsDif){
+            maxPointsDif = pointDif
+            bestMove = c;
+        }
+            
+        
+    }
+
+    return bestMove;
+}
+
+function minimax(gameBoard, depth, isMax){
+    if(depth == 0 || gameBoard.checkEndGame()){
+        return gameBoard;
+    }
+
+    var maxPointsDif = 0 - (Number.MAX_VALUE);
+    var bestBoard;
+    var pointDif;
+
+    var res;
+    var node;
+    var moveResult;
+    var pointDif;
+
+    if(isMax){
+        for(var c = 1; c < gameBoard.getSize()/2; c++){
+            node = gameBoard;
+            moveResult = node.move(2, c);
+
+
+            if (moveResult == -2) 
+                continue;
+            else if(moveResult == -1)
+                res = minimax(node, depth-1, true);
+            else{
+                res = minimax(node, depth-1, false);
+            }
+
+
+            pointDif = res.getPits()[gameBoard.getSize()/2].length - res.getPits()[0].length;
+
+            if(pointDif > maxPointsDif){
+                maxPointsDif = pointDif
+                bestBoard = res;
+            }
+            
+        }
+    }
+    else{
+        for(var c = gameBoard.getSize()/2+1; c < gameBoard.getSize(); c++){
+            node = gameBoard;
+            moveResult = node.move(1, c);
+
+
+            if (moveResult == -2) 
+                continue;
+            else if(moveResult == -1)
+                res = minimax(node, depth-1, false);
+            else{
+                res = minimax(node, depth-1, true);
+            }
+
+
+            pointDif = res.getPits()[0].length - res.getPits()[gameBoard.getSize()/2].length;
+
+            if(pointDif > maxPointsDif){
+                maxPointsDif = pointDif
+                bestBoard = res;
+            }
+            
+        }
+    }
+
+    return bestBoard;
 }
 
 // var game;
@@ -292,11 +430,9 @@ function StartGameTesting(boardSize, numSeeds, turn, gameMode) {
         input = prompt("Insert value: ");
         result = game.move(input);
 
-    }while(result==0)
+    }while(result==-1)
     game.show();
     console.log("Winner: Player " + result);
 }
 
-StartGameTesting(14,4,1,2);
-
-
+StartGameTesting(14,4,1,4);
