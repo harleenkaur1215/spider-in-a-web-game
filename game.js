@@ -211,6 +211,26 @@ class Board{
         }
         console.log(line)
     }
+
+    clone(){
+        var ret = new Board(this.boardSize, 1);
+
+        var pitsCopy = [];
+        for(var c = 0; c < this.boardSize; c++){
+            pitsCopy[c] = [];
+        }
+
+        for(var n = 1; n < this.boardSize; n++){
+            if(n != (this.boardSize/2)){
+                for(var x = 0; x < this.pits[n].length; x++){
+                    pitsCopy[n].push(new Seed());
+                }
+            }
+        }
+
+        ret.setPits(pitsCopy);
+        return ret;
+    }
 }
 
 class Game{
@@ -292,10 +312,10 @@ class Game{
 
     botMedium(){
         this.show();
-        var boardCopy = new Board(this.board.getSize(), 1);
-        boardCopy.setPits(this.board.getPits());
-        var bestMove = bot(boardCopy, 1);
-    
+        var boardCpy = this.board.clone();
+        console.log("passed here");
+       
+        var bestMove = bot(boardCpy, 1);
         this.board.move(this.turn, bestMove);
         console.log("here");
     }
@@ -318,22 +338,22 @@ function bot(gameBoard, depth){
 
     var res;
     var pointDif;
-    var node;
+    var boardCopy;
     var moveResult;
     for(var c = 1; c < gameBoard.getSize()/2; c++){
-        node = gameBoard;
-        moveResult = node.move(2, c);
+        boardCopy = gameBoard.clone();
+        moveResult = boardCopy.move(2, c);
 
 
         if (moveResult == -2) {
             continue;
         }
         else if(moveResult == -1){
-            res = minimax(node, depth-1, true);
+            res = minimax(boardCopy, depth-1, true);
         }
         else{
            
-            res = minimax(node, depth-1, false);
+            res = minimax(boardCopy, depth-1, false);
         }
         
     
@@ -360,22 +380,22 @@ function minimax(gameBoard, depth, isMax){
     var pointDif;
 
     var res;
-    var node;
+    var boardCopy;
     var moveResult;
     var pointDif;
 
     if(isMax){
         for(var c = 1; c < gameBoard.getSize()/2; c++){
-            node = gameBoard;
-            moveResult = node.move(2, c);
+            boardCopy = gameBoard.clone();
+            moveResult = boardCopy.move(2, c);
 
 
             if (moveResult == -2) 
                 continue;
             else if(moveResult == -1)
-                res = minimax(node, depth-1, true);
+                res = minimax(boardCopy, depth-1, true);
             else{
-                res = minimax(node, depth-1, false);
+                res = minimax(boardCopy, depth-1, false);
             }
 
 
@@ -390,16 +410,16 @@ function minimax(gameBoard, depth, isMax){
     }
     else{
         for(var c = gameBoard.getSize()/2+1; c < gameBoard.getSize(); c++){
-            node = gameBoard;
-            moveResult = node.move(1, c);
+            boardCopy = gameBoard.clone();
+            moveResult = boardCopy.move(1, c);
 
 
             if (moveResult == -2) 
                 continue;
             else if(moveResult == -1)
-                res = minimax(node, depth-1, false);
+                res = minimax(boardCopy, depth-1, false);
             else{
-                res = minimax(node, depth-1, true);
+                res = minimax(boardCopy, depth-1, true);
             }
 
 
@@ -419,9 +439,11 @@ function minimax(gameBoard, depth, isMax){
 // var game;
 
 function StartGameTesting(boardSize, numSeeds, turn, gameMode) {
+
+
     var game;
-    // game = new Game(boardSize, numSeeds, turn);
     game = new Game(boardSize, numSeeds, turn, gameMode);
+
     var result;
     do{
         game.show();
