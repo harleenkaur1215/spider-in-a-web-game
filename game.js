@@ -46,6 +46,18 @@ class Board{
         }
     }
 
+    getPits(){
+        return this.pits;
+    }
+
+    setPits(pits){
+        this.pits = pits;
+    }
+
+    getSize(){
+        return this.boardSize;
+    }
+
     checkPoints(player, cavity){
         if(this.pits[cavity].length != 1){
             return;
@@ -72,16 +84,16 @@ class Board{
 
     move(player, cavity){
         if((player == 1) && (cavity < this.boardSize/2)){
-            return -1;
+            return -2; //wrongmove
         }
         if((player == 2) && (cavity > this.boardSize/2)){
-            return -1;
+            return -2; //wrongmove
         }
 
         var seeds = this.pits[cavity].length;
 
         if(seeds == 0){
-            return -1;
+            return -2; //wrongmove
         }
 
         this.pits[cavity].length = 0;
@@ -162,7 +174,7 @@ class Board{
                 l = this.pits[c].length;
                 this.pits[c].length = 0;
                 for(var x = 0; x < l; x++){
-                    this.pits[this.boardSize/2].push(new Seed());
+                    this.pits[0].push(new Seed());
                 }
             }
         }
@@ -176,7 +188,7 @@ class Board{
 
     getWinner(){
         if(this.pits[0].length == this.pits[this.boardSize/2].length){
-            return 3;
+            return 0;
         }
         else if(this.pits[0].length > this.pits[this.boardSize/2].length){
             return 1;
@@ -199,6 +211,26 @@ class Board{
         }
         console.log(line)
     }
+
+    clone(){
+        var ret = new Board(this.boardSize, 1);
+
+        var pitsCopy = [];
+        for(var c = 0; c < this.boardSize; c++){
+            pitsCopy[c] = [];
+        }
+
+        for(var n = 1; n < this.boardSize; n++){
+            if(n != (this.boardSize/2)){
+                for(var x = 0; x < this.pits[n].length; x++){
+                    pitsCopy[n].push(new Seed());
+                }
+            }
+        }
+
+        ret.setPits(pitsCopy);
+        return ret;
+    }
 }
 
 class Game{
@@ -218,38 +250,51 @@ class Game{
         return this.turn;
     }
 
+    getBoard(){
+        return this.board;
+    }
+
     move(cavity){
-        if(this.board.move(this.turn, cavity) == 0){
-            if(this.turn == 1) this.turn = 2;
-            else this.turn = 1;
-        }
+        var ret = this.board.move(this.turn, cavity);
 
         if(this.board.checkEndGame()){
             return this.board.getWinner();
         }
 
-        if(this.turn == 2){
+        if(ret == 0){
+            if(this.turn == 1) this.turn = 2;
+            else this.turn = 1;
+        }
+
+
+        if(this.turn == 2 && this.gameMode != 1){
+            this.show();
             switch(this.gameMode){
-                case 1:
-                    break;
                 case 2:
-                    this.botEasy();
+                    this.botRandom();
                     break;
                 
                 case 3:
-                    this.botMedium();
+                    this.botEasy();
                     break;
                 
                 case 4:
-                    this.botHard();
+                    this.botMedium();
                     break;
-
+                case 5:
+                    this.botHard();
                 default:
                     break;
             }
+
+            this.turn = 1;
+
+            if(this.board.checkEndGame()){
+                return this.board.getWinner();
+            }
         }
         
-        return 0;
+        return -1;
     }
 
     show(){
@@ -257,39 +302,164 @@ class Game{
         this.board.showBoard();
     }
 
-    botEasy(){
-        //random moves
+    botRandom(){
+        var randomMove;
+        var result;
+        do{
+            randomMove = Math.floor(Math.random() * (this.boardSize/2 - 1)) + 1;
+            result = this.board.move(this.turn, randomMove);
+        }while(result == -1)
+        console.log("Insert value: " + randomMove);
     }
 
-    botMedium(){
+    botEasy(){
+        var boardCpy = this.board.clone();
+        var bestMove = bot(boardCpy, 1);
+        this.board.move(this.turn, bestMove);
+        console.log("Insert value: " + bestMove);
+    }
 
+
+    botMedium(){
+        var boardCpy = this.board.clone();
+        var bestMove = bot(boardCpy, 3);
+        this.board.move(this.turn, bestMove);
+        console.log("Insert value: " + bestMove);
     }
 
     botHard(){
-
+        var boardCpy = this.board.clone();
+        var bestMove = bot(boardCpy, 5);
+        this.board.move(this.turn, bestMove);
+        console.log("Insert value: " + bestMove);
     }
 
 }
 
-// var game;
+function bot(gameBoard, depth){
+    var maxPointsDif = 0 - (Number.MAX_VALUE);
+    var bestMove;
 
-function StartGameTesting(boardSize, numSeeds, turn, gameMode) {
-    var game;
-    // game = new Game(boardSize, numSeeds, turn);
-    game = new Game(boardSize, numSeeds, turn, gameMode);
-    var result;
-    do{
-        game.show();
-        // console.log("Player " + game.getTurn() + ": ");
-        const prompt = require("prompt-sync")();
-        input = prompt("Insert value: ");
-        result = game.move(input);
 
-    }while(result==0)
-    game.show();
-    console.log("Winner: Player " + result);
+    var res;
+    var pointDif;
+    var boardCopy;
+    var moveResult;
+    for(var c = 1; c < gameBoard.getSize()/2; c++){
+        boardCopy = gameBoard.clone();
+        moveResult = boardCopy.move(2, c);
+
+
+        if (moveResult == -2) {
+            continue;
+        }
+        else if(moveResult == -1){
+            res = minimax(boardCopy, depth-1, true);
+        }
+        else{
+           
+            res = minimax(boardCopy, depth-1, false);
+        }
+        
+    
+        pointDif = res.getPits()[gameBoard.getSize()/2].length - res.getPits()[0].length;
+
+        if(pointDif > maxPointsDif){
+            maxPointsDif = pointDif
+            bestMove = c;
+        }
+            
+        
+    }
+
+    return bestMove;
 }
 
-StartGameTesting(14,4,1,1);
+function minimax(gameBoard, depth, isMax){
+    if(depth == 0 || gameBoard.checkEndGame()){
+        return gameBoard;
+    }
+
+    var maxPointsDif = 0 - (Number.MAX_VALUE);
+    var bestBoard;
+    var pointDif;
+
+    var res;
+    var boardCopy;
+    var moveResult;
+    var pointDif;
+
+    if(isMax){
+        for(var c = 1; c < gameBoard.getSize()/2; c++){
+            boardCopy = gameBoard.clone();
+            moveResult = boardCopy.move(2, c);
 
 
+            if (moveResult == -2) 
+                continue;
+            else if(moveResult == -1)
+                res = minimax(boardCopy, depth-1, true);
+            else{
+                res = minimax(boardCopy, depth-1, false);
+            }
+
+
+            pointDif = res.getPits()[gameBoard.getSize()/2].length - res.getPits()[0].length;
+
+            if(pointDif > maxPointsDif){
+                maxPointsDif = pointDif
+                bestBoard = res;
+            }
+            
+        }
+    }
+    else{
+        for(var c = gameBoard.getSize()/2+1; c < gameBoard.getSize(); c++){
+            boardCopy = gameBoard.clone();
+            moveResult = boardCopy.move(1, c);
+
+
+            if (moveResult == -2) 
+                continue;
+            else if(moveResult == -1)
+                res = minimax(boardCopy, depth-1, false);
+            else{
+                res = minimax(boardCopy, depth-1, true);
+            }
+
+
+            pointDif = res.getPits()[0].length - res.getPits()[gameBoard.getSize()/2].length;
+
+            if(pointDif > maxPointsDif){
+                maxPointsDif = pointDif
+                bestBoard = res;
+            }
+            
+        }
+    }
+
+    return bestBoard;
+}
+
+//for testing
+
+// function StartGameTesting(boardSize, numSeeds, turn, gameMode) {
+
+
+//     var game;
+//     game = new Game(boardSize, numSeeds, turn, gameMode);
+
+//     var result;
+//     do{
+//         game.show();
+//         // console.log("Player " + game.getTurn() + ": ");
+//         const prompt = require("prompt-sync")();
+//         input = prompt("Insert value: ");
+//         result = game.move(input);
+
+//     }while(result==-1)
+//     game.show();
+//     console.log("Winner: Player " + result);
+// }
+
+// StartGameTesting(14,4,1,4);
