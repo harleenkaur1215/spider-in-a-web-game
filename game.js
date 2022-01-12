@@ -441,25 +441,25 @@ function minimax(gameBoard, depth, isMax){
     return bestBoard;
 }
 
-// var game;
+//for testing
 
-function StartGameTesting(boardSize, numSeeds, turn, gameMode) {
+// function StartGameTesting(boardSize, numSeeds, turn, gameMode) {
 
 
-    var game;
-    game = new Game(boardSize, numSeeds, turn, gameMode);
+//     var game;
+//     game = new Game(boardSize, numSeeds, turn, gameMode);
 
-    var result;
-    do{
-        game.show();
-        // console.log("Player " + game.getTurn() + ": ");
-        const prompt = require("prompt-sync")();
-        input = prompt("Insert value: ");
-        result = game.move(input);
+//     var result;
+//     do{
+//         game.show();
+//         // console.log("Player " + game.getTurn() + ": ");
+//         const prompt = require("prompt-sync")();
+//         input = prompt("Insert value: ");
+//         result = game.move(input);
 
-    }while(result==-1)
-    game.show();
-    console.log("Winner: Player " + result);
-}
+//     }while(result==-1)
+//     game.show();
+//     console.log("Winner: Player " + result);
+// }
 
-StartGameTesting(14,4,1,4);
+// StartGameTesting(14,4,1,4);
