@@ -16,7 +16,6 @@ function openLoginForm() {
   }
   
 function closeLoginForm() {
-  //document.getElementById("page-mask").style.display = "none";
   document.getElementById("loginForm").style.display = "none";
   for (var x of document.getElementsByClassName("edgeButtons")){
     if (x.id != "login")
@@ -25,23 +24,7 @@ function closeLoginForm() {
   
 }
 
-function openSignupForm() {
-  //document.getElementById("page-mask").style.display = "flex";
-  document.getElementById("signupForm").style.display = "flex";
-  for (var x of document.getElementsByClassName("edgeButtons")){
-    if (x.id != "signup")
-      x.disabled = true;
-  }
-}
 
-function closeSignupForm() {
-  //document.getElementById("page-mask").style.display = "none";
-  document.getElementById("signupForm").style.display = "none";
-  for (var x of document.getElementsByClassName("edgeButtons")){
-    if (x.id != "signup")
-      x.disabled = false;
-  }
-}
 
 var buttonStage = 0;
 

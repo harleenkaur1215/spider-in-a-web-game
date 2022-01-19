@@ -254,7 +254,16 @@ class Game{
         return this.board;
     }
 
+    surrender(){
+
+    }
+
     move(cavity){
+        if(cavity == -1){ //surrend
+            if(this.turn == 1) this.turn = 2;
+            else this.turn = 1;
+        }
+
         var ret = this.board.move(this.turn, cavity);
 
         if(this.board.checkEndGame()){
