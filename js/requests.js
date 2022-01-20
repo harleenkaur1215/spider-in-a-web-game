@@ -496,26 +496,50 @@ var pitsPerPlayer = 6;
 var game;
 
 function chooseSeedsPerPit(id){
-  for(var x of document.getElementsByClassName("seed-buttons")){
-    if (x.id == id){
-      x.style.background = "Gray";
-    }
-    else{
-      x.style.background = "White";
+    for(var x of document.getElementsByClassName("seed-buttons")){
+      if (x.id == id){
+        x.style.background = "Gray";
+        if (x.id == 'threeseeds-button'){
+          seedsPerpit = 3;
+        }
+        if (x.id == 'fourseeds-button'){
+          seedsPerpit = 4;
+        }
+        if (x.id == 'fiveseeds-button'){
+          seedsPerpit = 5;
+        }
+        if (x.id == 'sixseeds-button'){
+          seedsPerpit = 6;
+        }
+      }
+      else{
+        x.style.background = "White";
+      }
     }
   }
-}
-
-function choosePitsPerPlayer(id){
-  for(var x of document.getElementsByClassName("pits-buttons")){
-    if (x.id == id){
-      x.style.background = "Gray";
-    }
-    else{
-      x.style.background = "White";
+  
+  function choosePitsPerPlayer(id){
+    for(var x of document.getElementsByClassName("pits-buttons")){
+      if (x.id == id){
+        x.style.background = "Gray";
+        if (x.id == 'fourpits-button'){
+          pitsPerPlayer = 4;
+        }
+        if (x.id == 'fivepits-button'){
+          pitsPerPlayer = 5;
+        }
+        if (x.id == 'sixpits-button'){
+          pitsPerPlayer = 6;
+        }
+        if (x.id == 'sevenpits-button'){
+          pitsPerPlayer = 7;
+        }
+      }
+      else{
+        x.style.background = "White";
+      }
     }
   }
-}
 
 
 // function updateBoard(){
@@ -546,8 +570,8 @@ function startGame(){
   buildBoard();
   setGridColumns();
   document.getElementById("game-board").style.display = "grid";
-  game = Game(2*pitsPerPlayer+2, seedsPerpit, 1, 1);
-  updateBoard();
+  //game = Game(2*pitsPerPlayer+2, seedsPerpit, 1, 1);
+  //updateBoard();
 }
 
 function setGridColumns(){
@@ -580,7 +604,6 @@ function buildBoard(){
     var newSeedValue = document.createElement("seed-value");
     newSeedValue.classList.add("allValues");
     newSeedValue.value=i;
-    newSeedValue.appendChild(value);
     var divAtual = document.getElementById("values1");
     divAtual.appendChild(newSeedValue);
   }
@@ -589,7 +612,6 @@ function buildBoard(){
     var newSeedValue = document.createElement("seed-value");
     newSeedValue.classList.add("allValues");
     newSeedValue.value=i;
-    newSeedValue.appendChild(value);
     var divAtual = document.getElementById("values2");
     divAtual.appendChild(newSeedValue);
   }
