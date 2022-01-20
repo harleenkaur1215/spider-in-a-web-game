@@ -37,6 +37,7 @@ html{
 }
 .edgeButtons:hover {
     color: orange;
+    cursor: pointer;
 }
 
 #signup {
@@ -124,13 +125,12 @@ html{
 .game {
   position: relative;
   background-color: burlywood;
-  width: 75vw;
+  width: 90vw;
   height: 25vw;
   margin: auto;
   margin-top: 120px;
   padding-top: 7.5%;
   padding-bottom: 7.5%;
-
   min-width: 800px;
   min-height: 400px;
   
@@ -243,6 +243,7 @@ html{
 
 .seed-buttons:hover{
   color:orange;
+  cursor: pointer;
 }
 
 #threeseeds-button{
@@ -287,6 +288,7 @@ html{
 
 .pits-buttons:hover{
   color:orange;
+  cursor: pointer;
 }
 
 
@@ -339,4 +341,116 @@ html{
 	background: burlywood;
 	border-color: white !important;
 	transition: all 0.4s ease 0s;
+  cursor: pointer;
+}
+
+#vertical-pit{
+  height: 70%;
+  width:10%;
+  background-color: #8c4808;
+}
+
+#game-board{
+  display: none;
+  height: 400px;
+  margin: 20px;
+  grid-template-columns:5% 20% auto 20% 5%;
+  grid-template-areas: ". name2 values2 . ."
+                       "storageValue2 storage2 board storage1 storageValue1"
+                       ". . values1 name1 .";
+}
+
+#storageValue2{
+  width: 40px;
+  font-size: 30px;
+  grid-area: storageValue2;
+  text-align: center;
+  margin: auto;
+}
+
+#storageValue1{
+  width: 40px;
+  font-size: 30px;
+  grid-area: storageValue1;
+  text-align: center;
+  margin: auto;
+}
+
+#name1{
+  font-size: 30px;
+  grid-area: name1;
+  text-align: center;
+  margin: auto;
+}
+
+#values1{
+  grid-area: values1;
+  color: #015f7e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#storage1{
+  grid-area: storage1;
+  margin:auto;
+  border-radius: 50px;
+  background-color: #8c4808;
+  height: 300px;
+  width: 150px;
+  box-shadow: 5px 5px black;
+  border-width: 2px;
+  border-style: solid;
+}
+#board{
+  grid-area: board;
+  display: grid;
+  grid-template-rows: 50% 50%;
+}
+#storage2{
+  grid-area: storage2;
+  margin:auto;
+  background-color: #8c4808;
+  border-radius: 50px;
+  height: 300px;
+  width: 150px;
+  box-shadow: 5px 5px black;
+  border-width: 2px;
+  border-style: solid;
+}
+pit{
+  background-color: #8c4808;
+  border-radius: 50px;
+  margin: 5px;
+  box-shadow: 5px 5px black;
+  border-width: 2px;
+  border-style: solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#values2{
+  grid-area: values2;
+  color: #015f7e;
+  display: flex;
+}
+#name2{
+  grid-area: name2;
+  text-align: center;
+  font-size: 30px;
+  margin: auto;
+}
+seed{
+  width: 10px;
+  height: 15px;
+  border-radius: 50px;
+  background-color: red;  
+  z-index: 100;
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
+}
+seed-value{
+  font-size: 30px;
+  width: 100%;
+  text-align: center;
 }

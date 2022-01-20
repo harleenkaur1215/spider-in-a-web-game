@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <!-- A declaração DOCTYPE declara a versão do HTML usado no documento -->
 <html lang="en">
-  <link rel="stylesheet" href="extension.css">
+  <link rel="stylesheet" href="extension.css" type="text/css"/>
+  <script type="text/javascript" src="script.js"></script>
   <head >
     <meta charset=UTF-8>        <!-- para caracteres acentuados   -->
     <title> Mancala </title>  <!-- texto na decoração da janela -->
@@ -103,7 +104,29 @@
 
 
 
-      <div class="game-board"></div>
+      <div id="game-board">
+
+        <div id="name1">Player1</div>
+        
+        <div id="values1"></div>
+        
+        <div id="storage1" class="allPits"></div>
+
+        <div id="storageValue1" class="allValues"> 0 </div>
+
+        <div id="storageValue2" class="allValues"> 0 </div>
+
+        <div id="board"></div>
+
+        <div id="storage2" class="allPits"></div>
+
+
+
+        <div id="values2"></div>
+
+        <div id="name2">Player2</div>
+
+      </div>
 
     </div>
 
