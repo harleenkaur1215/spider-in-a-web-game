@@ -518,23 +518,23 @@ function choosePitsPerPlayer(id){
 }
 
 
-function updateBoard(){
-    //delete all seeds divs
-    for(document.getElementsByClassName("seed")){
-        element.remove();
-    }
+// function updateBoard(){
+//     //delete all seeds divs
+//     for(document.getElementsByClassName("seed")){
+//         element.remove();
+//     }
 
-    // var board = Game.getBoard();
-    // for(documents(allValues)){
-    //     label.innerHtml = board[label.value].length;
-    // }
+//     // var board = Game.getBoard();
+//     // for(documents(allValues)){
+//     //     label.innerHtml = board[label.value].length;
+//     // }
 
-    // for(documents())
-        // for(board[pit.value]){
+//     // for(documents())
+//         // for(board[pit.value]){
 
-        // }
+//         // }
 
-}
+// }
 
 function makeMove(pit){
     game.move(pit);
