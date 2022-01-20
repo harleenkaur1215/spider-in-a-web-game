@@ -1,3 +1,4 @@
+const { elementAcceptingRef } = require("@mui/utils");
 
 class Seed{
   constructor(){
@@ -254,14 +255,10 @@ class Game{
       return this.board;
   }
 
-  surrender(){
-
-  }
-
   move(cavity){
       if(cavity == -1){ //surrend
-          if(this.turn == 1) this.turn = 2;
-          else this.turn = 1;
+          if(this.turn == 1) return 2;
+          else return 1;
       }
 
       var ret = this.board.move(this.turn, cavity);
@@ -452,10 +449,6 @@ function minimax(gameBoard, depth, isMax){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-var LoginNick;
-
-var LoginPassword;
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -498,9 +491,9 @@ function gamemodeButtonClick(){
 }
 
 
-function changeGamemode(){
-
-}
+var seedsPerpit = 3;
+var pitsPerPlayer = 6;
+var game;
 
 function chooseSeedsPerPit(id){
   for(var x of document.getElementsByClassName("seed-buttons")){
@@ -525,8 +518,81 @@ function choosePitsPerPlayer(id){
 }
 
 
+function updateBoard(){
+    //delete all seeds divs
+    for(document.getElementsByClassName("seed")){
+        element.remove();
+    }
+
+    // var board = Game.getBoard();
+    // for(documents(allValues)){
+    //     label.innerHtml = board[label.value].length;
+    // }
+
+    // for(documents())
+        // for(board[pit.value]){
+
+        // }
+
+}
+
+function makeMove(pit){
+    game.move(pit);
+    updateBoard();
+}
+
 function startGame(){
   document.getElementById("game-configs").style.display = "none";
+  buildBoard();
+  setGridColumns();
+  document.getElementById("game-board").style.display = "grid";
+  game = Game(2*pitsPerPlayer+2, seedsPerpit, 1, 1);
+  updateBoard();
+}
+
+function setGridColumns(){
+  board.style.setProperty('grid-template-columns', `repeat(${pitsPerPlayer}, 1fr)`)
+}
+
+function buildBoard(){
+  document.getElementById("storage1").value=0;
+  document.getElementById("storage2").value=pitsPerPlayer+1;
+  document.getElementById("storageValue1").value=0;
+  document.getElementById("storageValue2").value=pitsPerPlayer+1;
+
+  for (let i=pitsPerPlayer; i > 0;i--){
+    var newPit = document .createElement("pit");
+    newPit.classList.add("allPits");
+    newPit.value = i;
+    var divAtual = document.getElementById("board");
+    divAtual.appendChild(newPit); 
+  }
+
+  for (let i=pitsPerPlayer + 2; i < 2*pitsPerPlayer+2;i++){
+    var newPit = document .createElement("pit");
+    newPit.classList.add("allPits");
+    newPit.value = i;
+    var divAtual = document.getElementById("board");
+    divAtual.appendChild(newPit); 
+  }
+
+  for (let i=pitsPerPlayer+2; i < 2*pitsPerPlayer+2;i++){
+    var newSeedValue = document.createElement("seed-value");
+    newSeedValue.classList.add("allValues");
+    newSeedValue.value=i;
+    newSeedValue.appendChild(value);
+    var divAtual = document.getElementById("values1");
+    divAtual.appendChild(newSeedValue);
+  }
+
+  for (let i=pitsPerPlayer; i > 0;i--){
+    var newSeedValue = document.createElement("seed-value");
+    newSeedValue.classList.add("allValues");
+    newSeedValue.value=i;
+    newSeedValue.appendChild(value);
+    var divAtual = document.getElementById("values2");
+    divAtual.appendChild(newSeedValue);
+  }
 }
 
 
@@ -593,6 +659,10 @@ const sendHttpRequest = (method, url, data) => {
 
   ////////////////////////////////////////////////////////////////////////////////////////////
 /*http://twserver.alunos.dcc.fc.up.pt:8008/*/
+
+var LoginNick;
+
+var LoginPassword;
 
 /*Register*/ 
 

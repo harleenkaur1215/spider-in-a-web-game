@@ -472,3 +472,12 @@ function minimax(gameBoard, depth, isMax){
 // }
 
 // StartGameTesting(14,4,1,4);
+
+
+
+var board = Game.getBoard();
+for(documents(allValues)){
+    label.innerHtml = board[label.value].length;
+}
+
+for(documents())
