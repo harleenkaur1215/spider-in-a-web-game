@@ -364,7 +364,7 @@ html{
   width: 40px;
   font-size: 30px;
   grid-area: storageValue2;
-  text-align: center;
+  text-align: right;
   margin: auto;
 }
 
@@ -372,7 +372,7 @@ html{
   width: 40px;
   font-size: 30px;
   grid-area: storageValue1;
-  text-align: center;
+  text-align: left;
   margin: auto;
 }
 
@@ -387,8 +387,6 @@ html{
   grid-area: values1;
   color: #015f7e;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 #storage1{
   grid-area: storage1;
@@ -400,6 +398,7 @@ html{
   box-shadow: 5px 5px black;
   border-width: 2px;
   border-style: solid;
+  position: relative;
 }
 #board{
   grid-area: board;
@@ -416,6 +415,7 @@ html{
   box-shadow: 5px 5px black;
   border-width: 2px;
   border-style: solid;
+  position: relative;
 }
 pit{
   background-color: #8c4808;
@@ -427,6 +427,7 @@ pit{
   display: flex;
   align-items: center;
   justify-content: center;
+  position:relative;
 }
 #values2{
   grid-area: values2;
@@ -440,17 +441,45 @@ pit{
   margin: auto;
 }
 seed{
-  width: 10px;
-  height: 15px;
+  width: 5px;
+  height: 20px;
   border-radius: 50px;
   background-color: red;  
-  z-index: 100;
   border-width: 1px;
   border-color: black;
   border-style: solid;
+  position:absolute;
 }
 seed-value{
   font-size: 30px;
   width: 100%;
   text-align: center;
+}
+
+#messages{ 
+  position:absolute;
+  background-color: rgb(90, 86, 76);
+  width: 60%;
+  height: 6vw;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  overflow-y: scroll;
+}
+
+#giveup-button:hover{
+  color:orange;
+  cursor: pointer;
+}
+
+#giveup-button{
+  position: absolute;
+  top: 90%;
+  right: 5%;
+  font-family: ChunkFive;
+  font-size: 24px;
+  line-height: 42px;
+  text-shadow: 1px 1px 1px white;
+  width: 100px;
+  border: 1px solid #93b5c0;
 }

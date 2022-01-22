@@ -2,10 +2,10 @@
 
 class Seed{
   constructor(){
-      this.x = Math.floor(Math.random() * 10);
-      this.y = Math.floor(Math.random() * 10);
-      this.z = Math.floor(Math.random() * 10);
-      this.rotation = Math.floor(Math.random() * 10);
+      this.x = 10 + Math.floor(Math.random() * 70);
+      this.y = 10 + Math.floor(Math.random() * 70);
+      this.z = 10 + Math.floor(Math.random() * 70);
+      this.rotation = Math.floor(Math.random() * 100);
   }
 
   randomizePos() {
@@ -472,11 +472,14 @@ function closeLoginForm() {
   
 }
 
+function changeGamemode(){
+
+}
 
 var buttonStage = 0;
 
 function gamemodeButtonClick(){
-  changeGamemode;
+  changeGamemode();
   var background = document.getElementById("toggle_gamemode").style.background;
   if (buttonStage == 1){
     document.getElementById("difficulty-input").style.display = "flex";
@@ -493,6 +496,7 @@ function gamemodeButtonClick(){
 
 var seedsPerpit = 3;
 var pitsPerPlayer = 6;
+var gameMode = 2;
 var game;
 
 function chooseSeedsPerPit(id){
@@ -516,62 +520,113 @@ function chooseSeedsPerPit(id){
         x.style.background = "White";
       }
     }
-  }
+}
   
-  function choosePitsPerPlayer(id){
+function choosePitsPerPlayer(id){
     for(var x of document.getElementsByClassName("pits-buttons")){
-      if (x.id == id){
-        x.style.background = "Gray";
-        if (x.id == 'fourpits-button'){
-          pitsPerPlayer = 4;
+        if (x.id == id){
+            x.style.background = "Gray";
+            if (x.id == 'fourpits-button'){
+                pitsPerPlayer = 4;
+            }
+            if (x.id == 'fivepits-button'){
+                pitsPerPlayer = 5;
+            }
+            if (x.id == 'sixpits-button'){
+                pitsPerPlayer = 6;
+            }
+            if (x.id == 'sevenpits-button'){
+                pitsPerPlayer = 7;
+            }
         }
-        if (x.id == 'fivepits-button'){
-          pitsPerPlayer = 5;
-        }
-        if (x.id == 'sixpits-button'){
-          pitsPerPlayer = 6;
-        }
-        if (x.id == 'sevenpits-button'){
-          pitsPerPlayer = 7;
-        }
-      }
-      else{
+        else{
         x.style.background = "White";
-      }
+        }
     }
-  }
+}
 
 
-// function updateBoard(){
-//     //delete all seeds divs
-//     for(document.getElementsByClassName("seed")){
-//         element.remove();
-//     }
+function updateBoard(){
+     //delete all seeds divs
+    var board = game.getBoard();
+    var seeds = document.getElementsByClassName("allSeeds");
+    var pits = document.getElementsByClassName("allPits");
 
-//     // var board = Game.getBoard();
-//     // for(documents(allValues)){
-//     //     label.innerHtml = board[label.value].length;
-//     // }
+    Array.prototype.forEach.call(pits, function(pit){
+        while(pit.firstChild){
+            pit.removeChild(pit.firstChild);
+        }
+    });
 
-//     // for(documents())
-//         // for(board[pit.value]){
+    var values = document.getElementsByClassName("allValues")
+    Array.prototype.forEach.call(values, function(val){
+        while(val.firstChild){
+            val.removeChild(val.firstChild);
+        }
+    });
 
-//         // }
+    Array.prototype.forEach.call(values, function(val1){
+        for(let i = 0; i < board.getSize();i++){
+            if(i == val1.value){
+                val1.appendChild(document.createTextNode(board.getNumSeeds(i)));
+            }
+        }
+    });
 
-// }
+    console.log(board.getPits());
+    Array.prototype.forEach.call(pits, function(pit){
+        for(let i = 0; i < board.getSize();i++){
+            if(i == pit.value){
+                for(let j = 0; j < board.getNumSeeds(i);j++){
+                    
+                    var newSeed = document.createElement("seed");
+                    newSeed.classList.add("allSeeds");
+                    newSeed.style.top = (board.getPits()[i][j].getY() + '%');
+                    newSeed.style.left = (board.getPits()[i][j].getX() + '%');
+                    newSeed.style.zIndex = (board.getPits()[i][j].getZ() + '%');
+                    newSeed.style.transform = 'rotate('+ board.getPits()[i][j].getRotation()+'deg)';
+                    pit.appendChild(newSeed);
+                }
+            }
+        }
+    });
+}
+
 
 function makeMove(pit){
+    console.log("clicked");
     game.move(pit);
     updateBoard();
+    // Array.prototype.forEach.call(pits, function(pit){
+    //     while(pit.firstChild){
+    //         pit.disabled = true;
+    //     }
+    // });
+    
+
 }
 
 function startGame(){
   document.getElementById("game-configs").style.display = "none";
+  if(buttonStage == 1){
+      gameMode = 1;
+  }
+  else{
+      let difficulty = document.getElementById("difficulty");
+      if (difficulty == 2){
+          gameMode = Math.floor(Math.random() * 3);
+      }
+      else{
+          gameMode = difficulty-1;
+      }
+  }
   buildBoard();
   setGridColumns();
   document.getElementById("game-board").style.display = "grid";
-  //game = Game(2*pitsPerPlayer+2, seedsPerpit, 1, 1);
-  //updateBoard();
+  game = new Game(2*pitsPerPlayer+2, seedsPerpit, 1, gameMode);
+  updateBoard();
+
+
 }
 
 function setGridColumns(){
@@ -596,6 +651,7 @@ function buildBoard(){
     var newPit = document .createElement("pit");
     newPit.classList.add("allPits");
     newPit.value = i;
+    newPit.addEventListener("click", function(){makeMove(i)});
     var divAtual = document.getElementById("board");
     divAtual.appendChild(newPit); 
   }
