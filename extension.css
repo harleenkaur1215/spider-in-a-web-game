@@ -545,8 +545,8 @@ message{
   width: 90vw;
   height: 25vw;
   margin: auto;
+  margin-bottom: 20;
   margin-top: 30px;
-
   padding-top: 7.5%;
   padding-bottom: 7.5%;
   min-width: 800px;
@@ -554,14 +554,39 @@ message{
   
 }
 
-.instructions-rankings-buttons{
+#instructions-rankings-buttons{
   position: relative;
   margin-bottom: 0px;
   display: flex;
   justify-content: left;
 }
 
+.instructions-rankings-buttons:hover{
+  color:orange;
+  cursor: pointer;
+}
+.instructions-rankings-buttons{
+  font-family: ChunkFive;
+  font-size: 24px;
+  line-height: 42px;
+  text-shadow: 1px 1px 1px white;
+  height: 42px;
+  border: 1px solid #93b5c0;
+}
+
+#instructions-button{
+  background-color: gray;
+}
+
 #instructions{
+  background-color: burlywood;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+#rankings{
+  display: none;
   background-color: burlywood;;
   padding: 10px;
   width: 100%;

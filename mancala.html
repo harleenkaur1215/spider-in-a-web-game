@@ -138,18 +138,20 @@
 
     <div class="instructions-rankings">
 
-      <div class="instructions-rankings-buttons">
+      <div id="instructions-rankings-buttons">
 
-        <button type="button" class="instructions-rankings-buttons" id="instructions-button" onclick="instructionsOn()"> Instructions </button>
-        <button type="button" class="instructions-rankings-buttons" id="rankings-button" onclick="rankingsOn()"> Classifications </button>
+        <button type="button" class="instructions-rankings-buttons" id="instructions-button" onclick="instructionsRankings('instructions-button')"> Instructions </button>
+        <button type="button" class="instructions-rankings-buttons" id="rankings-button" onclick="instructionsRankings('rankings-button')"> Classifications </button>
 
       </div>
 
-      <div id=instructions>
+      <div id="instructions">
 
         <span> Carregas para lá a sorte nos buracos do teu lado, e eventualmente vais ganhar. Podes perder 1 a cada 8 jogos e é isto </span>
 
       </div>
+
+      <div id="rankings"> Classifications<br><br> 1st - Eu <br> 2nd - Eu <br> 3rd - Eu</div>
 
     </div>
 

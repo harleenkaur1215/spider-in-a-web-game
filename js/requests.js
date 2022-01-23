@@ -524,6 +524,25 @@ var gameMode = 2;
 var game;
 var start;
 
+function instructionsRankings(id){
+    for(var x of document.getElementsByClassName("instructions-rankings-buttons")){
+        if (x.id == id){
+          x.style.background = "Gray";
+          if ( x.id == 'instructions-button'){
+              document.getElementById("rankings").style.display="none";
+              document.getElementById("instructions").style.display="block";
+          }
+          else{
+            document.getElementById("instructions").style.display="none";
+            document.getElementById("rankings").style.display="block";
+          }
+        }
+        else{
+          x.style.background = "White";
+        }
+      }
+}
+
 function chooseSeedsPerPit(id){
     for(var x of document.getElementsByClassName("seed-buttons")){
       if (x.id == id){
