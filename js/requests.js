@@ -274,7 +274,7 @@ class Game{
 
 
       if(this.turn == 2 && this.gameMode != 1){
-          this.show();
+          //this.show();
           switch(this.gameMode){
               case 2:
                   this.botRandom();
@@ -493,11 +493,36 @@ function gamemodeButtonClick(){
   }
 }
 
+function back(){
+    document.getElementById("game-configs").style.display = "flex";
+    document.getElementById("game-board").style.display = "none";
+    document.getElementById("back-button").style.display = "none";
+    reset();
+}
+
+function reset(){
+
+    while(document.getElementById("board").firstChild){
+        document.getElementById("board").removeChild(document.getElementById("board").firstChild);
+    }
+    while(document.getElementById("values1").firstChild){
+        document.getElementById("values1").removeChild(document.getElementById("values1").firstChild);
+    }
+
+    while(document.getElementById("values2").firstChild){
+        document.getElementById("values2").removeChild(document.getElementById("values2").firstChild);
+    }
+
+    while(document.getElementById("messages").firstChild){
+        document.getElementById("messages").removeChild(document.getElementById("messages").firstChild);
+    }
+}
 
 var seedsPerpit = 3;
 var pitsPerPlayer = 6;
 var gameMode = 2;
 var game;
+var start;
 
 function chooseSeedsPerPit(id){
     for(var x of document.getElementsByClassName("seed-buttons")){
@@ -573,7 +598,6 @@ function updateBoard(){
         }
     });
 
-    console.log(board.getPits());
     Array.prototype.forEach.call(pits, function(pit){
         for(let i = 0; i < board.getSize();i++){
             if(i == pit.value){
@@ -594,14 +618,30 @@ function updateBoard(){
 
 
 function makeMove(pit){
-    console.log("clicked");
-    game.move(pit);
+    let ret = game.move(pit);
     updateBoard();
-    // Array.prototype.forEach.call(pits, function(pit){
-    //     while(pit.firstChild){
-    //         pit.disabled = true;
-    //     }
-    // });
+    console.log(ret);
+    if(ret != -1){
+        if (ret == 0){
+            var newMessage = document .createElement("message");
+            newMessage.appendChild(document.createTextNode("It's a tie!"));
+            document.getElementById("messages").appendChild(newMessage);
+        }
+        else
+        {
+            
+            var newMessage = document .createElement("message");
+            newMessage.appendChild(document.createTextNode("Player "+ ret + "won" ));
+            document.getElementById("messages").appendChild(newMessage);
+            document.getElementById("back-button").style.display = "block";
+        }
+    }
+    else {
+        var newMessage = document .createElement("message");
+            newMessage.appendChild(document.createTextNode("You chose pit: " + pit + "\n"));
+            document.getElementById("messages").appendChild(newMessage);
+            document.getElementById("messages").scrollTop =  document.getElementById("messages").scrollHeight;
+    }
     
 
 }
@@ -613,19 +653,19 @@ function startGame(){
   }
   else{
       let difficulty = document.getElementById("difficulty");
-      if (difficulty == 2){
-          gameMode = Math.floor(Math.random() * 3);
-      }
-      else{
-          gameMode = difficulty-1;
-      }
+      gameMode = parseInt(difficulty.value);
   }
+//   if(document.getElementById("start").checked){
+//       start = 2;
+//   }
+//   else{
+//       start = 1;
+//   }
   buildBoard();
   setGridColumns();
   document.getElementById("game-board").style.display = "grid";
   game = new Game(2*pitsPerPlayer+2, seedsPerpit, 1, gameMode);
   updateBoard();
-
 
 }
 
