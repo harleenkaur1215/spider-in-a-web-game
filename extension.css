@@ -182,7 +182,22 @@ html{
   transform: translate(-50%, -50%);
 }
 
+#start-input{
+  position: absolute;
+  top:48%;
+  left: 30%;
+}
 
+.start{
+  display: block;
+  position: relative;
+  padding-top: 1px;
+  padding-left: 25px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: ChunkFive;
+}
 
 
 #configs-line{
@@ -228,9 +243,14 @@ html{
   transform: translate(-50%, -50%);
 }
 
-.seed-buttons{
+#seed-buttons{
   position: absolute;
   top: 70%;
+  left: 29%;
+  display: flex;
+}
+.seed-buttons{
+  
   
   font-family: ChunkFive;
   font-size: 24px;
@@ -273,9 +293,15 @@ html{
   transform: translate(-50%, -50%);
 }
 
-.pits-buttons{
+#pits-buttons{
+  display: flex;
   position: absolute;
   top: 70%;
+  left: 58.5%;
+}
+
+.pits-buttons{
+
   
   font-family: ChunkFive;
   font-size: 24px;
@@ -364,7 +390,7 @@ html{
   width: 40px;
   font-size: 30px;
   grid-area: storageValue2;
-  text-align: center;
+  text-align: right;
   margin: auto;
 }
 
@@ -372,7 +398,7 @@ html{
   width: 40px;
   font-size: 30px;
   grid-area: storageValue1;
-  text-align: center;
+  text-align: left;
   margin: auto;
 }
 
@@ -387,8 +413,6 @@ html{
   grid-area: values1;
   color: #015f7e;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 #storage1{
   grid-area: storage1;
@@ -400,6 +424,7 @@ html{
   box-shadow: 5px 5px black;
   border-width: 2px;
   border-style: solid;
+  position: relative;
 }
 #board{
   grid-area: board;
@@ -416,6 +441,7 @@ html{
   box-shadow: 5px 5px black;
   border-width: 2px;
   border-style: solid;
+  position: relative;
 }
 pit{
   background-color: #8c4808;
@@ -427,6 +453,7 @@ pit{
   display: flex;
   align-items: center;
   justify-content: center;
+  position:relative;
 }
 #values2{
   grid-area: values2;
@@ -440,17 +467,128 @@ pit{
   margin: auto;
 }
 seed{
-  width: 10px;
-  height: 15px;
+  width: 5px;
+  height: 20px;
   border-radius: 50px;
   background-color: red;  
-  z-index: 100;
   border-width: 1px;
   border-color: black;
   border-style: solid;
+  position:absolute;
 }
 seed-value{
   font-size: 30px;
   width: 100%;
   text-align: center;
+}
+
+#messages{ 
+  position:absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(90, 86, 76);
+  width: 60%;
+  height: 6vw;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  overflow-y:visible;
+  overflow-x: hidden;
+}
+
+message{
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-left: 5px;
+  color: white;
+  width: 100%;
+  position: relative;
+}
+
+#giveup-button:hover{
+  color:orange;
+  cursor: pointer;
+}
+
+#giveup-button{
+  position: absolute;
+  top: 90%;
+  right: 5%;
+  font-family: ChunkFive;
+  font-size: 24px;
+  line-height: 42px;
+  text-shadow: 1px 1px 1px white;
+  width: 100px;
+  border: 1px solid #93b5c0;
+}
+
+#back-button:hover{
+  color:orange;
+  cursor: pointer;
+}
+
+#back-button{
+  display: none;
+  position: absolute;
+  top: 90%;
+  left: 5%;
+  font-family: ChunkFive;
+  font-size: 24px;
+  line-height: 42px;
+  text-shadow: 1px 1px 1px white;
+  width: 100px;
+  border: 1px solid #93b5c0;
+}
+
+.instructions-rankings{
+  position: relative;
+  width: 90vw;
+  height: 25vw;
+  margin: auto;
+  margin-bottom: 20;
+  margin-top: 30px;
+  padding-top: 7.5%;
+  padding-bottom: 7.5%;
+  min-width: 800px;
+  min-height: 400px;
+  
+}
+
+#instructions-rankings-buttons{
+  position: relative;
+  margin-bottom: 0px;
+  display: flex;
+  justify-content: left;
+}
+
+.instructions-rankings-buttons:hover{
+  color:orange;
+  cursor: pointer;
+}
+.instructions-rankings-buttons{
+  font-family: ChunkFive;
+  font-size: 24px;
+  line-height: 42px;
+  text-shadow: 1px 1px 1px white;
+  height: 42px;
+  border: 1px solid #93b5c0;
+}
+
+#instructions-button{
+  background-color: gray;
+}
+
+#instructions{
+  background-color: burlywood;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+#rankings{
+  display: none;
+  background-color: burlywood;;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
 }

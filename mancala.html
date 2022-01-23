@@ -3,6 +3,7 @@
 <!-- A declaração DOCTYPE declara a versão do HTML usado no documento -->
 <html lang="en">
   <link rel="stylesheet" href="extension.css" type="text/css"/>
+  <script src="js/requests.js"></script>
   <head >
     <meta charset=UTF-8>        <!-- para caracteres acentuados   -->
     <title> Mancala </title>  <!-- texto na decoração da janela -->
@@ -59,6 +60,14 @@
           </select>
         </div>
 
+        <div id="start-input">
+          <label class="start">START
+            <input type="checkbox" checked="checked">
+            
+          </label>
+          
+        </div>
+
         <hr id="configs-line"> 
 
           
@@ -68,16 +77,20 @@
         <input type="button" id="toggle_gamemode" onclick="gamemodeButtonClick()" alt="Toggle">
 
         <div id="numseeds-text"><h1>Seeds per pit</h1></div>
-        <button type="button" class="seed-buttons" id="threeseeds-button" onclick="chooseSeedsPerPit('threeseeds-button')"> 3 </button>
-        <button type="button" class="seed-buttons" id="fourseeds-button" onclick="chooseSeedsPerPit('fourseeds-button')"> 4 </button>
-        <button type="button" class="seed-buttons" id="fiveseeds-button" onclick="chooseSeedsPerPit('fiveseeds-button')"> 5 </button>
-        <button type="button" class="seed-buttons" id="sixseeds-button" onclick="chooseSeedsPerPit('sixseeds-button')"> 6 </button>
+        <div id="seed-buttons">
+          <button type="button" class="seed-buttons" id="threeseeds-button" onclick="chooseSeedsPerPit('threeseeds-button')"> 3 </button>
+          <button type="button" class="seed-buttons" id="fourseeds-button" onclick="chooseSeedsPerPit('fourseeds-button')"> 4 </button>
+          <button type="button" class="seed-buttons" id="fiveseeds-button" onclick="chooseSeedsPerPit('fiveseeds-button')"> 5 </button>
+          <button type="button" class="seed-buttons" id="sixseeds-button" onclick="chooseSeedsPerPit('sixseeds-button')"> 6 </button>
+        </div>
 
         <div id="numpits-text"><h1>Pits per player</h1></div>
-        <button type="button" class="pits-buttons" id="fourpits-button" onclick="choosePitsPerPlayer('fourpits-button')"> 4 </button>
-        <button type="button" class="pits-buttons" id="fivepits-button" onclick="choosePitsPerPlayer('fivepits-button')"> 5 </button>
-        <button type="button" class="pits-buttons" id="sixpits-button" onclick="choosePitsPerPlayer('sixpits-button')"> 6 </button>
-        <button type="button" class="pits-buttons" id="sevenpits-button" onclick="choosePitsPerPlayer('sevenpits-button')"> 7 </button>
+        <div id="pits-buttons">
+          <button type="button" class="pits-buttons" id="fourpits-button" onclick="choosePitsPerPlayer('fourpits-button')"> 4 </button>
+          <button type="button" class="pits-buttons" id="fivepits-button" onclick="choosePitsPerPlayer('fivepits-button')"> 5 </button>
+          <button type="button" class="pits-buttons" id="sixpits-button" onclick="choosePitsPerPlayer('sixpits-button')"> 6 </button>
+          <button type="button" class="pits-buttons" id="sevenpits-button" onclick="choosePitsPerPlayer('sevenpits-button')"> 7 </button>
+        </div>
 
         
         <button type="button" id="startgame-button" onclick="startGame()"> Start Game </button>
@@ -89,15 +102,19 @@
 
       <div id="game-board">
 
+        <div class="game-title">
+          <h1>MANCALA</h1>
+        </div>
+
         <div id="name1">Player1</div>
         
         <div id="values1"></div>
         
         <div id="storage1" class="allPits"></div>
 
-        <div id="storageValue1" class="allValues"> 0 </div>
+        <div id="storageValue1" class="allValues"></div>
 
-        <div id="storageValue2" class="allValues"> 0 </div>
+        <div id="storageValue2" class="allValues"></div>
 
         <div id="board"></div>
 
@@ -109,7 +126,32 @@
 
         <div id="name2">Player2</div>
 
+        <div id="messages"></div>
+
+        <button type="button" id="giveup-button" onclick="giveUp()"> Give Up </button>
+
+        <button type="button" id="back-button" onclick="back()"> Back </button>
+
       </div>
+
+    </div>
+
+    <div class="instructions-rankings">
+
+      <div id="instructions-rankings-buttons">
+
+        <button type="button" class="instructions-rankings-buttons" id="instructions-button" onclick="instructionsRankings('instructions-button')"> Instructions </button>
+        <button type="button" class="instructions-rankings-buttons" id="rankings-button" onclick="instructionsRankings('rankings-button')"> Classifications </button>
+
+      </div>
+
+      <div id="instructions">
+
+        <span> Carregas para lá a sorte nos buracos do teu lado, e eventualmente vais ganhar. Podes perder 1 a cada 8 jogos e é isto </span>
+
+      </div>
+
+      <div id="rankings"> Classifications<br><br> 1st - Eu <br> 2nd - Eu <br> 3rd - Eu</div>
 
     </div>
 
@@ -118,7 +160,7 @@
 
 
 
-  <script src="js/requests.js"></script>
+  
   
 </body>
 </html>
