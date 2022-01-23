@@ -235,7 +235,7 @@ class Board{
 
 class Game{
 
-    //gameMode: 1->PvsP 2->PvsBotE 3->PvsBotM 4-> PvsBotH
+    //gameMode: 1->PvsP 2->PvsBotR 3->PvsBotM 4-> PvsBotH
 
     constructor(size, numSeeds, turn, gameMode){
         this.boardSize = size;
@@ -260,8 +260,8 @@ class Game{
 
     move(cavity){
         if(cavity == -1){ //surrend
-            if(this.turn == 1) this.turn = 2;
-            else this.turn = 1;
+            if(this.turn == 1) return 2;
+            else return 1;
         }
 
         var ret = this.board.move(this.turn, cavity);
@@ -452,32 +452,23 @@ function minimax(gameBoard, depth, isMax){
 
 //for testing
 
-// function StartGameTesting(boardSize, numSeeds, turn, gameMode) {
+function StartGameTesting(boardSize, numSeeds, turn, gameMode) {
 
 
-//     var game;
-//     game = new Game(boardSize, numSeeds, turn, gameMode);
+    var game;
+    game = new Game(boardSize, numSeeds, turn, gameMode);
 
-//     var result;
-//     do{
-//         game.show();
-//         // console.log("Player " + game.getTurn() + ": ");
-//         const prompt = require("prompt-sync")();
-//         input = prompt("Insert value: ");
-//         result = game.move(input);
+    var result;
+    do{
+        game.show();
+        // console.log("Player " + game.getTurn() + ": ");
+        const prompt = require("prompt-sync")();
+        input = prompt("Insert value: ");
+        result = game.move(input);
 
-//     }while(result==-1)
-//     game.show();
-//     console.log("Winner: Player " + result);
-// }
-
-// StartGameTesting(14,4,1,4);
-
-
-
-var board = Game.getBoard();
-for(documents(allValues)){
-    label.innerHtml = board[label.value].length;
+    }while(result==-1)
+    game.show();
+    console.log("Winner: Player " + result);
 }
 
-for(documents())
+StartGameTesting(14,4,1,5);
