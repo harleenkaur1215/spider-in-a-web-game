@@ -4,10 +4,14 @@ var credentials = [];
 
 var ranking = [];
 
+var gamePending = [];
+
+var gameOnGoing;
+
 
 
 function verifyCredentials(username, pass){
-    for(var x in credentials){
+    for(var x of credentials){
         if(x[0] == username && x[1] == pass){
             return true;
         }
@@ -101,22 +105,3 @@ server.listen(port, function(error) {
         console.log("Listening on port " + port);
 });
 
-
-// response.writeHead(204, {
-//     'Access-Control-Allow-Headers': 'content-type',
-//     'Access-Control-Allow-Max-Age': '86400',
-//      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-//      'Access-Control-Allow-Origin': '*',
-//      'Connection': 'Keep-Alive',
-//      'Keep-Alive': 'timeout=2, max=100',
-//      'Vary': 'Accept-Encoding, Origin'
-//    });
-// response.end();
-
-
-// response.write();
-
-// responseBody = {ranking: ranking.slice(0, 10)};
-// response.write(JSON.stringify(responseBody));
-//             response.end();
-//             return;
