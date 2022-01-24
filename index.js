@@ -23,48 +23,63 @@ const http = require('http');
 const server = http.createServer(async function (request, response) {
     const {method, url} = request;
 
-    let body = [];
-    // Parses request's body into javascript object
-    for await (const chunk of request) body.push(chunk);
-    body = JSON.parse(Buffer.concat(body).toString());
 
-
-    if(url == '/ranking'){
-        response.writeHead(200, {
+    if (method == 'OPTIONS'){
+        response.writeHead(204, {
+            'Access-Control-Allow-Headers': 'content-type',
+            'Access-Control-Allow-Max-Age': '86400',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
             'Access-Control-Allow-Origin': '*',
-            'Cache-Control': 'no-cache',
-            'Connection': 'keep-alive',
-            'Content-Type': 'application/javascript',
-            'Keep-Alive': 'timeout=5',
-            'Transfer-Encoding': 'chunked'
-        })
-        responseBody = {ranking: ranking.slice(0, 10)};
-        response.write(JSON.stringify(responseBody));
+            'Connection': 'Keep-Alive',
+            'Keep-Alive': 'timeout=2, max=100',
+            'Vary': 'Accept-Encoding, Origin'
+        });
         response.end();
         return;
     }
 
-    if(url == '/register'){
-        let responseNum;
-        if(credentials(body.username, body.pass)){
-            responseNum = 200;
+    if(method == 'POST'){
+        let body = [];
+        // Parses request's body into javascript object
+        for await (const chunk of request) body.push(chunk);
+        body = JSON.parse(Buffer.concat(body).toString());
+        if(url == '/ranking'){
+            response.writeHead(200, {
+                'Access-Control-Allow-Origin': '*',
+                'Cache-Control': 'no-cache',
+                'Connection': 'keep-alive',
+                'Content-Type': 'application/javascript',
+                'Keep-Alive': 'timeout=5',
+                'Transfer-Encoding': 'chunked'
+            })
+            responseBody = {ranking: ranking.slice(0, 10)};
+            response.write(JSON.stringify(responseBody));
+            response.end();
+            return;
         }
-        else{
-            responseNum = 
+    
+        if(url == '/register'){
+            let responseNum;
+            if(credentials(body.username, body.pass)){
+                responseNum = 200;
+            }
+            else{
+                responseNum = 400
+            }
+    
+            response.writeHead(responseNum, {
+                'Access-Control-Allow-Origin': '*',
+                'Cache-Control': 'no-cache',
+                'Connection': 'keep-alive',
+                'Content-Type': 'application/javascript',
+                'Keep-Alive': 'timeout=5',
+                'Transfer-Encoding': 'chunked'
+            });
+            responseBody = {};
+            response.write(JSON.stringify(responseBody));
+            response.end();
+            return;
         }
-
-        response.writeHead(200, {
-            'Access-Control-Allow-Origin': '*',
-            'Cache-Control': 'no-cache',
-            'Connection': 'keep-alive',
-            'Content-Type': 'application/javascript',
-            'Keep-Alive': 'timeout=5',
-            'Transfer-Encoding': 'chunked'
-        });
-        responseBody = {};
-        response.write(JSON.stringify(responseBody));
-        response.end();
-        return;
     }
     
    
@@ -78,22 +93,21 @@ server.listen(port, function(error) {
 });
 
 
+// response.writeHead(204, {
+//     'Access-Control-Allow-Headers': 'content-type',
+//     'Access-Control-Allow-Max-Age': '86400',
+//      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+//      'Access-Control-Allow-Origin': '*',
+//      'Connection': 'Keep-Alive',
+//      'Keep-Alive': 'timeout=2, max=100',
+//      'Vary': 'Accept-Encoding, Origin'
+//    });
+// response.end();
 
-response.writeHead(204, {
-    'Access-Control-Allow-Headers': 'content-type',
-    'Access-Control-Allow-Max-Age': '86400',
-     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-     'Access-Control-Allow-Origin': '*',
-     'Connection': 'Keep-Alive',
-     'Keep-Alive': 'timeout=2, max=100',
-     'Vary': 'Accept-Encoding, Origin'
-   });
-response.end();
 
+// response.write();
 
-response.write();
-
-responseBody = {ranking: ranking.slice(0, 10)};
-response.write(JSON.stringify(responseBody));
-            response.end();
-            return;
+// responseBody = {ranking: ranking.slice(0, 10)};
+// response.write(JSON.stringify(responseBody));
+//             response.end();
+//             return;

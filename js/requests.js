@@ -961,11 +961,11 @@ const sendHttpRequest = (method, url, data) => {
   ////////////////////////////////////////////////////////////////////////////////////////////
 /*localHost*/
 
-var localHost = 'http://127.0.0.1:9075/';
+var localHost = 'http://localhost:9075/';
 
 var serverFcup = 'http://twserver.alunos.dcc.fc.up.pt:8008/';
 
-var currentServer = serverFcup;
+var currentServer = localHost;
 
 var loginNick;
 var LoginPassword;
@@ -1107,3 +1107,39 @@ const ranking = () => {
     }
 }
 
+
+
+
+///////////////////////////
+
+/*WebStorage*/
+
+function setupRanking(){
+    let ranking = [];
+    localStorage.setItem('ranking', JSON.stringify(ranking));
+}
+
+function updateRanking(nick){
+    let ranking = JSON.parse(localStorage.getItem('ranking'));
+
+    let found = false;
+    for(let x of ranking){
+        if(x[0] == nick){
+            x[1]++;
+            found = true;
+            break;
+        }
+    }
+
+    if(!found){
+        ranking.push([nick, 1]);
+    }
+
+    var sorted_ranking = ranking.sort(function(a, b) {
+        return b[1] - a[1];
+    });
+
+    localStorage.setItem('ranking', JSON.stringify(sorted_ranking));
+}
+
+setupRanking();
