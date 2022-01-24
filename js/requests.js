@@ -520,8 +520,16 @@ function instructionsOn() {
     document.getElementById("instructions-popup").style.display="block";
 }
 
+
+
 function rankingsOn() {
-    document.getElementById("rankings-pop").style.display="block";
+    // document.getElementById("rankings-popup").style.display="block";
+    ranking();
+    for(let r of player_ranking.ranking){
+        let newDiv = document.createElement("classification");
+        newDiv.appendChild(document.createTextNode(r)).
+        document.getElementsByName("rankings-popup").appendChild(newDiv);
+    }
 }
 
 function changeGamemode(){
@@ -590,8 +598,8 @@ function reset(){
     }
 }
 var buttonStage = 0;
-var seedsPerpit = 3;
-var pitsPerPlayer = 6;
+var seedsPerpit;
+var pitsPerPlayer;
 var gameMode = 2;
 var game;
 var serverBoard;
@@ -650,6 +658,9 @@ function choosePitsPerPlayer(id){
 function play(){
     document.getElementById("main-page").style.display="none";
     document.getElementById("game").style.display="block";
+    document.getElementById("threeseeds-button").click();
+    document.getElementById("sixpits-button").click();
+    ranking();
 }
 
 
@@ -856,6 +867,7 @@ function buildBoard(){
     divAtual.appendChild(newSeedValue);
   }
 }
+
 
 
 
