@@ -245,6 +245,10 @@ class Game{
       this.gameMode = gameMode;
   }
 
+  getSize(){
+      return this.boardSize;
+  }
+
   getTurn(){
       return this.turn;
   }
@@ -499,7 +503,6 @@ function changeGamemode(){
 
 }
 
-var buttonStage = 0;
 
 function gamemodeButtonClick(){
   changeGamemode();
@@ -540,12 +543,16 @@ function reset(){
         document.getElementById("messages").removeChild(document.getElementById("messages").firstChild);
     }
 }
-
+var buttonStage = 0;
 var seedsPerpit = 3;
 var pitsPerPlayer = 6;
 var gameMode = 2;
 var game;
+var serverBoard;
 var start;
+
+
+
 
 function instructionsRankings(id){
     for(var x of document.getElementsByClassName("instructions-rankings-buttons")){
@@ -615,7 +622,13 @@ function choosePitsPerPlayer(id){
 
 function updateBoard(){
      //delete all seeds divs
-    var board = game.getBoard();
+    let board;
+    if(buttonStage == 0){
+         board = game.getBoard();
+    }
+    else{
+        board = serverBoard;
+    }
     var seeds = document.getElementsByClassName("allSeeds");
     var pits = document.getElementsByClassName("allPits");
 
@@ -658,38 +671,88 @@ function updateBoard(){
     });
 }
 
+var serverBoardArray;
+var serverBoardSize;
+
+function saveOpponentNick(server_update){
+    for(var usrnm in server_update.stores){
+        if(usrnm != LoginNick)
+            opponentNick = usrnm;
+    }
+}
+
+function updateSeeds(index, numSeeds){
+    if(serverBoardArray[index].length > numSeeds){
+        serverBoardArray[index].length = numSeeds;
+    }
+    else if(serverBoardArray[index].length < numSeeds){
+        while(serverBoardArray[index].length != numSeeds){
+            serverBoardArray[index].push(new Seed());
+        }
+    }
+    
+}
+
+
+function updateServerBoard(server_update){
+    serverBoardArray = serverBoard.getPits();
+    serverBoardSize = serverBoard.getSize();
+
+    updateSeeds(0, server_update.stores[LoginNick]);
+    updateSeeds(serverBoardSize/2, server_update.stores[opponentNick]);
+    
+    let sideSize = server_update.board.sides[LoginNick].pits.length;
+
+    let index = serverBoardSize/2+1;
+    for(let x = 0; x < sideSize; x++){
+        updateSeeds(index+x, server_update.board.sides[LoginNick].pits[x]);
+       
+    }
+    
+    index = 1;
+    for(let x = 0; x < sideSize; x++){
+        updateSeeds(index+x, server_update.board.sides[opponentNick].pits[x]);
+    }
+
+    serverBoard.setPits(serverBoardArray);
+
+    updateBoard();
+}
+
+
 
 function makeMove(pit){
     if (buttonStage == 1){
-
+        notify(LoginNick, LoginPassword, game_id, pit-1-(game.getSize()/2));
+        updateServerBoard();
     }
     else{
-
+        let ret = game.move(pit);
+        console.log(ret);
+        if(ret != -1){
+            if (ret == 0){
+                var newMessage = document .createElement("message");
+                newMessage.appendChild(document.createTextNode("It's a tie!"));
+                document.getElementById("messages").appendChild(newMessage);
+            }
+            else
+            {
+                
+                var newMessage = document .createElement("message");
+                newMessage.appendChild(document.createTextNode("Player "+ ret + "won" ));
+                document.getElementById("messages").appendChild(newMessage);
+                document.getElementById("back-button").style.display = "block";
+            }
+        }
+        else {
+            var newMessage = document .createElement("message");
+                newMessage.appendChild(document.createTextNode("You chose pit: " + pit + "\n"));
+                document.getElementById("messages").appendChild(newMessage);
+                document.getElementById("messages").scrollTop =  document.getElementById("messages").scrollHeight;
+        }
     }
-    let ret = game.move(pit);
     updateBoard();
-    console.log(ret);
-    if(ret != -1){
-        if (ret == 0){
-            var newMessage = document .createElement("message");
-            newMessage.appendChild(document.createTextNode("It's a tie!"));
-            document.getElementById("messages").appendChild(newMessage);
-        }
-        else
-        {
-            
-            var newMessage = document .createElement("message");
-            newMessage.appendChild(document.createTextNode("Player "+ ret + "won" ));
-            document.getElementById("messages").appendChild(newMessage);
-            document.getElementById("back-button").style.display = "block";
-        }
-    }
-    else {
-        var newMessage = document .createElement("message");
-            newMessage.appendChild(document.createTextNode("You chose pit: " + pit + "\n"));
-            document.getElementById("messages").appendChild(newMessage);
-            document.getElementById("messages").scrollTop =  document.getElementById("messages").scrollHeight;
-    }
+
     
 
 }
@@ -700,6 +763,7 @@ function startGame(){
   setGridColumns();
   document.getElementById("game-board").style.display = "grid";
   if(buttonStage == 1){
+      serverBoard = new Board(2*pitsPerPlayer+2, 0);
     join(LoginNick, LoginPassword, pitsPerPlayer, seedsPerpit);
   }
   else{
@@ -852,6 +916,7 @@ const sendHttpRequest = (method, url, data) => {
 
 var LoginNick;
 var LoginPassword;
+var opponentNick
 var game_id;
 var error_msg;
 var player_ranking;
@@ -971,8 +1036,10 @@ const ranking = () => {
   const update = () => {
     let game_server = new EventSource('http://twserver.alunos.dcc.fc.up.pt:8008/update?nick=' + LoginNick +'&game='+ game_id);
     game_server.onmessage = response => {
-        let server_a = JSON.parse(response.data)
-        console.log(server_a);
+        let server_update = JSON.parse(response.data)
+        console.log(server_update);
+        saveOpponentNick(server_update);
+        updateServerBoard(server_update);
     
     }
     game_server.onerror = error => {
