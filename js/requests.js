@@ -676,7 +676,7 @@ var serverBoardSize;
 
 function saveOpponentNick(server_update){
     for(var usrnm in server_update.stores){
-        if(usrnm != LoginNick)
+        if(usrnm != loginNick)
             opponentNick = usrnm;
     }
 }
@@ -698,14 +698,14 @@ function updateServerBoard(server_update){
     serverBoardArray = serverBoard.getPits();
     serverBoardSize = serverBoard.getSize();
 
-    updateSeeds(0, server_update.stores[LoginNick]);
-    updateSeeds(serverBoardSize/2, server_update.stores[opponentNick]);
+    updateSeeds(0, server_update.board.sides[loginNick].store);
+    updateSeeds(serverBoardSize/2, server_update.board.sides[opponentNick].store);
     
-    let sideSize = server_update.board.sides[LoginNick].pits.length;
+    let sideSize = server_update.board.sides[loginNick].pits.length;
 
     let index = serverBoardSize/2+1;
     for(let x = 0; x < sideSize; x++){
-        updateSeeds(index+x, server_update.board.sides[LoginNick].pits[x]);
+        updateSeeds(index+x, server_update.board.sides[loginNick].pits[x]);
        
     }
     
@@ -723,8 +723,8 @@ function updateServerBoard(server_update){
 
 function makeMove(pit){
     if (buttonStage == 1){
-        notify(LoginNick, LoginPassword, game_id, pit-1-(game.getSize()/2));
-        updateServerBoard();
+        notify(loginNick, LoginPassword, game_id, pit-1-(game.getSize()/2));
+        
     }
     else{
         let ret = game.move(pit);
@@ -764,7 +764,7 @@ function startGame(){
   document.getElementById("game-board").style.display = "grid";
   if(buttonStage == 1){
       serverBoard = new Board(2*pitsPerPlayer+2, 0);
-    join(LoginNick, LoginPassword, pitsPerPlayer, seedsPerpit);
+    join(loginNick, LoginPassword, pitsPerPlayer, seedsPerpit);
   }
   else{
       let difficulty = document.getElementById("difficulty");
@@ -914,7 +914,7 @@ const sendHttpRequest = (method, url, data) => {
   ////////////////////////////////////////////////////////////////////////////////////////////
 /*http://twserver.alunos.dcc.fc.up.pt:8008/*/
 
-var LoginNick;
+var loginNick;
 var LoginPassword;
 var opponentNick
 var game_id;
@@ -924,7 +924,7 @@ var server_response;
 
 function addTestEvent(){
     document.getElementById('Butao').addEventListener("click", function(){ranking();});
-    document.getElementById('leavebt').addEventListener("click", function(){leave(game_id, LoginNick, LoginPassword);});
+    document.getElementById('leavebt').addEventListener("click", function(){leave(game_id, loginNick, LoginPassword);});
 
 }
 
@@ -940,7 +940,7 @@ const register = (nickname, pass) => {
     })
       .then(responseData => {
         console.log(responseData);
-        LoginNick = nickname;
+        loginNick = nickname;
         LoginPassword = pass;
         hideForms();
       })
@@ -1034,7 +1034,7 @@ const ranking = () => {
 /*update*/
 
   const update = () => {
-    let game_server = new EventSource('http://twserver.alunos.dcc.fc.up.pt:8008/update?nick=' + LoginNick +'&game='+ game_id);
+    let game_server = new EventSource('http://twserver.alunos.dcc.fc.up.pt:8008/update?nick=' + loginNick +'&game='+ game_id);
     game_server.onmessage = response => {
         let server_update = JSON.parse(response.data)
         console.log(server_update);
