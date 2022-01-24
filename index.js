@@ -2,6 +2,10 @@ const port = 9075;
 
 var credentials = [];
 
+var ranking = [];
+
+
+
 function verifyCredentials(username, pass){
     for(var x in credentials){
         if(x[0] == username && x[1] == pass){
@@ -43,6 +47,8 @@ const server = http.createServer(async function (request, response) {
         // Parses request's body into javascript object
         for await (const chunk of request) body.push(chunk);
         body = JSON.parse(Buffer.concat(body).toString());
+
+
         if(url == '/ranking'){
             response.writeHead(200, {
                 'Access-Control-Allow-Origin': '*',
@@ -57,14 +63,18 @@ const server = http.createServer(async function (request, response) {
             response.end();
             return;
         }
+
+
     
         if(url == '/register'){
             let responseNum;
-            if(credentials(body.username, body.pass)){
+            if(verifyCredentials(body.nick, body.password)){
                 responseNum = 200;
+                responseBody = {"success" : "Successful regist"};
             }
             else{
                 responseNum = 400
+                responseBody = {"error":"User registered with a different password"};
             }
     
             response.writeHead(responseNum, {
@@ -75,7 +85,6 @@ const server = http.createServer(async function (request, response) {
                 'Keep-Alive': 'timeout=5',
                 'Transfer-Encoding': 'chunked'
             });
-            responseBody = {};
             response.write(JSON.stringify(responseBody));
             response.end();
             return;
