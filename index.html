@@ -12,6 +12,7 @@
     <div id="page-mask"></div>
     <div id=header class=edges>
       <img id=logo src="images/logo.png" alt="logo">
+      <div id="loginNickDisplay"></div>
       <button id=login class=edgeButtons type="button" onclick="openLoginForm()">Login</button>
     </div>
   
@@ -27,8 +28,9 @@
     
         <label for="psw"><b>Password</b></label>
         <input id="loginPass" type="password" placeholder="Enter Password" name="psw" required>
-    
-        <button type="submit" class="btn" onclick="login()">Login</button>
+        
+        
+        <button id="loginFormBttn" type="submit" class="btn" onclick="login()">Login</button>
         <button type="button" class="btn cancel" onclick="closeLoginForm()">Close</button>
       </div>
     </div>
@@ -65,13 +67,12 @@
         <img class="icons" id="oneplayer-img" class="icons" src="images/oneplayer.png" alt="one player">
 
         <div id="difficulty-input">
-          <label for="difficulty">Difficulty: </label>
-          <select name="difficulty" id="difficulty">
-            <option value="2">random</option>
-            <option value="3">easy</option>
-            <option value="4">medium</option>
-            <option value="5">hard</option>
-          </select>
+            <select name="difficulty" id="difficulty" class="box">
+              <option selected value="2">random</option>
+              <option value="3">easy</option>
+              <option value="4">medium</option>
+              <option value="5">hard</option>
+            </select>
         </div>
 
         <div id="start-input">

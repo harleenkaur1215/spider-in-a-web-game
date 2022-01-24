@@ -908,6 +908,10 @@ function hideForms(){
     closeLoginForm();
 }
 
+function showNick(){
+    document.getElementById("loginNickDisplay").innerHTML = "Logged: " + loginNick;
+}
+
 function login(){
   var nick = document.getElementById("loginNick").value;
   var pass = document.getElementById("loginPass").value;
@@ -965,7 +969,7 @@ var localHost = 'http://localhost:9075/';
 
 var serverFcup = 'http://twserver.alunos.dcc.fc.up.pt:8008/';
 
-var currentServer = localHost;
+var currentServer = serverFcup;
 
 var loginNick;
 var LoginPassword;
@@ -988,6 +992,7 @@ const register = (nickname, pass) => {
         loginNick = nickname;
         LoginPassword = pass;
         hideForms();
+        showNick();
       })
       .catch(err => {
         console.log(err, err.data);
