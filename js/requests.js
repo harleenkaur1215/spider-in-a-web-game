@@ -170,7 +170,7 @@ class Board{
     }
       
 
-    
+
     empty = true;
       
     for(var c = 1; c < this.boardSize/2; c++){
@@ -882,6 +882,7 @@ function login(){
 }
 
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -925,11 +926,17 @@ const sendHttpRequest = (method, url, data) => {
 
 
   ////////////////////////////////////////////////////////////////////////////////////////////
-/*http://twserver.alunos.dcc.fc.up.pt:8008/*/
+/*localHost*/
+
+var localHost = 'http://127.0.0.1:9075/';
+
+var serverFcup = 'http://twserver.alunos.dcc.fc.up.pt:8008/';
+
+var currentServer = serverFcup;
 
 var loginNick;
 var LoginPassword;
-var opponentNick
+var opponentNick;
 var game_id;
 var error_msg;
 var player_ranking;
@@ -947,7 +954,7 @@ addTestEvent();
 /*Register*/ 
 
 const register = (nickname, pass) => {
-    sendHttpRequest('POST', 'http://twserver.alunos.dcc.fc.up.pt:8008/register', {
+    sendHttpRequest('POST', currentServer + 'register', {
       nick: nickname,
       password: pass
     })
@@ -966,7 +973,7 @@ const register = (nickname, pass) => {
 /*join*/
 
 const join = (nickname, pass, pitsPerPlayer, seedsPerpit) => {
-  sendHttpRequest('POST', 'http://twserver.alunos.dcc.fc.up.pt:8008/join', {
+  sendHttpRequest('POST', currentServer + 'join', {
     group: 71101,
     nick: nickname,
     password: pass,
@@ -990,7 +997,7 @@ const join = (nickname, pass, pitsPerPlayer, seedsPerpit) => {
 /*leave*/
 
 const leave = (game_id, nickname, pass) => {
-    sendHttpRequest('POST', 'http://twserver.alunos.dcc.fc.up.pt:8008/leave', {
+    sendHttpRequest('POST', currentServer + 'leave', {
       game: game_id,
       nick: nickname,
       password: pass
@@ -1010,7 +1017,7 @@ const leave = (game_id, nickname, pass) => {
 /*notify*/
 
 const notify = (nickname, pass, game_id, move_input) => {
-    sendHttpRequest('POST', 'http://twserver.alunos.dcc.fc.up.pt:8008/notify', {
+    sendHttpRequest('POST', currentServer +'notify', {
         nick: nickname,
         password: pass,
         game: game_id,
@@ -1032,7 +1039,7 @@ const notify = (nickname, pass, game_id, move_input) => {
 /*ranking*/
 
 const ranking = () => {
-    sendHttpRequest('POST', 'http://twserver.alunos.dcc.fc.up.pt:8008/ranking', {})
+    sendHttpRequest('POST', currentServer +'ranking', {})
       .then(responseData => {
         console.log(responseData);
         player_ranking = responseData;
@@ -1047,13 +1054,13 @@ const ranking = () => {
 /*update*/
 
   const update = () => {
-    let game_server = new EventSource('http://twserver.alunos.dcc.fc.up.pt:8008/update?nick=' + loginNick +'&game='+ game_id);
+    let game_server = new EventSource(currentServer +'update?nick=' + loginNick +'&game='+ game_id);
     game_server.onmessage = response => {
         let server_update = JSON.parse(response.data)
         console.log(server_update);
 
         if (server_update.winner != undefined){
-            if (server_update.winner == nick){
+            if (server_update.winner == loginNick){
                 // changeVictoryForm("victory-title");
                 // show('victory-form');
             }
@@ -1074,3 +1081,4 @@ const ranking = () => {
         console.log(error_msg);
     }
 }
+
