@@ -91,7 +91,7 @@ class Board{
           return -2; //wrongmove
       }
 
-      var seeds = this.pits[cavity].length;
+      let seeds = this.pits[cavity].length;
 
       if(seeds == 0){
           return -2; //wrongmove
@@ -99,9 +99,9 @@ class Board{
 
       this.pits[cavity].length = 0;
 
-      var seedingCav = cavity;
+      let seedingCav = cavity;
 
-      var counter = 0;
+      let counter = 0;
       while(counter < seeds){
           
           seedingCav++;
@@ -145,42 +145,55 @@ class Board{
 
   }
 
-  checkEndGame(player){
-      if(player == 1){
-          for(var c = this.boardSize/2 + 1; c < this.boardSize; c++){
-              if(this.pits[c].length != 0){
-                  return false;
-              }
-          }
-          
-          var l;
-          for(var c = 1; c < this.boardSize/2; c++){
-              l = this.pits[c].length;
-              this.pits[c].length = 0;
-              for(var x = 0; x < l; x++){
-                  this.pits[this.boardSize/2].push(new Seed());
-              }
-          }
-      }
+  checkEndGame(){
 
-      else{
-          for(var c = 1; c < this.boardSize/2; c++){
-              if(this.pits[c].length != 0){
-                  return false;
-              }
-          }
-          
-          var l;
-          for(var c = this.boardSize/2+1; c < this.boardSize; c++){
-              l = this.pits[c].length;
-              this.pits[c].length = 0;
-              for(var x = 0; x < l; x++){
-                  this.pits[0].push(new Seed());
-              }
-          }
-      }
+    let empty = true;
+      
 
-      return true;
+    for(var c = this.boardSize/2 + 1; c < this.boardSize; c++){
+        if(this.pits[c].length != 0){
+            empty = false;
+            break;
+        }
+    }
+    
+    if(empty){
+        var l;
+        for(var c = 1; c < this.boardSize/2; c++){
+            l = this.pits[c].length;
+            this.pits[c].length = 0;
+            for(var x = 0; x < l; x++){
+                this.pits[this.boardSize/2].push(new Seed());
+            }
+        }
+        return true;
+    }
+      
+
+
+    empty = true;
+      
+    for(var c = 1; c < this.boardSize/2; c++){
+        if(this.pits[c].length != 0){
+            empty = false;
+            break;
+        }
+    }
+    
+    if(empty){
+        var l;
+        for(var c = this.boardSize/2+1; c < this.boardSize; c++){
+            l = this.pits[c].length;
+            this.pits[c].length = 0;
+            for(var x = 0; x < l; x++){
+                this.pits[0].push(new Seed());
+            }
+        }
+        return true;
+    }
+      
+
+    return false;
   }
 
   getNumSeeds(c){
@@ -214,19 +227,17 @@ class Board{
   }
 
   clone(){
-      var ret = new Board(this.boardSize, 1);
+      let ret = new Board(this.boardSize, 1);
 
-      var pitsCopy = [];
+      let pitsCopy = [];
       for(var c = 0; c < this.boardSize; c++){
           pitsCopy[c] = [];
       }
 
-      for(var n = 1; n < this.boardSize; n++){
-          if(n != (this.boardSize/2)){
+      for(var n = 0; n < this.boardSize; n++){
               for(var x = 0; x < this.pits[n].length; x++){
                   pitsCopy[n].push(new Seed());
               }
-          }
       }
 
       ret.setPits(pitsCopy);
@@ -245,6 +256,10 @@ class Game{
       this.playerTwo = 0;
       this.turn = turn;
       this.gameMode = gameMode;
+  }
+
+  getSize(){
+      return this.boardSize;
   }
 
   getTurn(){
@@ -309,8 +324,8 @@ class Game{
   }
 
   botRandom(){
-      var randomMove;
-      var result;
+      let randomMove;
+      let result;
       do{
           randomMove = Math.floor(Math.random() * (this.boardSize/2 - 1)) + 1;
           result = this.board.move(this.turn, randomMove);
@@ -319,39 +334,64 @@ class Game{
   }
 
   botEasy(){
-      var boardCpy = this.board.clone();
-      var bestMove = bot(boardCpy, 1);
-      this.board.move(this.turn, bestMove);
-      console.log("Insert value: " + bestMove);
+    let ret;
+    let boardCpy;
+    let bestMove;
+    do{
+      boardCpy = this.board.clone();
+      bestMove = bot(boardCpy, 2);
+      ret = this.board.move(2, bestMove);
+
+      if(this.board.checkEndGame()){
+          return this.board.getWinner();
+      }
+    }while(ret == -1)
   }
 
 
   botMedium(){
-      var boardCpy = this.board.clone();
-      var bestMove = bot(boardCpy, 3);
-      this.board.move(this.turn, bestMove);
-      console.log("Insert value: " + bestMove);
+      let ret;
+      let boardCpy;
+      let bestMove;
+      do{
+        boardCpy = this.board.clone();
+        bestMove = bot(boardCpy, 4);
+        ret = this.board.move(2, bestMove);
+
+        if(this.board.checkEndGame()){
+            return this.board.getWinner();
+        }
+      }while(ret == -1)
   }
 
   botHard(){
-      var boardCpy = this.board.clone();
-      var bestMove = bot(boardCpy, 5);
-      this.board.move(this.turn, bestMove);
-      console.log("Insert value: " + bestMove);
+      let ret;
+      let boardCpy;
+      let bestMove;
+      do{
+        boardCpy = this.board.clone();
+        bestMove = bot(boardCpy, 6);
+        ret = this.board.move(2, bestMove);
+
+        if(this.board.checkEndGame()){
+            return this.board.getWinner();
+        }
+      }while(ret == -1)
+    
   }
 
 }
 
 function bot(gameBoard, depth){
-  var maxPointsDif = 0 - (Number.MAX_VALUE);
-  var bestMove;
+  let maxPointsDif = 0 - (Number.MAX_VALUE);
+  let bestMove;
 
 
-  var res;
-  var pointDif;
-  var boardCopy;
-  var moveResult;
-  for(var c = 1; c < gameBoard.getSize()/2; c++){
+  let res;
+  let pointDif;
+  let boardCopy;
+  let moveResult;
+  for(let c = 1; c < gameBoard.getSize()/2; c++){
       boardCopy = gameBoard.clone();
       moveResult = boardCopy.move(2, c);
 
@@ -386,17 +426,17 @@ function minimax(gameBoard, depth, isMax){
       return gameBoard;
   }
 
-  var maxPointsDif = 0 - (Number.MAX_VALUE);
-  var bestBoard;
-  var pointDif;
+  let maxPointsDif = 0 - (Number.MAX_VALUE);
+  let bestBoard = gameBoard;;
+  let pointDif;
 
-  var res;
-  var boardCopy;
-  var moveResult;
-  var pointDif;
+  let res;
+  let boardCopy;
+  let moveResult;
+
 
   if(isMax){
-      for(var c = 1; c < gameBoard.getSize()/2; c++){
+      for(let c = 1; c < gameBoard.getSize()/2; c++){
           boardCopy = gameBoard.clone();
           moveResult = boardCopy.move(2, c);
 
@@ -420,7 +460,7 @@ function minimax(gameBoard, depth, isMax){
       }
   }
   else{
-      for(var c = gameBoard.getSize()/2+1; c < gameBoard.getSize(); c++){
+      for(let c = gameBoard.getSize()/2+1; c < gameBoard.getSize(); c++){
           boardCopy = gameBoard.clone();
           moveResult = boardCopy.move(1, c);
 
@@ -476,7 +516,6 @@ function changeGamemode(){
 
 }
 
-var buttonStage = 0;
 
 function gamemodeButtonClick(){
   changeGamemode();
@@ -532,12 +571,16 @@ function reset(){
         document.getElementById("messages").removeChild(document.getElementById("messages").firstChild);
     }
 }
-
+var buttonStage = 0;
 var seedsPerpit = 3;
 var pitsPerPlayer = 6;
 var gameMode = 2;
 var game;
+var serverBoard;
 var start;
+
+
+
 
 function instructionsRankings(id){
     for(var x of document.getElementsByClassName("instructions-rankings-buttons")){
@@ -612,7 +655,13 @@ function play(){
 
 function updateBoard(){
      //delete all seeds divs
-    var board = game.getBoard();
+    let board;
+    if(buttonStage == 0){
+         board = game.getBoard();
+    }
+    else{
+        board = serverBoard;
+    }
     var seeds = document.getElementsByClassName("allSeeds");
     var pits = document.getElementsByClassName("allPits");
 
@@ -659,40 +708,100 @@ function updateBoard(){
     document.getElementById("messages").appendChild(newMessage);
 }
 
+var serverBoardArray;
+var serverBoardSize;
+
+function saveOpponentNick(server_update){
+    for(var usrnm in server_update.stores){
+        if(usrnm != loginNick)
+            opponentNick = usrnm;
+    }
+}
+
+function updateSeeds(index, numSeeds){
+    if(serverBoardArray[index].length > numSeeds){
+        serverBoardArray[index].length = numSeeds;
+    }
+    else if(serverBoardArray[index].length < numSeeds){
+        while(serverBoardArray[index].length != numSeeds){
+            serverBoardArray[index].push(new Seed());
+        }
+    }
+    
+}
+
+
+function updateServerBoard(server_update){
+    serverBoardArray = serverBoard.getPits();
+    serverBoardSize = serverBoard.getSize();
+
+    updateSeeds(0, server_update.board.sides[loginNick].store);
+    updateSeeds(serverBoardSize/2, server_update.board.sides[opponentNick].store);
+    
+    let sideSize = server_update.board.sides[loginNick].pits.length;
+
+    let index = serverBoardSize/2+1;
+    for(let x = 0; x < sideSize; x++){
+        updateSeeds(index+x, server_update.board.sides[loginNick].pits[x]);
+       
+    }
+    
+    index = 1;
+    for(let x = 0; x < sideSize; x++){
+        updateSeeds(index+x, server_update.board.sides[opponentNick].pits[x]);
+    }
+
+    serverBoard.setPits(serverBoardArray);
+
+    updateBoard();
+}
+
+
 
 function makeMove(pit){
-    let ret = game.move(pit);
+    if (buttonStage == 1){
+        notify(loginNick, LoginPassword, game_id, pit-1-(game.getSize()/2));
+        
+    }
+    else{
+        let ret = game.move(pit);
+        console.log(ret);
+        if(ret != -1){
+            if (ret == 0){
+                var newMessage = document .createElement("message");
+                newMessage.appendChild(document.createTextNode("It's a tie!"));
+                document.getElementById("messages").appendChild(newMessage);
+            }
+            else
+            {
+                
+                var newMessage = document .createElement("message");
+                newMessage.appendChild(document.createTextNode("Player "+ ret + "won" ));
+                document.getElementById("messages").appendChild(newMessage);
+                document.getElementById("back-button").style.display = "block";
+            }
+        }
+        else {
+            var newMessage = document .createElement("message");
+                newMessage.appendChild(document.createTextNode("You chose pit: " + pit + "\n"));
+                document.getElementById("messages").appendChild(newMessage);
+                document.getElementById("messages").scrollTop =  document.getElementById("messages").scrollHeight;
+        }
+    }
     updateBoard();
-    console.log(ret);
-    if(ret != -1){
-        if (ret == 0){
-            var newMessage = document .createElement("message");
-            newMessage.appendChild(document.createTextNode("It's a tie!"));
-            document.getElementById("messages").appendChild(newMessage);
-        }
-        else
-        {
-            
-            var newMessage = document .createElement("message");
-            newMessage.appendChild(document.createTextNode("Player "+ ret + "won" ));
-            document.getElementById("messages").appendChild(newMessage);
-            document.getElementById("back-button").style.display = "block";
-        }
-    }
-    else {
-        var newMessage = document .createElement("message");
-            newMessage.appendChild(document.createTextNode("You chose pit: " + pit + "\n"));
-            document.getElementById("messages").appendChild(newMessage);
-            document.getElementById("messages").scrollTop =  document.getElementById("messages").scrollHeight;
-    }
+
     
 
 }
 
 function startGame(){
   document.getElementById("game-configs").style.display = "none";
+  buildBoard();
+  setGridColumns();
+  document.getElementById("game-board").style.display = "grid";
   if(buttonStage == 1){
-      gameMode = 1;
+      serverBoard = new Board(2*pitsPerPlayer+2, 0);
+    join(loginNick, LoginPassword, pitsPerPlayer, seedsPerpit);
   }
   else{
       let difficulty = document.getElementById("difficulty");
@@ -704,9 +813,7 @@ function startGame(){
 //   else{
 //       start = 1;
 //   }
-  buildBoard();
-  setGridColumns();
-  document.getElementById("game-board").style.display = "grid";
+  
   game = new Game(2*pitsPerPlayer+2, seedsPerpit, 1, gameMode);
   updateBoard();
 }
@@ -775,6 +882,30 @@ function closeCommands(){
 }
 
 
+function hideForms(){
+    for (var x of document.getElementsByClassName("registerForms")){
+        x.style.display= "none";
+    }
+}
+
+function giveRegisterError(){
+    document.getElementById("feedbackLogin").innerHTML = "Credentials Wrong";
+    
+}
+
+function hideForms(){
+    document.getElementById("feedbackLogin").innerHTML = " ";
+    closeLoginForm();
+}
+
+function login(){
+  var nick = document.getElementById("loginNick").value;
+  var pass = document.getElementById("loginPass").value;
+  register(nick, pass)
+}
+
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -818,22 +949,41 @@ const sendHttpRequest = (method, url, data) => {
 
 
   ////////////////////////////////////////////////////////////////////////////////////////////
-/*http://twserver.alunos.dcc.fc.up.pt:8008/*/
+/*localHost*/
 
-var LoginNick;
+var localHost = 'http://127.0.0.1:9075/';
 
+var serverFcup = 'http://twserver.alunos.dcc.fc.up.pt:8008/';
+
+var currentServer = serverFcup;
+
+var loginNick;
 var LoginPassword;
+var opponentNick;
+var game_id;
+var error_msg;
+var player_ranking;
+var server_response;
+
+function addTestEvent(){
+    document.getElementById('Butao').addEventListener("click", function(){ranking();});
+    document.getElementById('leavebt').addEventListener("click", function(){leave(game_id, loginNick, LoginPassword);});
+
+}
+
+addTestEvent();
+
 
 /*Register*/ 
 
 const register = (nickname, pass) => {
-    sendHttpRequest('POST', 'http://twserver.alunos.dcc.fc.up.pt:8008/register', {
+    sendHttpRequest('POST', currentServer + 'register', {
       nick: nickname,
       password: pass
     })
       .then(responseData => {
         console.log(responseData);
-        LoginNick = nickname;
+        loginNick = nickname;
         LoginPassword = pass;
         hideForms();
       })
@@ -843,46 +993,115 @@ const register = (nickname, pass) => {
       });
 };
 
-function hideForms(){
-    for (var x of document.getElementsByClassName("registerForms")){
-        x.style.display= "none";
-    }
-}
-
-function giveRegisterError(){
-    document.getElementById("feedbackLogin").innerHTML = "Credentials Wrong";
-    
-}
-
-function hideForms(){
-    document.getElementById("feedbackLogin").innerHTML = " ";
-    closeLoginForm();
-}
-
-function login(){
-  var nick = document.getElementById("loginNick").value;
-  var pass = document.getElementById("loginPass").value;
-  register(nick, pass)
-}
-
 /*join*/
 
-const join = (nickname, pass, siz, init) => {
-  sendHttpRequest('POST', 'http://twserver.alunos.dcc.fc.up.pt:8008/join', {
+const join = (nickname, pass, pitsPerPlayer, seedsPerpit) => {
+  sendHttpRequest('POST', currentServer + 'join', {
     group: 71101,
     nick: nickname,
     password: pass,
-    size: siz,
-    initial: init
-
+    size: pitsPerPlayer,
+    initial: seedsPerpit
+    
   })
     .then(responseData => {
       console.log(responseData);
-      
+      game_id = responseData.game;
+      update();
     })
     .catch(err => {
       console.log(err, err.data);
-      
+      document.innerHtml = "You need to be logged in first"
     });
 };
+
+
+
+/*leave*/
+
+const leave = (game_id, nickname, pass) => {
+    sendHttpRequest('POST', currentServer + 'leave', {
+      game: game_id,
+      nick: nickname,
+      password: pass
+      
+    })
+      .then(responseData => {
+        console.log(responseData);
+        
+      })
+      .catch(err => {
+        console.log(err, err.data);
+        
+      });
+  };
+
+
+/*notify*/
+
+const notify = (nickname, pass, game_id, move_input) => {
+    sendHttpRequest('POST', currentServer +'notify', {
+        nick: nickname,
+        password: pass,
+        game: game_id,
+        move: move_input
+        
+      })
+      .then(responseData => {
+        console.log(responseData);
+        
+      })
+      .catch(err => {
+        console.log(err, err.data);
+        error = err.data;
+      });
+  };
+
+
+
+/*ranking*/
+
+const ranking = () => {
+    sendHttpRequest('POST', currentServer +'ranking', {})
+      .then(responseData => {
+        console.log(responseData);
+        player_ranking = responseData;
+      })
+      .catch(err => {
+        console.log(err, err.data);
+        error = err.data;
+      });
+  };
+
+
+/*update*/
+
+  const update = () => {
+    let game_server = new EventSource(currentServer +'update?nick=' + loginNick +'&game='+ game_id);
+    game_server.onmessage = response => {
+        let server_update = JSON.parse(response.data)
+        console.log(server_update);
+
+        if (server_update.winner != undefined){
+            if (server_update.winner == loginNick){
+                // changeVictoryForm("victory-title");
+                // show('victory-form');
+            }
+            else{
+                // changeVictoryForm("defeat-title");
+                // show('victory-form');
+            }
+            game_server.close();
+        }
+        else{
+            saveOpponentNick(server_update);
+            updateServerBoard(server_update);
+        }
+    
+    }
+    game_server.onerror = error => {
+        error_msg = JSON.parse(error)
+        console.log(error_msg);
+    }
+}
 
