@@ -639,6 +639,21 @@ message{
   width: 44vw;
   height: 22vw;
   padding: 10px;
+  border: 10px double grey;
+  background-color: white;
+  text-align: center;
+}
+
+#rankings-popup{
+  display: none;
+  position: absolute;
+  top: 12vw;
+  left: 12vw;
+  z-index: 1000;
+  width: 44vw;
+  height: 22vw;
+  padding: 10px;
+  border: 10px double grey;
   background-color: white;
   text-align: center;
 }
@@ -679,12 +694,21 @@ classification{
   color: black;
 }
 
+#instructions-windowX{
+  position: absolute;
+  color: red;
+  top: 5px;
+  right: 5px;
+}
+
+
 #rankings-popup{
   display: none;
   background-color: burlywood;;
   padding: 10px;
   width: 100%;
   height: 100%;
+  font-size: 15px;
 }
 
 html {

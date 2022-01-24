@@ -523,13 +523,79 @@ function instructionsOn() {
 
 
 function rankingsOn() {
-    // document.getElementById("rankings-popup").style.display="block";
     ranking();
-    for(let r of player_ranking.ranking){
+    for(let r of player_ranking){
         let newDiv = document.createElement("classification");
-        newDiv.appendChild(document.createTextNode(r)).
-        document.getElementsByName("rankings-popup").appendChild(newDiv);
+        newDiv.appendChild(document.createTextNode(r));
+        document.getElementByName("rankingsPopup").appendChild(newDiv);
     }
+    document.getElementByName("rankingsPopup").style.display="block";
+}
+
+function window1() {
+    document.getElementById("window1").style.display="block";
+    document.getElementById("window2").style.display="none";
+    document.getElementById("window3").style.display="none";
+    document.getElementById("window4").style.display="none";
+    document.getElementById("window5").style.display="none";
+    document.getElementById("window6").style.display="none";
+}
+
+function window2() {
+    document.getElementById("window1").style.display="none";
+    document.getElementById("window2").style.display="block";
+    document.getElementById("window3").style.display="none";
+    document.getElementById("window4").style.display="none";
+    document.getElementById("window5").style.display="none";
+    document.getElementById("window6").style.display="none";
+}
+
+function window3() {
+    document.getElementById("window1").style.display="none";
+    document.getElementById("window2").style.display="none";
+    document.getElementById("window3").style.display="block";
+    document.getElementById("window4").style.display="none";
+    document.getElementById("window5").style.display="none";
+    document.getElementById("window6").style.display="none";
+}
+
+function window4() {
+    document.getElementById("window1").style.display="none";
+    document.getElementById("window2").style.display="none";
+    document.getElementById("window3").style.display="none";
+    document.getElementById("window4").style.display="block";
+    document.getElementById("window5").style.display="none";
+    document.getElementById("window6").style.display="none";
+}
+
+function window5() {
+    document.getElementById("window1").style.display="none";
+    document.getElementById("window2").style.display="none";
+    document.getElementById("window3").style.display="none";
+    document.getElementById("window4").style.display="none";
+    document.getElementById("window5").style.display="block";
+    document.getElementById("window6").style.display="none";
+}
+function window6() {
+    document.getElementById("window1").style.display="none";
+    document.getElementById("window2").style.display="none";
+    document.getElementById("window3").style.display="none";
+    document.getElementById("window4").style.display="none";
+    document.getElementById("window5").style.display="none";
+    document.getElementById("window6").style.display="block";
+}
+
+function window7() {
+    document.getElementById("window1").style.display="none";
+    document.getElementById("window2").style.display="none";
+    document.getElementById("window3").style.display="none";
+    document.getElementById("window4").style.display="none";
+    document.getElementById("window5").style.display="none";
+    document.getElementById("window6").style.display="block";
+}
+
+function windowX() {
+    document.getElementById("instructions-popup").style.display="none";
 }
 
 function changeGamemode(){
@@ -661,6 +727,7 @@ function play(){
     document.getElementById("threeseeds-button").click();
     document.getElementById("sixpits-button").click();
     ranking();
+    document.getElementById("instructions-rankings-buttons").style.display = "flex";
 }
 
 
@@ -808,7 +875,6 @@ function makeMove(pit){
 
 function startGame(){
   document.getElementById("game-configs").style.display = "none";
-  document.getElementById("instructions-rankings-buttons").style.display = "flex";
   buildBoard();
   setGridColumns();
   document.getElementById("game-board").style.display = "grid";
