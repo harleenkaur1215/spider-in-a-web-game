@@ -51,8 +51,96 @@
       
     </div>
 
+    <div class="instructions-rankings">
 
+      <div id="instructions-rankings-buttons">
+
+        <button type="button" class="instructions-rankings-buttons" class="popup" id="instructions-button" onclick="instructionsOn()"> Instructions </button>
+        <button type="button" class="instructions-rankings-buttons" class="popup" id="rankings-button" onclick="RankingsOn()"> Classifications </button>
+
+      </div>
+      <div id="instructions-popup">
+
+        <div id="window1">
+          <h1>Forma de jogar</h1>
+          <p>Jogadores semeiam as suas sementes alternadamente<br>
+            Na sua vez semeiam a partir de uma das suas cavidades<br>
+            Consoante a situação da última semente semeada, podem<br>
+            &emsp;&emsp;voltar a jogar<br>
+            &emsp;&emsp;ficar com algumas sementes do adversário<br>
+            Termina quando um dos jogadores fica sem sementes</p> 
+        </div>
+
+        <div id="window2">
+          <h1>Começar a semear</h1>
+          <p>Escolher uma cavidade do seu lado (que não o armazém)<br>
+            Recolher todas as N sementes dessa cavidade<br>
+            Colocar 1 semente nas N cavidade seguintes<br>
+            A semeadura é feita no sentido anti-horário </p>
+        </div>
+
+        <div id="window3">
+          <h1>Continuar a semear</h1>
+          <p>Se a cavidade seguinte for o seu armazém, semear também<br>
+            Sobrando sementes, continuar no lado do adversário<br>
+            Se atingir o armazém do adversário, não semear<br>
+            Mas depois continuar do seu lado, se ainda tiver sementes</p>
+        </div>
+
+        <div id="window4">
+          <h1>Última semente em armazem</h1>
+          <p>Volta a jogar se a última semente for semeada for no seu próprio armazém<br>
+
+            Semeando cavidade agora vazia, a última semente cai no armazém e volta a jogar</p>
+        </div>
+
+        <div id="window5">
+          <h1>Última semente em cavidade vazia</h1>
+          <p>Se a última semente calhar numa sua cavidade vazia, transferir para o seu armazém as sementes<br>
+            &emsp;&emsp;na cavidade oposta, do adversário<br>
+            &emsp;&emsp;assim como essa última semente semeada</p>
+        </div>
+
+        <div id="window6">
+          <h1>Terminar</h1>
+          <p>Jogo termina quando um dos jogadores não pode jogar<br>
+            … porque todas as suas cavidades estão vazias<br>
+            O outro jogador recolhe sementes nas suas cavidades …<br>
+            … que são colocadas no seu armazém<br>
+            Ganha jogador cujo armazém tem mais sementes</p>
+        </div>
+
+        <div id="instructions-windows-buttons">
+
+          <button type="button" class="instructions-window-buttons" class="instructions-window" id="instructions-window1" onclick="window1()"> 1 </button>
+
+          <button type="button" class="instructions-window-buttons" class="instructions-window" id="instructions-window2" onclick="window2()"> 2 </button>
+
+          <button type="button" class="instructions-window-buttons" class="instructions-window" id="instructions-window2" onclick="window2()"> 3 </button>
+
+          <button type="button" class="instructions-window-buttons" class="instructions-window" id="instructions-window2" onclick="window2()"> 4 </button>
+
+          <button type="button" class="instructions-window-buttons" class="instructions-window" id="instructions-window2" onclick="window2()"> 5 </button>
+
+          <button type="button" class="instructions-window-buttons" class="instructions-window" id="instructions-window2" onclick="window2()"> 6 </button>
+
+        </div>
+
+
+      </div>
+
+      <div id="rankings-popup">
+
+        <span> Classifications<br><br> 1st - Eu <br> 2nd - Eu <br> 3rd - Eu </span>
+
+      </div>
+      
+
+    </div>
     <div class="game" id="game">
+
+      
+
       <div id="game-configs">
 
         <div class="game-title">
@@ -74,14 +162,6 @@
             <option value="4">medium</option>
             <option value="5">hard</option>
           </select>
-        </div>
-
-        <div id="start-input">
-          <label class="start">START
-            <input type="checkbox" checked="checked">
-
-          </label>
-          
         </div>
 
         <hr id="configs-line"> 
@@ -152,24 +232,7 @@
 
     </div>
 
-    <div class="instructions-rankings">
-
-      <div id="instructions-rankings-buttons">
-
-        <button type="button" class="instructions-rankings-buttons" id="instructions-button" onclick="instructionsRankings('instructions-button')"> Instructions </button>
-        <button type="button" class="instructions-rankings-buttons" id="rankings-button" onclick="instructionsRankings('rankings-button')"> Classifications </button>
-
-      </div>
-
-      <div id="instructions">
-
-        <span> Carregas para lá a sorte nos buracos do teu lado, e eventualmente vais ganhar. Podes perder 1 a cada 8 jogos e é isto </span>
-
-      </div>
-
-      <div id="rankings"> Classifications<br><br> 1st - Eu <br> 2nd - Eu <br> 3rd - Eu</div>
-
-    </div>
+    
 
     <br>
     <br>

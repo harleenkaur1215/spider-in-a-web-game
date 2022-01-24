@@ -147,11 +147,10 @@ body{
 }
 
 .game-title{ 
-  display: none;
   position:absolute;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0%;
+  left: 36%;
+  /*transform: translate(-50%, -50%);*/
 
   font-size:  1.5vw;
   line-height: 50%;
@@ -369,8 +368,8 @@ body{
 }
 
 #startgame-button:hover{
-  color: black !important;
-	background: blue;
+  color: white !important;
+	background: radial-gradient(ellipse at bottom, #1b2735 0%, #071039 100%);
 	border-color: white !important;
 	transition: all 0.4s ease 0s;
   cursor: pointer;
@@ -499,7 +498,7 @@ seed-value{
   flex-direction: column;
   background-color: rgb(90, 86, 76);
   width: 60%;
-  height: 6vw;
+  height: 4vw;
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
@@ -552,52 +551,89 @@ message{
 }
 
 .instructions-rankings{
-  display: none;
-  position: relative;
-  width: 90vw;
-  height: 25vw;
-  margin: auto;
-  margin-bottom: 20;
-  margin-top: 30px;
-  padding-top: 7.5%;
-  padding-bottom: 7.5%;
-  min-width: 800px;
-  min-height: 400px;
-  
+  left: 15%;
+  position: absolute;
+  top:4.5vw;
+  width: 70%;
 }
 
 #instructions-rankings-buttons{
+  display: none;
   position: relative;
   margin-bottom: 0px;
-  display: flex;
-  justify-content: left;
+  justify-content: space-between;
 }
 
 .instructions-rankings-buttons:hover{
-  color:orange;
+  color: white !important;
+	background: radial-gradient(ellipse at bottom, #1b2735 0%, #071039 100%);
+	border-color: white !important;
+	transition: all 0.4s ease 0s;
   cursor: pointer;
 }
 .instructions-rankings-buttons{
   font-family: ChunkFive;
   font-size: 24px;
   line-height: 42px;
-  text-shadow: 1px 1px 1px white;
-  height: 42px;
-  border: 1px solid #93b5c0;
+  border-radius: 50px;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: black !important;
+	text-transform: uppercase;
+	text-decoration: none;
+	background: #ffffff;
+	border: 4px solid grey !important;
+	display: inline-block;
+	transition: all 0.4s ease 0s;
 }
 
-#instructions-button{
-  background-color: gray;
-}
 
-#instructions{
-  background-color: burlywood;
+#instructions-popup{
+  display: none;
+  position: absolute;
+  top: 12vw;
+  left: 12vw;
+  z-index: 1000;
+  width: 44vw;
+  height: 22vw;
   padding: 10px;
-  width: 100%;
-  height: 100%;
+  background-color: white;
+  text-align: center;
 }
 
-#rankings{
+#instructions-windows-buttons{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  bottom: 2vw;
+  left: 40%;
+}
+
+#window1{
+  display: block;
+}
+
+#window2{
+  display: none;
+}
+
+#window3{
+  display: none;
+}
+
+#window4{
+  display: none;
+}
+
+#window5{
+  display: none;
+}
+
+#window6{
+  display: none;
+}
+
+#rankings-popup{
   display: none;
   background-color: burlywood;;
   padding: 10px;
@@ -694,9 +730,20 @@ html {
 #play-button{
   width: 40%;
   font-size: 20px;
+  color: black !important;
+	text-transform: uppercase;
+	text-decoration: none;
+	background: #ffffff;
+	padding: 20px;
+	border: 4px solid grey !important;
+	display: inline-block;
+	transition: all 0.4s ease 0s;
 }
 
 #play-button:hover{
-  color: blue;
+  color: white !important;
+	background: radial-gradient(ellipse at bottom, #1b2735 0%, #071039 100%);
+	border-color: white !important;
+	transition: all 0.4s ease 0s;
   cursor: pointer;
 }

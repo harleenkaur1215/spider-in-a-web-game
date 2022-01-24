@@ -512,6 +512,14 @@ function closeLoginForm() {
   
 }
 
+function instructionsOn() {
+    document.getElementById("instructions-popup").style.display="block";
+}
+
+function rankingsOn() {
+    document.getElementById("rankings-pop").style.display="block";
+}
+
 function changeGamemode(){
 
 }
@@ -582,24 +590,6 @@ var start;
 
 
 
-function instructionsRankings(id){
-    for(var x of document.getElementsByClassName("instructions-rankings-buttons")){
-        if (x.id == id){
-          x.style.background = "Gray";
-          if ( x.id == 'instructions-button'){
-              document.getElementById("rankings").style.display="none";
-              document.getElementById("instructions").style.display="block";
-          }
-          else{
-            document.getElementById("instructions").style.display="none";
-            document.getElementById("rankings").style.display="block";
-          }
-        }
-        else{
-          x.style.background = "White";
-        }
-      }
-}
 
 function chooseSeedsPerPit(id){
     for(var x of document.getElementsByClassName("seed-buttons")){
@@ -706,6 +696,7 @@ function updateBoard(){
     var newMessage = document.createElement("message");
     newMessage.appendChild(document.createTextNode("It's your turn Player " + game.getTurn() + ":\n"));
     document.getElementById("messages").appendChild(newMessage);
+    document.getElementById("messages").scrollTop =  document.getElementById("messages").scrollHeight;
 }
 
 var serverBoardArray;
@@ -796,6 +787,7 @@ function makeMove(pit){
 
 function startGame(){
   document.getElementById("game-configs").style.display = "none";
+  document.getElementById("instructions-rankings-buttons").style.display = "flex";
   buildBoard();
   setGridColumns();
   document.getElementById("game-board").style.display = "grid";
@@ -807,13 +799,6 @@ function startGame(){
       let difficulty = document.getElementById("difficulty");
       gameMode = parseInt(difficulty.value);
   }
-//   if(document.getElementById("start").checked){
-//       start = 2;
-//   }
-//   else{
-//       start = 1;
-//   }
-  
   game = new Game(2*pitsPerPlayer+2, seedsPerpit, 1, gameMode);
   updateBoard();
 }
