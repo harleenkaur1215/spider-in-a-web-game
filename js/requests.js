@@ -523,14 +523,42 @@ function instructionsOn() {
 
 
 function rankingsOn() {
-    ranking();
-    for(let r of player_ranking){
-        let newDiv = document.createElement("classification");
-        newDiv.appendChild(document.createTextNode(r));
-        document.getElementByName("rankingsPopup").appendChild(newDiv);
+    document.getElementById("rankingsPopup").style.display = "flex";
+    let counter = 1;
+    let r = document.getElementById("rankingsResult");
+    while(r.firstChild){
+        r.removeChild(r.firstChild);
     }
-    document.getElementByName("rankingsPopup").style.display="block";
+    r = document.getElementById("localrankingsResult");
+    while(r.firstChild){
+        r.removeChild(r.firstChild);
+    }
+
+    for(let x of player_ranking.ranking){
+        let newDiv = document.createElement("classification");
+        newDiv.appendChild(document.createTextNode(counter + "º =>  name: " + x.nick + "  ;  victories: " + x.victories + "  ;  games: " + x.games + '\n'));
+        document.getElementById("rankingsResult").appendChild(newDiv);
+        counter++;
+    }
+    counter=1
+    let ranking = JSON.parse(localStorage.getItem('ranking'));
+    for(let y of ranking){
+        if(counter == 4){
+            break;
+        }
+        let newDiv = document.createElement("classification");
+        newDiv.appendChild(document.createTextNode(counter + "º =>  name: " + y[0] + "  ;  victories: " + y[1] + '\n'));
+        document.getElementById("localrankingsResult").appendChild(newDiv);
+        counter++;
+    }
+
+
 }
+
+function closeRankings(){
+    document.getElementById("rankingsPopup").style.display = "none";
+}
+
 
 function window1() {
     document.getElementById("window1").style.display="block";

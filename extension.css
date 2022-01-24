@@ -644,7 +644,8 @@ message{
   text-align: center;
 }
 
-#rankings-popup{
+#rankingsPopup{
+  flex-direction: column;
   display: none;
   position: absolute;
   top: 12vw;
@@ -656,6 +657,17 @@ message{
   border: 10px double grey;
   background-color: white;
   text-align: center;
+}
+#rankingsResult{
+  flex-direction: column;
+  text-align: center;
+  display: flex;
+}
+
+#localrankingsResult{
+  flex-direction: column;
+  text-align: center;
+  display: flex;
 }
 
 #instructions-windows-buttons{
