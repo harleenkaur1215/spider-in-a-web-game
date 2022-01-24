@@ -493,6 +493,21 @@ function gamemodeButtonClick(){
   }
 }
 
+function giveUp(){
+    var x = game.move(-1);
+    console.log(x);
+    var newMessage = document .createElement("message");
+    newMessage.appendChild(document.createTextNode("Player " + x + " gave up!\n"));
+    document.getElementById("messages").appendChild(newMessage);
+    console.log(document.getElementById("giveup-button").style.display);
+    document.getElementById("giveup-button").style.display = "none";
+    var pits = document.getElementsByClassName("allPits");
+
+    Array.prototype.forEach.call(pits, function(pit){
+        console.log(pit.removeEventListener("click", makeMove(pit.value)));
+    });
+}
+
 function back(){
     document.getElementById("game-configs").style.display = "flex";
     document.getElementById("game-board").style.display = "none";
@@ -589,6 +604,11 @@ function choosePitsPerPlayer(id){
     }
 }
 
+function play(){
+    document.getElementById("main-page").style.display="none";
+    document.getElementById("game").style.display="block";
+}
+
 
 function updateBoard(){
      //delete all seeds divs
@@ -633,6 +653,10 @@ function updateBoard(){
             }
         }
     });
+
+    var newMessage = document.createElement("message");
+    newMessage.appendChild(document.createTextNode("It's your turn Player " + game.getTurn() + ":\n"));
+    document.getElementById("messages").appendChild(newMessage);
 }
 
 
@@ -685,7 +709,6 @@ function startGame(){
   document.getElementById("game-board").style.display = "grid";
   game = new Game(2*pitsPerPlayer+2, seedsPerpit, 1, gameMode);
   updateBoard();
-
 }
 
 function setGridColumns(){
