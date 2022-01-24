@@ -145,42 +145,55 @@ class Board{
 
   }
 
-  checkEndGame(player){
-      if(player == 1){
-          for(var c = this.boardSize/2 + 1; c < this.boardSize; c++){
-              if(this.pits[c].length != 0){
-                  return false;
-              }
-          }
-          
-          var l;
-          for(var c = 1; c < this.boardSize/2; c++){
-              l = this.pits[c].length;
-              this.pits[c].length = 0;
-              for(var x = 0; x < l; x++){
-                  this.pits[this.boardSize/2].push(new Seed());
-              }
-          }
-      }
+  checkEndGame(){
 
-      else{
-          for(var c = 1; c < this.boardSize/2; c++){
-              if(this.pits[c].length != 0){
-                  return false;
-              }
-          }
-          
-          var l;
-          for(var c = this.boardSize/2+1; c < this.boardSize; c++){
-              l = this.pits[c].length;
-              this.pits[c].length = 0;
-              for(var x = 0; x < l; x++){
-                  this.pits[0].push(new Seed());
-              }
-          }
-      }
+    let empty = true;
+      
 
-      return true;
+    for(var c = this.boardSize/2 + 1; c < this.boardSize; c++){
+        if(this.pits[c].length != 0){
+            empty = false;
+            break;
+        }
+    }
+    
+    if(empty){
+        var l;
+        for(var c = 1; c < this.boardSize/2; c++){
+            l = this.pits[c].length;
+            this.pits[c].length = 0;
+            for(var x = 0; x < l; x++){
+                this.pits[this.boardSize/2].push(new Seed());
+            }
+        }
+        return true;
+    }
+      
+
+    
+    empty = true;
+      
+    for(var c = 1; c < this.boardSize/2; c++){
+        if(this.pits[c].length != 0){
+            empty = false;
+            break;
+        }
+    }
+    
+    if(empty){
+        var l;
+        for(var c = this.boardSize/2+1; c < this.boardSize; c++){
+            l = this.pits[c].length;
+            this.pits[c].length = 0;
+            for(var x = 0; x < l; x++){
+                this.pits[0].push(new Seed());
+            }
+        }
+        return true;
+    }
+      
+
+    return false;
   }
 
   getNumSeeds(c){
@@ -1038,8 +1051,22 @@ const ranking = () => {
     game_server.onmessage = response => {
         let server_update = JSON.parse(response.data)
         console.log(server_update);
-        saveOpponentNick(server_update);
-        updateServerBoard(server_update);
+
+        if (server_update.winner != undefined){
+            if (server_update.winner == nick){
+                // changeVictoryForm("victory-title");
+                // show('victory-form');
+            }
+            else{
+                // changeVictoryForm("defeat-title");
+                // show('victory-form');
+            }
+            game_server.close();
+        }
+        else{
+            saveOpponentNick(server_update);
+            updateServerBoard(server_update);
+        }
     
     }
     game_server.onerror = error => {
