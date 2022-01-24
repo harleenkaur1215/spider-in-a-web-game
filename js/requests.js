@@ -965,14 +965,6 @@ var error_msg;
 var player_ranking;
 var server_response;
 
-function addTestEvent(){
-    document.getElementById('Butao').addEventListener("click", function(){ranking();});
-    document.getElementById('leavebt').addEventListener("click", function(){leave(game_id, loginNick, LoginPassword);});
-
-}
-
-addTestEvent();
-
 
 /*Register*/ 
 
