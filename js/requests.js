@@ -272,8 +272,12 @@ class Game{
 
   move(cavity){
       if(cavity == -1){ //surrend
-          if(this.turn == 1) return 2;
-          else return 1;
+          if(this.turn == 1){
+            return 2;  
+          }
+          else{
+            return 1;
+          }
       }
 
       var ret = this.board.move(this.turn, cavity);
@@ -533,17 +537,23 @@ function gamemodeButtonClick(){
 }
 
 function giveUp(){
-    var x = game.move(-1);
-    console.log(x);
+    if(buttonStage == 1){
+        leave(game_id, loginNick, LoginPassword);
+    }
+    else{
+        var x = game.move(-1);
+    }
+   
+
     var newMessage = document .createElement("message");
     newMessage.appendChild(document.createTextNode("Player " + x + " gave up!\n"));
     document.getElementById("messages").appendChild(newMessage);
-    console.log(document.getElementById("giveup-button").style.display);
+    //console.log(document.getElementById("giveup-button").style.display);
     document.getElementById("giveup-button").style.display = "none";
     var pits = document.getElementsByClassName("allPits");
 
     Array.prototype.forEach.call(pits, function(pit){
-        console.log(pit.removeEventListener("click", makeMove(pit.value)));
+        pit.removeEventListener("click", function(){makeMove(i)});
     });
 }
 
