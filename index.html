@@ -56,7 +56,7 @@
       <div id="instructions-rankings-buttons">
 
         <button type="button" class="instructions-rankings-buttons" class="popup" id="instructions-button" onclick="instructionsOn()"> Instructions </button>
-        <button type="button" class="instructions-rankings-buttons" class="popup" id="rankings-button" onclick="RankingsOn()"> Classifications </button>
+        <button type="button" class="instructions-rankings-buttons" class="popup" id="rankings-button" onclick="rankingsOn()"> Classifications </button>
 
       </div>
       <div id="instructions-popup">
@@ -112,17 +112,17 @@
 
         <div id="instructions-windows-buttons">
 
-          <button type="button" class="instructions-window-buttons" class="instructions-window" id="instructions-window1" onclick="window1()"> 1 </button>
+          <button type="button" class="instructions-window-buttons instructions-window" id="instructions-window1" onclick="window1()"> 1 </button>
 
-          <button type="button" class="instructions-window-buttons" class="instructions-window" id="instructions-window2" onclick="window2()"> 2 </button>
+          <button type="button" class="instructions-window-buttons instructions-window"" id="instructions-window2" onclick="window2()"> 2 </button>
 
-          <button type="button" class="instructions-window-buttons" class="instructions-window" id="instructions-window3" onclick="window3()"> 3 </button>
+          <button type="button" class="instructions-window-buttons instructions-window" id="instructions-window3" onclick="window3()"> 3 </button>
 
-          <button type="button" class="instructions-window-buttons" class="instructions-window" id="instructions-window4" onclick="window4()"> 4 </button>
+          <button type="button" class="instructions-window-buttons instructions-window" id="instructions-window4" onclick="window4()"> 4 </button>
 
-          <button type="button" class="instructions-window-buttons" class="instructions-window" id="instructions-window5" onclick="window5()"> 5 </button>
+          <button type="button" class="instructions-window-buttons instructions-window" id="instructions-window5" onclick="window5()"> 5 </button>
 
-          <button type="button" class="instructions-window-buttons" class="instructions-window" id="instructions-window6" onclick="window6()"> 6 </button>
+          <button type="button" class="instructions-window-buttons instructions-window" id="instructions-window6" onclick="window6()"> 6 </button>
 
         </div>
 
@@ -130,10 +130,16 @@
 
       </div>
 
-      <div id="rankings-popup">
-
-        <span> Classifications<br><br> 1st - Eu <br> 2nd - Eu <br> 3rd - Eu </span>
-
+      <div id="rankingsPopup" name="rankingsPopup">
+        <div id="globalClassifications">
+          <h1>Global Classifications<br> </h1>
+          <div id="rankingsResult"></div>
+        </div>
+        <div id="localClassifications">
+          <h1>Local Classifications<br><br> </h1>
+          <div id="localrankingsResult"></div>
+        </div>
+        <button type="button" id="instructions-windowX" onclick="closeRankings()"> X </button>
       </div>
       
 

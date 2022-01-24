@@ -523,9 +523,45 @@ function instructionsOn() {
     document.getElementById("instructions-popup").style.display="block";
 }
 
+
+
 function rankingsOn() {
-    document.getElementById("rankings-popup").style.display="block";
+    document.getElementById("rankingsPopup").style.display = "flex";
+    let counter = 1;
+    let r = document.getElementById("rankingsResult");
+    while(r.firstChild){
+        r.removeChild(r.firstChild);
+    }
+    r = document.getElementById("localrankingsResult");
+    while(r.firstChild){
+        r.removeChild(r.firstChild);
+    }
+
+    for(let x of player_ranking.ranking){
+        let newDiv = document.createElement("classification");
+        newDiv.appendChild(document.createTextNode(counter + "º =>  name: " + x.nick + "  ;  victories: " + x.victories + "  ;  games: " + x.games + '\n'));
+        document.getElementById("rankingsResult").appendChild(newDiv);
+        counter++;
+    }
+    counter=1
+    let ranking = JSON.parse(localStorage.getItem('ranking'));
+    for(let y of ranking){
+        if(counter == 4){
+            break;
+        }
+        let newDiv = document.createElement("classification");
+        newDiv.appendChild(document.createTextNode(counter + "º =>  name: " + y[0] + "  ;  victories: " + y[1] + '\n'));
+        document.getElementById("localrankingsResult").appendChild(newDiv);
+        counter++;
+    }
+
+
 }
+
+function closeRankings(){
+    document.getElementById("rankingsPopup").style.display = "none";
+}
+
 
 function window1() {
     document.getElementById("window1").style.display="block";
@@ -658,8 +694,8 @@ function reset(){
     }
 }
 var buttonStage = 0;
-var seedsPerpit = 3;
-var pitsPerPlayer = 6;
+var seedsPerpit;
+var pitsPerPlayer;
 var gameMode = 2;
 var game;
 var serverBoard;
@@ -718,6 +754,9 @@ function choosePitsPerPlayer(id){
 function play(){
     document.getElementById("main-page").style.display="none";
     document.getElementById("game").style.display="block";
+    document.getElementById("threeseeds-button").click();
+    document.getElementById("sixpits-button").click();
+    ranking();
     document.getElementById("instructions-rankings-buttons").style.display = "flex";
 }
 
@@ -949,6 +988,7 @@ function buildBoard(){
     divAtual.appendChild(newSeedValue);
   }
 }
+
 
 
 
