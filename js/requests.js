@@ -272,8 +272,12 @@ class Game{
 
   move(cavity){
       if(cavity == -1){ //surrend
-          if(this.turn == 1) return 2;
-          else return 1;
+          if(this.turn == 1){
+            return 2;  
+          }
+          else{
+            return 1;
+          }
       }
 
       var ret = this.board.move(this.turn, cavity);
@@ -541,17 +545,23 @@ function gamemodeButtonClick(){
 }
 
 function giveUp(){
-    var x = game.move(-1);
-    console.log(x);
+    if(buttonStage == 1){
+        leave(game_id, loginNick, LoginPassword);
+    }
+    else{
+        var x = game.move(-1);
+    }
+   
+
     var newMessage = document .createElement("message");
     newMessage.appendChild(document.createTextNode("Player " + x + " gave up!\n"));
     document.getElementById("messages").appendChild(newMessage);
-    console.log(document.getElementById("giveup-button").style.display);
+    //console.log(document.getElementById("giveup-button").style.display);
     document.getElementById("giveup-button").style.display = "none";
     var pits = document.getElementsByClassName("allPits");
 
     Array.prototype.forEach.call(pits, function(pit){
-        console.log(pit.removeEventListener("click", makeMove(pit.value)));
+        pit.removeEventListener("click", function(){makeMove(i)});
     });
 }
 
@@ -883,6 +893,10 @@ function hideForms(){
     closeLoginForm();
 }
 
+function showNick(){
+    document.getElementById("loginNickDisplay").innerHTML = "Logged: " + loginNick;
+}
+
 function login(){
   var nick = document.getElementById("loginNick").value;
   var pass = document.getElementById("loginPass").value;
@@ -936,7 +950,7 @@ const sendHttpRequest = (method, url, data) => {
   ////////////////////////////////////////////////////////////////////////////////////////////
 /*localHost*/
 
-var localHost = 'http://127.0.0.1:9075/';
+var localHost = 'http://localhost:9075/';
 
 var serverFcup = 'http://twserver.alunos.dcc.fc.up.pt:8008/';
 
@@ -963,6 +977,7 @@ const register = (nickname, pass) => {
         loginNick = nickname;
         LoginPassword = pass;
         hideForms();
+        showNick();
       })
       .catch(err => {
         console.log(err, err.data);
@@ -1082,3 +1097,39 @@ const ranking = () => {
     }
 }
 
+
+
+
+///////////////////////////
+
+/*WebStorage*/
+
+function setupRanking(){
+    let ranking = [];
+    localStorage.setItem('ranking', JSON.stringify(ranking));
+}
+
+function updateRanking(nick){
+    let ranking = JSON.parse(localStorage.getItem('ranking'));
+
+    let found = false;
+    for(let x of ranking){
+        if(x[0] == nick){
+            x[1]++;
+            found = true;
+            break;
+        }
+    }
+
+    if(!found){
+        ranking.push([nick, 1]);
+    }
+
+    var sorted_ranking = ranking.sort(function(a, b) {
+        return b[1] - a[1];
+    });
+
+    localStorage.setItem('ranking', JSON.stringify(sorted_ranking));
+}
+
+setupRanking();
