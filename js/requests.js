@@ -312,6 +312,8 @@ class Game{
                   break;
           }
 
+
+
           this.turn = 1;
 
           if(this.board.checkEndGame()){
@@ -333,6 +335,7 @@ class Game{
       do{
           randomMove = Math.floor(Math.random() * (this.boardSize/2 - 1)) + 1;
           result = this.board.move(this.turn, randomMove);
+
       }while(result == -1)
       console.log("Insert value: " + randomMove);
   }
@@ -619,10 +622,9 @@ function giveUp(){
     }
    
 
-    var newMessage = document .createElement("message");
+    let newMessage = document .createElement("message");
     newMessage.appendChild(document.createTextNode("Player " + x + " gave up!\n"));
     document.getElementById("messages").appendChild(newMessage);
-    //console.log(document.getElementById("giveup-button").style.display);
     document.getElementById("giveup-button").style.display = "none";
     var pits = document.getElementsByClassName("allPits");
 
@@ -719,6 +721,17 @@ function play(){
     document.getElementById("instructions-rankings-buttons").style.display = "flex";
 }
 
+function okWin(){
+    document.getElementById("win-popup").style.display = "none";
+}
+
+function okTie(){
+    document.getElementById("tie-popup").style.display = "none";
+}
+
+function okLose(){
+    document.getElementById("lose-popup").style.display = "none";
+}
 
 function updateBoard(){
      //delete all seeds divs
@@ -729,8 +742,8 @@ function updateBoard(){
     else{
         board = serverBoard;
     }
-    var seeds = document.getElementsByClassName("allSeeds");
-    var pits = document.getElementsByClassName("allPits");
+    let seeds = document.getElementsByClassName("allSeeds");
+    let pits = document.getElementsByClassName("allPits");
 
     Array.prototype.forEach.call(pits, function(pit){
         while(pit.firstChild){
@@ -738,7 +751,7 @@ function updateBoard(){
         }
     });
 
-    var values = document.getElementsByClassName("allValues")
+    let values = document.getElementsByClassName("allValues")
     Array.prototype.forEach.call(values, function(val){
         while(val.firstChild){
             val.removeChild(val.firstChild);
@@ -836,23 +849,28 @@ function makeMove(pit){
         console.log(ret);
         if(ret != -1){
             if (ret == 0){
-                var newMessage = document .createElement("message");
+                document.getElementById('tie-popup').style.display="block";
+                let newMessage = document .createElement("message");
                 newMessage.appendChild(document.createTextNode("It's a tie!"));
                 document.getElementById("messages").appendChild(newMessage);
             }
             else
             {
-                
-                var newMessage = document .createElement("message");
+                endGame(ret);
+                let newMessage = document .createElement("message");
                 newMessage.appendChild(document.createTextNode("Player "+ ret + "won" ));
                 document.getElementById("messages").appendChild(newMessage);
                 document.getElementById("back-button").style.display = "block";
             }
         }
         else {
-            var newMessage = document .createElement("message");
+            let newMessage = document .createElement("message");
                 newMessage.appendChild(document.createTextNode("You chose pit: " + pit + "\n"));
                 document.getElementById("messages").appendChild(newMessage);
+                document.getElementById("messages").scrollTop =  document.getElementById("messages").scrollHeight;
+                let newMessage2 = document .createElement("message");
+                newMessage2.appendChild(document.createTextNode("The bot has played\n"));
+                document.getElementById("messages").appendChild(newMessage2);
                 document.getElementById("messages").scrollTop =  document.getElementById("messages").scrollHeight;
         }
     }
@@ -860,6 +878,15 @@ function makeMove(pit){
 
     
 
+}
+
+function endGame(player){
+    if(player == 1){
+        document.getElementById('win-popup').style.display="block";
+    }
+    else{
+        document.getElementById('lose-popup').style.display="block";
+    }
 }
 
 function startGame(){
@@ -890,35 +917,35 @@ function buildBoard(){
   document.getElementById("storageValue2").value=pitsPerPlayer+1;
 
   for (let i=pitsPerPlayer; i > 0;i--){
-    var newPit = document .createElement("pit");
+    let newPit = document .createElement("pit");
     newPit.classList.add("allPits");
     newPit.value = i;
-    var divAtual = document.getElementById("board");
+    let divAtual = document.getElementById("board");
     divAtual.appendChild(newPit); 
   }
 
   for (let i=pitsPerPlayer + 2; i < 2*pitsPerPlayer+2;i++){
-    var newPit = document .createElement("pit");
+    let newPit = document .createElement("pit");
     newPit.classList.add("allPits");
     newPit.value = i;
     newPit.addEventListener("click", function(){makeMove(i)});
-    var divAtual = document.getElementById("board");
+    let divAtual = document.getElementById("board");
     divAtual.appendChild(newPit); 
   }
 
   for (let i=pitsPerPlayer+2; i < 2*pitsPerPlayer+2;i++){
-    var newSeedValue = document.createElement("seed-value");
+    let newSeedValue = document.createElement("seed-value");
     newSeedValue.classList.add("allValues");
     newSeedValue.value=i;
-    var divAtual = document.getElementById("values1");
+    let divAtual = document.getElementById("values1");
     divAtual.appendChild(newSeedValue);
   }
 
   for (let i=pitsPerPlayer; i > 0;i--){
-    var newSeedValue = document.createElement("seed-value");
+    let newSeedValue = document.createElement("seed-value");
     newSeedValue.classList.add("allValues");
     newSeedValue.value=i;
-    var divAtual = document.getElementById("values2");
+    let divAtual = document.getElementById("values2");
     divAtual.appendChild(newSeedValue);
   }
 }

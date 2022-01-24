@@ -21,8 +21,8 @@ body{
 }
 
 #logo {
-    width: 4%;
-    height: 4%;
+    width: 74px;
+    height: auto;
     position: relative;
     right:-25px;
     top:-5px;
@@ -35,7 +35,7 @@ body{
 }
 
 .edgeButtons {
-    font-size: 0.60vw;
+    font-size: 12px;
     padding: 0.40% 1.5%;
     font-weight: bold;
 }
@@ -154,7 +154,9 @@ body{
   padding-right: 5%;
 
   border: 10px double grey;
-} 
+}
+
+
 
 .icons{
   width: 3%;
@@ -424,7 +426,7 @@ body{
 
 #game-board{
   display: none;
-  height: 20vw;
+  height: 200px;
   margin: 20px;
   grid-template-columns:5% 20% auto 20% 5%;
   grid-template-areas: ". name2 values2 . ."
@@ -533,6 +535,52 @@ seed-value{
   text-align: center;
 }
 
+#win-popup{
+  display: none;
+  position: absolute;
+  left: 29vw;
+  z-index: 100;
+  width: 380px;
+  height: 200px;
+  background-color: white;
+  border: 10px double grey;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#lose-popup{
+  display: none;
+  position: absolute;
+  left: 29vw;
+  z-index: 100;
+  width: 380px;
+  height: 200px;
+  background-color: white;
+  border: 10px double grey;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#tie-popup{
+  display: none;
+  position: absolute;
+  left: 29vw;
+  z-index: 100;
+  width: 380px;
+  height: 200px;
+  background-color: white;
+  border: 10px double grey;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#win-ok-button{
+  position: absolute;
+}
+
 #messages{ 
   position:absolute;
   display: flex;
@@ -563,7 +611,7 @@ message{
 
 #giveup-button{
   position: absolute;
-  top: 90%;
+  bottom: 0;
   right: 5%;
   font-family: ChunkFive;
   font-size: 24px;
@@ -581,7 +629,7 @@ message{
 #back-button{
   display: none;
   position: absolute;
-  top: 90%;
+  bottom: 0;
   left: 5%;
   font-family: ChunkFive;
   font-size: 24px;
@@ -779,7 +827,7 @@ html {
 }
 
 #play-button{
-  width: 40%;
+  width: 250px;
   font-size: 20px;
   color: black !important;
 	text-transform: uppercase;
