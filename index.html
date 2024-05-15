@@ -1,66 +1,54 @@
-
 <!DOCTYPE html>
-<!-- A declaração DOCTYPE declara a versão do HTML usado no documento -->
 <html lang="en">
-  <link rel="stylesheet" href="extension.css" type="text/css"/>
-  <head >
-    <meta charset=UTF-8>        <!-- para caracteres acentuados   -->
-    <title> Mancala </title>  <!-- texto na decoração da janela -->
+  <head>
+    <meta charset="UTF-8">
+    <title>Mancala</title>
     <link rel="icon" href="images/logo.png" type="image/png">
+    <link rel="stylesheet" href="extension.css" type="text/css">
   </head>
   <body>
     <div id="page-mask"></div>
-    <div id=header class=edges>
-      <img id=logo src="images/logo.png" alt="logo">
+    <header id="header" class="edges">
+      <img id="logo" src="images/logo.png" alt="logo">
       <div id="loginNickDisplay"></div>
-      <button id=login class=edgeButtons type="button" onclick="openLoginForm()">Login</button>
-    </div>
+      <button id="login" class="edgeButtons" type="button" onclick="openLoginForm()">Login</button>
+    </header>
   
-
-    <div class="Form" id="loginForm">
+    <section class="Form" id="loginForm">
       <div class="form-container registerForms">
         <h1>Login</h1>
-        
         <div id="feedbackLogin"></div>
-        <br>
         <label for="username"><b>Username</b></label>
         <input id="loginNick" type="text" placeholder="Enter Username" name="username" required>
-    
         <label for="psw"><b>Password</b></label>
         <input id="loginPass" type="password" placeholder="Enter Password" name="psw" required>
-        
-        
         <button id="loginFormBttn" type="submit" class="btn" onclick="login()">Login</button>
         <button type="button" class="btn cancel" onclick="closeLoginForm()">Close</button>
       </div>
-    </div>
+    </section>
 
-    <div id="main">
-      <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
-      <div id='stars'></div>
-      <div id='stars2'></div>
-      <div id='stars3'></div>
-      <div id='title'></div>
-    </div>
-    <div id="main-page" >
+    <main id="main">
+      <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+      <div id="stars"></div>
+      <div id="stars2"></div>
+      <div id="stars3"></div>
+      <div id="title"></div>
+    </main>
+
+    <section id="main-page">
       <div id="logo-button">
         <img id="main-logo" src="images/logo.png" alt="logo">
-
         <button type="button" id="play-button" onclick="play()">Play</button>
       </div>
-      
-    </div>
+    </section>
 
     <div class="instructions-rankings">
-
       <div id="instructions-rankings-buttons">
-
-        <button type="button" class="instructions-rankings-buttons" class="popup" id="instructions-button" onclick="instructionsOn()"> Instructions </button>
-        <button type="button" class="instructions-rankings-buttons" class="popup" id="rankings-button" onclick="rankingsOn()"> Classifications </button>
-
+        <button type="button" class="instructions-rankings-buttons popup" id="instructions-button" onclick="instructionsOn()">Instructions</button>
+        <button type="button" class="instructions-rankings-buttons popup" id="rankings-button" onclick="rankingsOn()">Classifications</button>
       </div>
-      <div id="instructions-popup">
 
+      <div id="instructions-popup">
         <div id="window1">
           <h1>Forma de jogar</h1>
           <p><br>Jogadores semeiam as suas sementes alternadamente<br>
@@ -70,7 +58,6 @@
             &emsp;&emsp;ficar com algumas sementes do adversário<br>
             Termina quando um dos jogadores fica sem sementes</p> 
         </div>
-
         <div id="window2">
           <h1>Começar a semear</h1>
           <p><br>Escolher uma cavidade do seu lado (que não o armazém)<br>
@@ -78,7 +65,6 @@
             Colocar 1 semente nas N cavidade seguintes<br>
             A semeadura é feita no sentido anti-horário </p>
         </div>
-
         <div id="window3">
           <h1>Continuar a semear</h1>
           <p><br>Se a cavidade seguinte for o seu armazém, semear também<br>
@@ -86,21 +72,17 @@
             Se atingir o armazém do adversário, não semear<br>
             Mas depois continuar do seu lado, se ainda tiver sementes</p>
         </div>
-
         <div id="window4">
           <h1>Última semente em armazem</h1>
           <p><br>Volta a jogar se a última semente for semeada for no seu próprio armazém<br>
-
             Semeando cavidade agora vazia, a última semente cai no armazém e volta a jogar</p>
         </div>
-
         <div id="window5">
           <h1>Última semente em cavidade vazia</h1>
           <p><br>Se a última semente calhar numa sua cavidade vazia, transferir para o seu armazém as sementes<br>
             &emsp;&emsp;na cavidade oposta, do adversário<br>
             &emsp;&emsp;assim como essa última semente semeada</p>
         </div>
-
         <div id="window6">
           <h1>Terminar</h1>
           <p><br>Jogo termina quando um dos jogadores não pode jogar<br>
@@ -111,154 +93,65 @@
         </div>
 
         <div id="instructions-windows-buttons">
-
-          <button type="button" class="instructions-window-buttons instructions-window" id="instructions-window1" onclick="window1()"> 1 </button>
-
-          <button type="button" class="instructions-window-buttons instructions-window"" id="instructions-window2" onclick="window2()"> 2 </button>
-
-          <button type="button" class="instructions-window-buttons instructions-window" id="instructions-window3" onclick="window3()"> 3 </button>
-
-          <button type="button" class="instructions-window-buttons instructions-window" id="instructions-window4" onclick="window4()"> 4 </button>
-
-          <button type="button" class="instructions-window-buttons instructions-window" id="instructions-window5" onclick="window5()"> 5 </button>
-
-          <button type="button" class="instructions-window-buttons instructions-window" id="instructions-window6" onclick="window6()"> 6 </button>
-
+          <button type="button" class="instructions-window-buttons" id="instructions-window1" onclick="window1()">1</button>
+          <button type="button" class="instructions-window-buttons" id="instructions-window2" onclick="window2()">2</button>
+          <button type="button" class="instructions-window-buttons" id="instructions-window3" onclick="window3()">3</button>
+          <button type="button" class="instructions-window-buttons" id="instructions-window4" onclick="window4()">4</button>
+          <button type="button" class="instructions-window-buttons" id="instructions-window5" onclick="window5()">5</button>
+          <button type="button" class="instructions-window-buttons" id="instructions-window6" onclick="window6()">6</button>
         </div>
 
-        <button type="button" id="instructions-windowX" onclick="windowX()"> X </button>
-
+        <button type="button" id="instructions-windowX" onclick="windowX()">X</button>
       </div>
 
       <div id="rankingsPopup" name="rankingsPopup">
         <div id="globalClassifications">
-          <h1>Global Classifications<br> </h1>
+          <h1>Global Classifications<br></h1>
           <div id="rankingsResult"></div>
         </div>
         <div id="localClassifications">
-          <h1>Local Classifications<br><br> </h1>
+          <h1>Local Classifications<br><br></h1>
           <div id="localrankingsResult"></div>
         </div>
-        <button type="button" id="instructions-windowX" onclick="closeRankings()"> X </button>
+        <button type="button" id="instructions-windowX" onclick="closeRankings()">X</button>
       </div>
-      
-
     </div>
+
     <div class="game" id="game">
-
-      
-
       <div id="game-configs">
-
         <div class="game-title">
           <h1>MANCALA</h1>
         </div>
 
-
-
-
         <div id="oneplayer-text"><h1>Player vs CPU</h1></div>
-
-        <img class="icons" id="oneplayer-img" class="icons" src="images/oneplayer.png" alt="one player">
+        <img id="oneplayer-img" class="icons" src="images/oneplayer.png" alt="one player">
 
         <div id="difficulty-input">
-            <select name="difficulty" id="difficulty" class="box">
-              <option selected value="2">random</option>
-              <option value="3">easy</option>
-              <option value="4">medium</option>
-              <option value="5">hard</option>
-            </select>
+          <select name="difficulty" id="difficulty" class="box">
+            <option selected value="2">random</option>
+            <option value="3">easy</option>
+            <option value="4">medium</option>
+            <option value="5">hard</option>
+          </select>
         </div>
 
         <hr id="configs-line"> 
 
-          
         <div id="twoplayers-text"><h1>Player vs Player</h1></div>
-        <img class="icons" id="twoplayers-img" src="images/twoplayers.png" alt="two players">
+        <img id="twoplayers-img" class="icons" src="images/twoplayers.png" alt="two players">
 
         <input type="button" id="toggle_gamemode" onclick="gamemodeButtonClick()" alt="Toggle">
 
         <div id="numseeds-text"><h1>Seeds per pit</h1></div>
         <div id="seed-buttons">
-          <button type="button" class="seed-buttons" id="threeseeds-button" onclick="chooseSeedsPerPit('threeseeds-button')"> 3 </button>
-          <button type="button" class="seed-buttons" id="fourseeds-button" onclick="chooseSeedsPerPit('fourseeds-button')"> 4 </button>
-          <button type="button" class="seed-buttons" id="fiveseeds-button" onclick="chooseSeedsPerPit('fiveseeds-button')"> 5 </button>
-          <button type="button" class="seed-buttons" id="sixseeds-button" onclick="chooseSeedsPerPit('sixseeds-button')"> 6 </button>
+          <button type="button" class="seed-buttons" id="threeseeds-button" onclick="chooseSeedsPerPit('threeseeds-button')">3</button>
+          <button type="button" class="seed-buttons" id="fourseeds-button" onclick="chooseSeedsPerPit('fourseeds-button')">4</button>
+          <button type="button" class="seed-buttons" id="fiveseeds-button" onclick="chooseSeedsPerPit('fiveseeds-button')">5</button>
+          <button type="button" class="seed-buttons" id="sixseeds-button" onclick="chooseSeedsPerPit('sixseeds-button')">6</button>
         </div>
 
         <div id="numpits-text"><h1>Pits per player</h1></div>
         <div id="pits-buttons">
-          <button type="button" class="pits-buttons" id="fourpits-button" onclick="choosePitsPerPlayer('fourpits-button')"> 4 </button>
-          <button type="button" class="pits-buttons" id="fivepits-button" onclick="choosePitsPerPlayer('fivepits-button')"> 5 </button>
-          <button type="button" class="pits-buttons" id="sixpits-button" onclick="choosePitsPerPlayer('sixpits-button')"> 6 </button>
-          <button type="button" class="pits-buttons" id="sevenpits-button" onclick="choosePitsPerPlayer('sevenpits-button')"> 7 </button>
-        </div>
-
-        
-        <button type="button" id="startgame-button" onclick="startGame()"> Start Game </button>
-
-
-      </div>
-      <div id="win-popup">
-          <h1>YOU WIN!</h1>
-          <button type="button" id="win-ok-button" onclick="okWin()"> Ok </button>
-      </div>
-
-      <div id="lose-popup">
-        <h1>YOU LOST!</h1>
-        <button type="button" id="lose-ok-button" onclick="okLose()"> Ok </button>
-      </div>
-
-      <div id="tie-popup">
-        <h1>IT'S A TIE!</h1>
-        <button type="button" id="tie-ok-button" onclick="okTie()"> Ok </button>
-      </div>
-
-      <div id="game-board">
-
-        <div class="game-title">
-          <h1>MANCALA</h1>
-        </div>
-
-        <div id="name1">Player1</div>
-        
-        <div id="values1"></div>
-        
-        <div id="storage1" class="allPits"></div>
-
-        <div id="storageValue1" class="allValues"></div>
-
-        <div id="storageValue2" class="allValues"></div>
-
-        <div id="board"></div>
-
-        <div id="storage2" class="allPits"></div>
-
-
-
-        <div id="values2"></div>
-
-        <div id="name2">Player2</div>
-
-        <div id="messages"></div>
-
-        <button type="button" id="giveup-button" onclick="giveUp()"> Give Up </button>
-
-        <button type="button" id="back-button" onclick="back()"> Back </button>
-
-      </div>
-
-    </div>
-
-    
-
-    <br>
-    <br>
-
-
-
-  
-  <script src="js/requests.js"></script>
-  
-</body>
-</html>
+          <button type="button" class="pits-buttons" id="fourpits-button" onclick="choosePitsPerPlayer('fourpits-button')">4</button>
+          <button type="button" class="pits-buttons" id="fivepits-button" onclick="choosePitsPerPlayer('fivepits-button')">5</button>
+          <button type="button" class="pits
