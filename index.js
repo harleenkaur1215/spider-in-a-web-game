@@ -1,41 +1,27 @@
 const port = 9075;
 
-var credentials = [];
+const credentials = [];
+const ranking = [];
+const gamePending = [];
+let gameOnGoing;
 
-var ranking = [];
-
-var gamePending = [];
-
-var gameOnGoing;
-
-
-
-function verifyCredentials(username, pass){
-    for(var x of credentials){
-        if(x[0] == username && x[1] == pass){
-            return true;
-        }
-        if(x[0] == username && x[1] != pass){
-            return false;
-        }
+function verifyCredentials(username, pass) {
+    const user = credentials.find(([user, password]) => user === username);
+    if (user) {
+        return user[1] === pass;
     }
-
     credentials.push([username, pass]);
     return true;
 }
 
-
-
-const { write } = require('fs');
 const http = require('http');
-const server = http.createServer(async function (request, response) {
-    const {method, url} = request;
+const server = http.createServer(async (request, response) => {
+    const { method, url } = request;
 
-
-    if (method == 'OPTIONS'){
+    if (method === 'OPTIONS') {
         response.writeHead(204, {
             'Access-Control-Allow-Headers': 'content-type',
-            'Access-Control-Allow-Max-Age': '86400',
+            'Access-Control-Max-Age': '86400',
             'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
             'Access-Control-Allow-Origin': '*',
             'Connection': 'Keep-Alive',
@@ -46,46 +32,40 @@ const server = http.createServer(async function (request, response) {
         return;
     }
 
-    if(method == 'POST'){
+    if (method === 'POST') {
         let body = [];
-        // Parses request's body into javascript object
-        for await (const chunk of request) body.push(chunk);
+        for await (const chunk of request) {
+            body.push(chunk);
+        }
         body = JSON.parse(Buffer.concat(body).toString());
 
-
-        if(url == '/ranking'){
+        if (url === '/ranking') {
             response.writeHead(200, {
                 'Access-Control-Allow-Origin': '*',
                 'Cache-Control': 'no-cache',
                 'Connection': 'keep-alive',
-                'Content-Type': 'application/javascript',
+                'Content-Type': 'application/json',
                 'Keep-Alive': 'timeout=5',
                 'Transfer-Encoding': 'chunked'
-            })
-            responseBody = {ranking: ranking.slice(0, 10)};
+            });
+            const responseBody = { ranking: ranking.slice(0, 10) };
             response.write(JSON.stringify(responseBody));
             response.end();
             return;
         }
 
+        if (url === '/register') {
+            const isValid = verifyCredentials(body.nick, body.password);
+            const responseNum = isValid ? 200 : 400;
+            const responseBody = isValid
+                ? { success: "Successful registration" }
+                : { error: "User registered with a different password" };
 
-    
-        if(url == '/register'){
-            let responseNum;
-            if(verifyCredentials(body.nick, body.password)){
-                responseNum = 200;
-                responseBody = {"success" : "Successful regist"};
-            }
-            else{
-                responseNum = 400
-                responseBody = {"error":"User registered with a different password"};
-            }
-    
             response.writeHead(responseNum, {
                 'Access-Control-Allow-Origin': '*',
                 'Cache-Control': 'no-cache',
                 'Connection': 'keep-alive',
-                'Content-Type': 'application/javascript',
+                'Content-Type': 'application/json',
                 'Keep-Alive': 'timeout=5',
                 'Transfer-Encoding': 'chunked'
             });
@@ -94,14 +74,12 @@ const server = http.createServer(async function (request, response) {
             return;
         }
     }
-    
-   
 });
 
-server.listen(port, function(error) {
-    if (error) 
+server.listen(port, (error) => {
+    if (error) {
         console.log("Something went wrong");
-    else 
+    } else {
         console.log("Listening on port " + port);
+    }
 });
-
